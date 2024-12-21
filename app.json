@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "plugins": [
+      "expo-router"
+    ],
+    "name": "cch-house-app",
+    "slug": "cch-house-app"
+  }
+}
