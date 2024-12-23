@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { Login } from '../components';
 import { Stack, useRouter } from 'expo-router';
 
 const Home = () => {
+    const loggedIn = false;
+
+    const router = useRouter();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (!loggedIn) {
+                router.push(`/login/login_screen`);
+            }
+        }, 100)
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (!loggedIn) {
+        return null;
+    }
+
     return (
-        // First check if the user is logged in. If so, render a screen where the user can log in.
-        // After that add everything else here
-        
-        <SafeAreaView style={{ flex: 1 }}>
-            <Stack.Screen
-                options={{
-                    headerTitle: ""
-                }}
-            />
-            <Login />
-        </SafeAreaView>
+    // TODO: Main menu screen
+        null
     )
 }
 
