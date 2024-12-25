@@ -4,6 +4,12 @@ import { Login } from '../../components';
 import { Link, Stack, useRouter } from 'expo-router';
 
 const LoginScreen = () => {
+    const router = useRouter();
+
+    const handleLogin = (name) => {
+        // push the user's name to the query string
+        router.push(`/?choice=${name}`)
+    }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -12,7 +18,9 @@ const LoginScreen = () => {
                     headerTitle: ""
                 }}
             />
-            <Login />
+            <Login
+                onLogin={handleLogin}
+            />
         </SafeAreaView>
     )
 }
