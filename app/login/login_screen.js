@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { Login } from '../../components';
-import { Link, Stack, useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 
 const LoginScreen = () => {
     const router = useRouter();
@@ -15,7 +15,9 @@ const LoginScreen = () => {
         <SafeAreaView style={{ flex: 1 }}>
             <Stack.Screen
                 options={{
-                    headerTitle: ""
+                    headerTitle: "",
+                    headerShown: false,
+                    gestureEnabled: false
                 }}
             />
             <Login
