@@ -1,10 +1,16 @@
-import { View, Text } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import styles from './welcome.style';
 
 const Welcome = ({ userName }) => {
     return (
-        // TODO: Implemqent the Welcome component
-        <View>
-            <Text>Selected name: {userName}</Text>
+        // TODO: Implement the Welcome component
+        <View style={styles.container}>
+            <Text style={styles.welcomeMessage} >Welcome {userName}</Text>
+            <View style={styles.tabsContainer}>
+                <TouchableOpacity style={styles.tab}>
+                    <Text style={styles.tabText}>Chores</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }

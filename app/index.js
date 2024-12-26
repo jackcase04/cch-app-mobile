@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView } from 'react-native';
+import { Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Welcome } from '../components';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,16 +10,21 @@ const Home = () => {
     const users = useLocalSearchParams();
     const [userName, setUserName] = useState("");
 
-    // Clear async storage
+    // clear async storage
     const clearAsyncStorage = async () => {
-        try {
             await AsyncStorage.clear();
-        } catch(error) {
-            console.error('Error clearing async storage', error);
-        }
     }
 
-    // clearAsyncStorage();
+    //clearAsyncStorage();
+
+    const handleLogout = async () => {
+        // Clear async storage, local variable, and users.choice
+        // Then reroute to login screen and reset all those
+        await AsyncStorage.clear();
+        setUserName("");
+
+        router.push(`/login/login_screen`);
+    };
 
     // This state checks if the app has been initialized
     useEffect(() => {
@@ -33,19 +38,22 @@ const Home = () => {
     // Once initialized, check if the user is logged in, if so get the user's name
     useEffect(() => {
         const checkIfLoggedIn = async () => {
-            try {
-                const choice = await AsyncStorage.getItem('choice');
-                if (choice) {
-                    setUserName(choice);
-                } else {
-                    if (initialized) {
-                        router.push(`/login/login_screen`);
-                    }
+            const choice = await AsyncStorage.getItem('choice');
+            // If there is a value in async
+            if (choice) {
+                setUserName(choice);
+            // If there is no value in async
+            } else {
+                // if first time logging in
+                if (initialized && !users.choice) {
+                    router.push(`/login/login_screen`);
+                    setUserName(users.choice);
+                    await AsyncStorage.setItem('choice', users.choice);
+                // if rerouting from handleLogout
+                } else if (initialized && users.choice) {
                     setUserName(users.choice);
                     await AsyncStorage.setItem('choice', users.choice);
                 }
-            } catch(error) {
-                console.error('Error checking if logged in', error);
             }
         }
         checkIfLoggedIn();
@@ -61,7 +69,18 @@ const Home = () => {
             <Stack.Screen
                 options={{
                     headerTitle: "",
-                    headerShown: false,
+                    headerRight: () => (
+                        <TouchableOpacity
+                            onPress={handleLogout}
+                        >
+                            <Text>Logout</Text>
+                        </TouchableOpacity>
+                    ),
+                    headerLeft: () => (
+                        <TouchableOpacity>
+                            <Text>menu</Text>
+                        </TouchableOpacity>
+                    ),
                     gestureEnabled: false
                 }}
             />
