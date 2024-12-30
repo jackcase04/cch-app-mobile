@@ -7,8 +7,10 @@ const LoginScreen = () => {
     const router = useRouter();
 
     const handleLogin = (name) => {
-        // push the user's name to the query string
-        router.push(`/?choice=${name}`)
+        // if name selected, push the user's name to the query string
+        if (name) {
+            router.push(`/?choice=${name}`)
+        }
     }
 
     return (

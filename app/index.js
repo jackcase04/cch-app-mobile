@@ -1,14 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Welcome } from '../components';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Papa from 'papaparse';
+import testChoresCSV from '../assets/test_chores.js';
 
 const Home = () => {
     const [initialized, setInitialized] = useState(false);
     const router = useRouter();
     const users = useLocalSearchParams();
     const [userName, setUserName] = useState("");
+    const [choresData, setChoresData] = useState([]);
+
+    // Parse CSV file
+    useEffect(() => {
+        const getChoresData = () => {
+            const results = Papa.parse(testChoresCSV, {
+                header: false,
+                skipEmptyLines: true
+            });
+
+            const structuredData = results.data.map(([date, name, location]) => ({
+                date,
+                name,
+                location
+            }));
+            
+            setChoresData(structuredData);
+        }
+
+        getChoresData();
+    }, []);
 
     // clear async storage
     const clearAsyncStorage = async () => {
@@ -86,6 +109,7 @@ const Home = () => {
             />
             <Welcome
                 userName={userName}
+                choresData={choresData}
             />
         </SafeAreaView>
     )
