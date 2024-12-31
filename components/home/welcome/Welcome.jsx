@@ -1,28 +1,28 @@
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import styles from './welcome.style';
 
-const Welcome = ({ userName, choresData }) => {
+const Welcome = ({ userName, activeTab, setActiveTab }) => {
+    const tabs = ["Chores"];
+
     return (
-        // TODO: Implement the Welcome component
         <View style={styles.container}>
             <Text style={styles.welcomeMessage} >Welcome {userName}</Text>
             <View style={styles.tabsContainer}>
-                <TouchableOpacity style={styles.tab}>
-                    <Text style={styles.tabText}>Chores</Text>
-                </TouchableOpacity>
+                <FlatList
+                    data={tabs}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity style={styles.tab} onPress={() => setActiveTab(item)}>
+                            <Text style={styles.tabText}>{item}</Text>
+                        </TouchableOpacity>
+                    )}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item) => item}
+                />
             </View>
 
-            <FlatList
-                data={choresData}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
-                    <View>
-                        <Text>{item.date}</Text>
-                        <Text>{item.name}</Text>
-                        <Text>{item.location}</Text>
-                    </View>
-                )}
-            />
+            
+
         </View>
     )
 }

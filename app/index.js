@@ -1,10 +1,11 @@
 import React, { use, useEffect, useState } from 'react';
-import { Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Welcome } from '../components';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Papa from 'papaparse';
 import testChoresCSV from '../assets/test_chores.js';
+import Chores from '../components/home/chores/Chores.jsx';
 
 const Home = () => {
     const [initialized, setInitialized] = useState(false);
@@ -12,6 +13,7 @@ const Home = () => {
     const users = useLocalSearchParams();
     const [userName, setUserName] = useState("");
     const [choresData, setChoresData] = useState([]);
+    const [activeTab, setActiveTab] = useState("chores");
 
     // Parse CSV file
     useEffect(() => {
@@ -86,6 +88,18 @@ const Home = () => {
         return null;
     }
 
+    const displayTabContent = () => {
+        switch (activeTab) {
+            case "Chores":
+                return (
+                    <Chores
+                        userName={userName}
+                        choresData={choresData}
+                    />
+                )
+        }
+    }
+
     return (
     // Main menu screen
         <SafeAreaView style={{ flex: 1 }}>
@@ -109,8 +123,11 @@ const Home = () => {
             />
             <Welcome
                 userName={userName}
-                choresData={choresData}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
             />
+
+            {displayTabContent()}
         </SafeAreaView>
     )
 }
