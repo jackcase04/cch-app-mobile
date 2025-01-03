@@ -6,7 +6,7 @@ const Welcome = ({ userName, activeTab, setActiveTab }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.welcomeMessage} >Welcome {userName}</Text>
+            <Text style={styles.welcomeMessage} >Welcome, {userName.split(' ')[0]}</Text>
             <View style={styles.tabsContainer}>
                 <FlatList
                     data={tabs}

@@ -13,7 +13,8 @@ const Home = () => {
     const users = useLocalSearchParams();
     const [userName, setUserName] = useState("");
     const [choresData, setChoresData] = useState([]);
-    const [activeTab, setActiveTab] = useState("chores");
+    const [activeTab, setActiveTab] = useState("Chores");
+    const [reminder, setReminder] = useState("");
 
     // Parse CSV file
     useEffect(() => {
@@ -95,6 +96,8 @@ const Home = () => {
                     <Chores
                         userName={userName}
                         choresData={choresData}
+                        reminder={reminder}
+                        setReminder={setReminder}
                     />
                 )
         }
