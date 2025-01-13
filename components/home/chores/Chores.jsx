@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import styles from './chores.style';
 import times from '../../../assets/time_intervals';
 
 const Chores = ({ choresData, userName, reminder, setReminder }) => {
-    const screenHeight = Dimensions.get('window').height;
-    const screenWidth = Dimensions.get('window').width;
     const [tempReminder, setTempReminder] = useState("");
 
     // function to get the date in MM/DD format
@@ -33,9 +31,9 @@ const Chores = ({ choresData, userName, reminder, setReminder }) => {
                 </>
             )}
             
-            <View>
-                <Text style={styles.messages}>Schedule reminder</Text>
-                <ScrollView style={[styles.dropdownMenu, {height: screenHeight * 0.1}, {width: screenWidth * 0.3}]}>
+            <View style={styles.remindersContainer}>
+                <Text style={[styles.messages, {marginBottom: 5}]}>Schedule reminder</Text>
+                <ScrollView style={[styles.dropdownMenu]}>
                     {times.map((item, index) => (
                         <TouchableOpacity
                             key={index}
@@ -53,7 +51,7 @@ const Chores = ({ choresData, userName, reminder, setReminder }) => {
                 >
                     <Text style={styles.Text}>Confirm</Text>
                 </TouchableOpacity>
-                <Text>Reminder scheduled for: {reminder}</Text>
+                <Text style={[styles.messages, {marginBottom: 5}]}>Reminder scheduled for: {reminder}</Text>
             </View>
         </View>
     )

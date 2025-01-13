@@ -5,52 +5,51 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'flex-start',
       alignItems: 'center',
-      backgroundColor: '#f0f0f0',
+      backgroundColor: '#eaeaea',
+      borderRadius: 30,
       margin: 20,
-      borderWidth: 2,  // Debug border
-      borderColor: 'blue',
     },
     welcomeMessage: {
-      fontSize: 32,
-      color: "red",
+      fontSize: 28,
+      fontWeight: 'bold',
       textAlign: 'center',
       marginTop: 130,
       width: '100%',
-      borderWidth: 2,  // Debug border
-      borderColor: 'green',
+      paddingHorizontal: 20,
     },
     selectMessage: {
-      fontSize: 24,
-      color: "red",
+      fontSize: 22,
       textAlign: 'center',
       marginTop: 20,
       width: '100%',
-      borderWidth: 2,  // Debug border
-      borderColor: 'green',
+      paddingHorizontal: 20,
     },
     dropdownMenu: {
         textAlign: 'center',
         marginTop: 20,
-        width: '50%',
+        width: "50%",
         borderWidth: 2,  // Debug border
-        borderColor: 'green',
+        borderColor: 'grey',
+        borderRadius: 10,
+        backgroundColor: "darkgrey",
     },
     names: {
         textAlign: 'center',
-        fontSize: 20,
-        borderWidth: 2,  // Debug border
-        borderColor: 'green',
-        backgroundColor: "grey"
+        fontSize: 18,
+        borderWidth: 1,  // Debug border
+        borderColor: 'grey',
+        borderRadius: 5,
+        backgroundColor: "lightgrey",
     },
     loginButton: {
         marginTop: 20,
         marginBottom: 20,
         padding: 10,
-        borderWidth: 2,  // Debug border
-        borderColor: 'yellow',
+        
     },
     loginText: {
-        fontSize: 24
+        fontSize: 24,
+        color: '#007AFF',
     }
   });
   

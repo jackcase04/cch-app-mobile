@@ -1,5 +1,5 @@
-import React, { use, useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native';
 import { Welcome, Chores, Header } from '../components';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -14,7 +14,7 @@ const Home = () => {
     const [choresData, setChoresData] = useState([]);
     const [activeTab, setActiveTab] = useState("Chores");
     const [reminder, setReminder] = useState("");
-
+    
     // Parse CSV file
     useEffect(() => {
         const getChoresData = () => {
@@ -83,6 +83,31 @@ const Home = () => {
         }
         checkIfLoggedIn();
     }, [initialized, users.choice]);
+
+    // stores reminder
+    useEffect(() => {
+        const storeReminder = async () => {
+            if (reminder)
+                await AsyncStorage.setItem('reminder', reminder);
+        }
+        storeReminder();
+    }, [reminder]);
+
+    // gets stored reminder
+    useEffect(() => {
+        const getReminder = async () => {
+            try {
+                const storedReminder = await AsyncStorage.getItem('reminder');
+                if (storedReminder) {
+                    setReminder(storedReminder);
+                }
+            } catch (error) {
+                console.error('Error retrieving reminder:', error);
+            }
+        };
+    
+        getReminder();
+    }, []);
 
     if (!userName) {
         return null;

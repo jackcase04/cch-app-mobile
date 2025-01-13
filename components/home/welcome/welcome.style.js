@@ -7,23 +7,22 @@ const styles = StyleSheet.create({
         backgroundColor: '#f0f0f0',
         marginHorizontal: 20,
         marginTop: 10,
-        marginBottom: 5,
-        borderWidth: 2,  // Debug border
-        borderColor: 'blue',
-        paddingBottom: 5,
+        backgroundColor: "#eaeaea",
+        borderRadius: 30,
     },
     welcomeMessage: {
-        fontSize: 32,
-        color: "red",
+        fontSize: 28,
+        fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 130,
+        marginTop: 80,
         width: '100%',
-        borderWidth: 2,  // Debug border
-        borderColor: 'green',
+        paddingHorizontal: 20,
     },
     tabsContainer: {
         width: "100%",
         marginTop: 20,
+        paddingVertical: 10,
+        backgroundColor: "#dcdcdc",
     },
     tab: {
         paddingVertical: 6,
@@ -34,7 +33,8 @@ const styles = StyleSheet.create({
         width: 100
     },
     tabText: {
-
+        textAlign: 'center',
+        fontSize: 16
     }
 });
 

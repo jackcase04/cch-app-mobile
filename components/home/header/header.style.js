@@ -6,8 +6,6 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         marginRight: 20,
         marginTop: 10,
-        borderWidth: 2, // Border thickness
-        borderColor: 'red',
     }
 });
 

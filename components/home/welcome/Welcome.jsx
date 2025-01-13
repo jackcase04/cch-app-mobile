@@ -20,9 +20,6 @@ const Welcome = ({ userName, activeTab, setActiveTab }) => {
                     keyExtractor={(item) => item}
                 />
             </View>
-
-            
-
         </View>
     )
 }

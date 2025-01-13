@@ -5,67 +5,62 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#f0f0f0',
-        margin: 20,
-        borderWidth: 2,  // Debug border
-        borderColor: 'blue',
+        backgroundColor: '#eaeaea',
+        marginHorizontal: 20,
+        marginBottom: 20,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
     },
     noChoreMessage: {
         fontSize: 26,
-        color: "red",
         textAlign: 'center',
         width: 'auto',
-        borderWidth: 2,  // Debug border
-        borderColor: 'green',
-        flexShrink: 1,
-        height: 170
+        marginVertical: 10
     },
     choreMessage: {
         fontSize: 26,
-        color: "red",
         textAlign: 'center',
         width: 'auto',
-        borderWidth: 2,  // Debug border
-        borderColor: 'green',
-        flexShrink: 1,
+        marginTop: 10
     },
     chore: {
-        fontSize: 22,
-        color: "blue",
+        fontSize: 20,
         textAlign: 'center',
         width: '100%',
-        borderWidth: 2,  // Debug border
-        borderColor: 'green',
+        marginBottom: 3,
+        paddingHorizontal: 10,
     },
     dropdownMenu: {
         textAlign: 'center',
-        alignSelf: 'center',
-        marginTop: 20,
         borderWidth: 2,  // Debug border
-        borderColor: 'green',
-        maxHeight: 100
+        borderColor: 'grey',
+        borderRadius: 10,
+        backgroundColor: "darkgrey",
+        width: 100,
+    },
+    remindersContainer: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
     },
     times: {
         textAlign: 'center',
-        fontSize: 20,
-        borderWidth: 2,  // Debug border
-        borderColor: 'green',
-        backgroundColor: "grey"
+        fontSize: 18,
+        borderWidth: 1,  // Debug border
+        borderColor: 'grey',
+        borderRadius: 1,
+        backgroundColor: "lightgrey",
     },
     messages: {
         fontSize: 16,
         textAlign: 'center',
     },
     Button: {
-        marginTop: 15,
-        marginBottom: 15,
         padding: 5,
-        borderWidth: 2,  // Debug border
-        borderColor: 'yellow',
     },
     Text: {
-        textAlign: 'center',
-        fontSize: 24
+        fontSize: 24,
+        color: '#007AFF',
     }
 });
 
