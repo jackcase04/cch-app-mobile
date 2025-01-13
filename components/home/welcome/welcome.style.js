@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#f0f0f0',
         marginHorizontal: 20,
-        marginTop: 20,
+        marginTop: 10,
         marginBottom: 5,
         borderWidth: 2,  // Debug border
         borderColor: 'blue',

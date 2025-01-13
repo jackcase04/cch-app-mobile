@@ -1,11 +1,10 @@
 import React, { use, useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
-import { Welcome } from '../components';
+import { Welcome, Chores, Header } from '../components';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Papa from 'papaparse';
 import testChoresCSV from '../assets/test_chores.js';
-import Chores from '../components/home/chores/Chores.jsx';
 
 const Home = () => {
     const [initialized, setInitialized] = useState(false);
@@ -108,21 +107,12 @@ const Home = () => {
         <SafeAreaView style={{ flex: 1 }}>
             <Stack.Screen
                 options={{
-                    headerTitle: "",
-                    headerRight: () => (
-                        <TouchableOpacity
-                            onPress={handleLogout}
-                        >
-                            <Text>Logout</Text>
-                        </TouchableOpacity>
-                    ),
-                    headerLeft: () => (
-                        <TouchableOpacity>
-                            <Text>menu</Text>
-                        </TouchableOpacity>
-                    ),
+                    headerShown: false,
                     gestureEnabled: false
                 }}
+            />
+            <Header
+                handleLogout={handleLogout}
             />
             <Welcome
                 userName={userName}
