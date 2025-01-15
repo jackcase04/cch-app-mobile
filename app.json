@@ -16,6 +16,9 @@
     },
     "android": {
       "package": "com.jackcase04.cchhouseapp"
+    },
+    "ios": {
+      "bundleIdentifier": "com.jackcase04.cchhouseapp"
     }
   }
 }
