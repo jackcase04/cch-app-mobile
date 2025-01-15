@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: 100,
         marginLeft: 'auto',
-        marginRight: 100, // 20 when done
+        marginRight: 10,
         marginTop: 10,
     },
 });
