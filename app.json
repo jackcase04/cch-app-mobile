@@ -5,6 +5,14 @@
       "expo-router"
     ],
     "name": "cch-house-app",
-    "slug": "cch-house-app"
+    "slug": "cch-house-app",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "b3adeaa2-9352-48d6-9170-d82d93300aed"
+      }
+    }
   }
 }
