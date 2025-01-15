@@ -4,7 +4,7 @@ import { Welcome, Chores, Header } from '../components';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import testChoresCSV from '../assets/test_chores.js';
 import { parseChoresData } from '../services/choreService';
-import { initNotifications } from '../services/notificationService';
+import { initNotifications, verifyAndRescheduleNotifications } from '../services/notificationService';
 import { useAuth } from '../hooks/useAuth';
 import { useReminder } from '../hooks/useReminder';
 import { useNotifications } from '../services/notificationsManager';
@@ -24,6 +24,7 @@ const Home = () => {
     useEffect(() => {
         const data = parseChoresData(testChoresCSV);
         setChoresData(data);
+        verifyAndRescheduleNotifications(data);
     }, []);
 
     if (!userName) {

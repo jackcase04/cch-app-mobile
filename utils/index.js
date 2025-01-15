@@ -56,3 +56,30 @@ export const hasTimePassed = (timeString) => {
 export const clearAsyncStorage = async () => {
     await AsyncStorage.clear();
 };
+
+// Filter for future chores
+export const filterFutureChores = (choresData, reminder, name) => {
+    const chores = choresData.filter(chore => {
+        const [month, day, year] = chore.date.split('/').map(Number);
+        const choreDate = new Date(year, month - 1, day);
+
+        // convert reminder to hours and minutes
+        const [time, period] = reminder.split(/(?=am|pm)/i);
+        const [hour, minute] = time.split(':').map(Number);
+
+        let adjustedHour = hour;
+        if (period.toLowerCase() === 'pm' && hour !== 12) {
+            adjustedHour += 12;
+        } else if (period.toLowerCase() === 'am' && hour === 12) {
+            adjustedHour = 0;
+        }
+
+        choreDate.setHours(adjustedHour, minute, 0, 0);
+
+        const today = new Date();
+
+        return chore.name === name && choreDate >= today;
+    });
+
+    return chores;
+}
