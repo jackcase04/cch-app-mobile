@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     welcomeMessage: {
         fontSize: 28,
         fontWeight: 'bold',
+        color: '#312651',
         textAlign: 'center',
         marginTop: 80,
         width: '100%',

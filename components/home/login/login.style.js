@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     welcomeMessage: {
       fontSize: 28,
       fontWeight: 'bold',
+      color: '#312651',
       textAlign: 'center',
       marginTop: 130,
       width: '100%',
@@ -50,6 +51,9 @@ const styles = StyleSheet.create({
     loginText: {
         fontSize: 24,
         color: '#007AFF',
+    },
+    selectedName: {
+      marginTop: 10,
     }
   });
   

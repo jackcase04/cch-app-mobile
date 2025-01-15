@@ -2,20 +2,12 @@ import { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import styles from './chores.style';
 import times from '../../../assets/time_intervals';
+import { getTodaysDate } from '../../../utils';
 
-const Chores = ({ choresData, userName, reminder, setReminder }) => {
+const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotifications }) => {
     const [tempReminder, setTempReminder] = useState("");
 
-    // function to get the date in MM/DD format
-    const getTodaysDate = () => {
-        const today = new Date();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        const year = String(today.getFullYear());
-        return `${month}/${day}/${year}`;
-    };
-
-    // Filter chores by date and name
+    // Filter chore by date and name
     const chore = choresData.find(chore => (chore.date === getTodaysDate() && chore.name === userName));
 
     return (
@@ -32,7 +24,7 @@ const Chores = ({ choresData, userName, reminder, setReminder }) => {
             )}
             
             <View style={styles.remindersContainer}>
-                <Text style={[styles.messages, {marginBottom: 5}]}>Schedule reminder</Text>
+                <Text style={[styles.messages, {marginBottom: 5}]}>Schedule Daily Reminder</Text>
                 <ScrollView style={[styles.dropdownMenu]}>
                     {times.map((item, index) => (
                         <TouchableOpacity
@@ -47,7 +39,12 @@ const Chores = ({ choresData, userName, reminder, setReminder }) => {
 
                 <TouchableOpacity 
                     style={styles.Button}
-                    onPress={() => setReminder(tempReminder)}
+                    onPress={() => {
+                        if (tempReminder) {
+                            setReminder(tempReminder);
+                            scheduleNotifications();
+                        }
+                    }}
                 >
                     <Text style={styles.Text}>Confirm</Text>
                 </TouchableOpacity>

@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
     },
     Button: {
         padding: 5,
+        backgroundColor: '',
+        borderRadius: 10,
     },
     Text: {
         fontSize: 24,

@@ -28,7 +28,11 @@ const Login = ({ onLogin }) => {
             <TouchableOpacity 
                 style={styles.loginButton}
                 // When login button is pressed, tempname is confirmed as the user's name
-                onPress={() => onLogin(tempName)}
+                onPress={() => {
+                    if (tempName) {
+                        onLogin(tempName)
+                    }
+                }}
             >
                 <Text style={styles.loginText}>Login</Text>
             </TouchableOpacity>
