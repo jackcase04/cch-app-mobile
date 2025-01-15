@@ -17,6 +17,11 @@
     "android": {
       "package": "com.jackcase04.cchhouseapp"
     },
+    "splash": {
+      "image": "./assets/splashscreen_logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "ios": {
       "bundleIdentifier": "com.jackcase04.cchhouseapp"
     }
