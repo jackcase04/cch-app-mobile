@@ -13,6 +13,9 @@
       "eas": {
         "projectId": "b3adeaa2-9352-48d6-9170-d82d93300aed"
       }
+    },
+    "android": {
+      "package": "com.jackcase04.cchhouseapp"
     }
   }
 }
