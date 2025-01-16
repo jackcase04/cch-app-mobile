@@ -25,24 +25,6 @@ const styles = StyleSheet.create({
       paddingHorizontal: 20,
       fontFamily: "DMRegular",
     },
-    dropdownMenu: {
-        textAlign: 'center',
-        marginTop: 20,
-        width: "50%",
-        borderWidth: 2,  // Debug border
-        borderColor: 'grey',
-        borderRadius: 10,
-        backgroundColor: "darkgrey",
-    },
-    names: {
-        textAlign: 'center',
-        fontSize: 18,
-        fontFamily: "DMRegular",
-        borderWidth: 1,  // Debug border
-        borderColor: 'grey',
-        borderRadius: 5,
-        backgroundColor: "lightgrey",
-    },
     loginButton: {
         backgroundColor: "#FE7654",
         borderRadius: 16,
@@ -59,7 +41,13 @@ const styles = StyleSheet.create({
     selectedName: {
       fontFamily: "DMRegular",
       marginTop: 10,
-    }
+    },
+    picker: {
+      width: '70%',
+      backgroundColor: '#f0f0f0',
+      marginVertical: 10,
+      color: 'black',
+  }
   });
   
 

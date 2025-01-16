@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './login.style';
 import namesCSV from '../../../assets/names';
 import { parseNamesData } from '../../../services/choreService';
@@ -8,24 +8,26 @@ import { Picker } from '@react-native-picker/picker';
 
 const Login = ({ onLogin }) => {
     const [tempName, setTempName] = useState("");
-    const screenHeight = Dimensions.get('window').height;
     const names = sortByFirstName(parseNamesData(namesCSV));
 
     return (
         <View style={styles.container}>
             <Text style={styles.welcomeMessage}>Welcome to the CCH App!</Text>
             <Text style={styles.selectMessage}>Select your name:</Text>
-            <ScrollView style={[styles.dropdownMenu, {height: screenHeight * 0.1}]}>
+            <Picker
+                selectedValue={tempName}
+                onValueChange={(itemValue) => setTempName(itemValue)}
+                style={styles.picker}
+            >
                 {names.map((item, index) => (
-                    <TouchableOpacity
+                    <Picker.Item
                         key={index}
-                        // When name is selected, set the name to the tempName state
-                        onPress={() => setTempName(item)}
-                    >
-                        <Text style={styles.names} >{item}</Text>
-                    </TouchableOpacity>
+                        label={item}
+                        value={item}
+                        color="black"
+                    />
                 ))}
-            </ScrollView>
+            </Picker>
 
             <Text style={styles.selectedName}>Selected Name: {tempName}</Text>
 
