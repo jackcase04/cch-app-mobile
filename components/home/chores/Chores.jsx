@@ -12,16 +12,18 @@ const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotificat
 
     return (
         <View style={styles.container}>
-            {chore ? (
-                <>
-                    <Text style={styles.choreMessage}>Your Chore today is:</Text>
-                    <Text style={styles.chore}>{chore.location}</Text>
-                </>
-             ) : (
-                <>
-                    <Text style={styles.noChoreMessage}>No chores for today!</Text>
-                </>
-            )}
+            <View style={styles.choresContainer}>
+                {chore ? (
+                    <>
+                        <Text style={styles.choreMessage}>Your Chore today is:</Text>
+                        <Text style={styles.chore}>{chore.location}</Text>
+                    </>
+                ) : (
+                    <>
+                        <Text style={styles.noChoreMessage}>No chores for today!</Text>
+                    </>
+                )}
+            </View>
             
             <View style={styles.remindersContainer}>
                 <Text style={[styles.messages, {marginBottom: 5}]}>Schedule Daily Reminder</Text>

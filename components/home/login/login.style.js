@@ -5,13 +5,12 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'flex-start',
       alignItems: 'center',
-      backgroundColor: '#eaeaea',
       borderRadius: 30,
       margin: 20,
     },
     welcomeMessage: {
       fontSize: 28,
-      fontWeight: 'bold',
+      fontFamily: "DMBold",
       color: '#312651',
       textAlign: 'center',
       marginTop: 130,
@@ -24,6 +23,7 @@ const styles = StyleSheet.create({
       marginTop: 20,
       width: '100%',
       paddingHorizontal: 20,
+      fontFamily: "DMRegular",
     },
     dropdownMenu: {
         textAlign: 'center',
@@ -37,22 +37,27 @@ const styles = StyleSheet.create({
     names: {
         textAlign: 'center',
         fontSize: 18,
+        fontFamily: "DMRegular",
         borderWidth: 1,  // Debug border
         borderColor: 'grey',
         borderRadius: 5,
         backgroundColor: "lightgrey",
     },
     loginButton: {
+        backgroundColor: "#FE7654",
+        borderRadius: 16,
         marginTop: 20,
         marginBottom: 20,
-        padding: 10,
-        
+        paddingHorizontal: 20,
+        paddingVertical: 10,
     },
     loginText: {
-        fontSize: 24,
-        color: '#007AFF',
+        fontSize: 16,
+        color: "#F3F4F8",
+        fontFamily: "DMBold"
     },
     selectedName: {
+      fontFamily: "DMRegular",
       marginTop: 10,
     }
   });

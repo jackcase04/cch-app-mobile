@@ -5,29 +5,36 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#eaeaea',
-        marginHorizontal: 20,
         marginBottom: 20,
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
     },
+    choresContainer: {
+        width: "95%",
+        backgroundColor: "#eaeaea",
+        margin: 10,
+        borderRadius: 16,
+    },
     noChoreMessage: {
+        fontFamily: "DMMedium",
         fontSize: 26,
         textAlign: 'center',
         width: 'auto',
         marginVertical: 10
     },
     choreMessage: {
+        fontFamily: "DMMedium",
         fontSize: 26,
         textAlign: 'center',
         width: 'auto',
-        marginTop: 10
+        marginVertical: 10
     },
     chore: {
+        fontFamily: "DMRegular",
         fontSize: 20,
         textAlign: 'center',
         width: '100%',
-        marginBottom: 3,
+        marginBottom: 10,
         paddingHorizontal: 10,
     },
     dropdownMenu: {
@@ -52,17 +59,20 @@ const styles = StyleSheet.create({
         backgroundColor: "lightgrey",
     },
     messages: {
+        fontFamily: "DMRegular",
         fontSize: 16,
         textAlign: 'center',
     },
     Button: {
-        padding: 5,
-        backgroundColor: '',
-        borderRadius: 10,
+        backgroundColor: "#FE7654",
+        borderRadius: 16,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
     },
     Text: {
-        fontSize: 24,
-        color: '#007AFF',
+        fontFamily: "DMBold",
+        fontSize: 16,
+        color: "#F3F4F8",
     }
 });
 

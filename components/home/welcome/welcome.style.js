@@ -4,15 +4,13 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#f0f0f0',
-        marginHorizontal: 20,
         marginTop: 10,
-        backgroundColor: "#eaeaea",
         borderRadius: 30,
     },
     welcomeMessage: {
         fontSize: 28,
         fontWeight: 'bold',
+        fontFamily: "DMBold",
         color: '#312651',
         textAlign: 'center',
         marginTop: 80,
@@ -23,7 +21,7 @@ const styles = StyleSheet.create({
         width: "100%",
         marginTop: 20,
         paddingVertical: 10,
-        backgroundColor: "#dcdcdc",
+        backgroundColor: "#eaeaea",
     },
     tab: {
         paddingVertical: 6,
@@ -34,6 +32,7 @@ const styles = StyleSheet.create({
         width: 100
     },
     tabText: {
+        fontFamily: "DMRegular",
         textAlign: 'center',
         fontSize: 16
     }
