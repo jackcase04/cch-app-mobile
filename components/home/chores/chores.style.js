@@ -49,6 +49,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
+        backgroundColor: "#eaeaea",
+        width: "95%",
+        borderRadius: 16,
     },
     times: {
         textAlign: 'center',

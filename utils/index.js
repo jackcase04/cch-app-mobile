@@ -83,3 +83,9 @@ export const filterFutureChores = (choresData, reminder, name) => {
 
     return chores;
 }
+
+export const sortByFirstName = (names) => {
+    return names.sort((a, b) => {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+    });
+};

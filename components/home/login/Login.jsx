@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Dimensions, TouchableOpacity, Button } from 'react-native';
+import { View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import styles from './login.style';
-import names from '../../../assets/names';
+import namesCSV from '../../../assets/names';
+import { parseNamesData } from '../../../services/choreService';
+import { sortByFirstName } from '../../../utils';
+import { Picker } from '@react-native-picker/picker';
 
 const Login = ({ onLogin }) => {
     const [tempName, setTempName] = useState("");
     const screenHeight = Dimensions.get('window').height;
+    const names = sortByFirstName(parseNamesData(namesCSV));
 
     return (
         <View style={styles.container}>

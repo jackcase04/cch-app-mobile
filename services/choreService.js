@@ -13,3 +13,12 @@ export const parseChoresData = (data) => {
         location
     }));
 }
+
+export const parseNamesData = (data) => {
+    const results = Papa.parse(data, {
+        header: false,
+        skipEmptyLines: true
+    });
+
+    return results.data.map(([name]) => name);
+}
