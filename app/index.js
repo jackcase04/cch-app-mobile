@@ -30,20 +30,21 @@ const Home = () => {
         return null;
     }
 
-    const displayTabContent = () => {
-        switch (activeTab) {
-            case "Chores":
-                return (
-                    <Chores
-                        userName={userName}
-                        choresData={choresData}
-                        reminder={reminder}
-                        setReminder={setReminder}
-                        scheduleNotifications={handleNotifications}
-                    />
-                )
-        }
-    }
+    /* TODO: Implement tab feature in the future when more functions are needed */
+    // const displayTabContent = () => {
+    //     switch (activeTab) {
+    //         case "Chores":
+    //             return (
+                    // <Chores
+                    //     userName={userName}
+                    //     choresData={choresData}
+                    //     reminder={reminder}
+                    //     setReminder={setReminder}
+                    //     scheduleNotifications={handleNotifications}
+                    // />
+    //             )
+    //     }
+    // }
 
     return (
     // Main menu screen
@@ -63,7 +64,14 @@ const Home = () => {
                 setActiveTab={setActiveTab}
             />
 
-            {displayTabContent()}
+            <Chores
+                        userName={userName}
+                        choresData={choresData}
+                        reminder={reminder}
+                        setReminder={setReminder}
+                        scheduleNotifications={handleNotifications}
+            />
+            
         </SafeAreaView>
     )
 }

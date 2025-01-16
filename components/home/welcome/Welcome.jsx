@@ -7,7 +7,8 @@ const Welcome = ({ userName, activeTab, setActiveTab }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.welcomeMessage} >Welcome, {userName.split(' ')[0]}</Text>
-            <View style={styles.tabsContainer}>
+            {/* TODO: Implement tab feature in the future when more functions are needed */}
+            {/* <View style={styles.tabsContainer}>
                 <FlatList
                     data={tabs}
                     renderItem={({ item }) => (
@@ -19,7 +20,7 @@ const Welcome = ({ userName, activeTab, setActiveTab }) => {
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item) => item}
                 />
-            </View>
+            </View> */}
         </View>
     )
 }
