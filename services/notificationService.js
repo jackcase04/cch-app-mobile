@@ -1,17 +1,76 @@
 import * as Notifications from 'expo-notifications';
 import { convertToNotificationTrigger, filterFutureChores } from '../utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform, Alert, Linking } from 'react-native';
 
 // Initialize notifications
-export const initNotifications = () => {
-    Notifications.setNotificationHandler({
-        handleNotification: async () => ({
-          shouldShowAlert: true,
-          shouldPlaySound: true,
-          shouldSetBadge: false,
-        }),
-    });
-}
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+        priority: Platform.OS === 'android' ? 'max' : 'high',
+    }),
+});
+
+const createNotificationChannel = async () => {
+    if (Platform.OS === 'android') {
+        await Notifications.setNotificationChannelAsync('chores', {
+            name: 'Chore Reminders',
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lockscreenVisibility: Notifications.AndroidNotificationVisibility.PUBLIC,
+        });
+    }
+};
+
+export const setupLocalNotifications = async () => {
+    try {
+      await createNotificationChannel();
+
+      // Check existing permission status
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      
+      // request permission if not granted
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync({
+          ios: {
+            allowAlert: true,
+            allowBadge: true,
+            allowSound: true,
+          },
+        });
+        
+        if (status !== 'granted') {
+          Alert.alert(
+            'Notifications Required',
+            'Please enable notifications in your device settings to receive important updates.',
+            [
+              { text: 'Cancel', style: 'cancel' },
+              { 
+                text: 'Open Settings',
+                onPress: () => {
+                  if (Platform.OS === 'ios') {
+                    Linking.openURL('app-settings:');
+                  } else {
+                    Linking.openSettings();
+                  }
+                }
+              }
+            ]
+          );
+        }
+      } else {
+        console.log('Permission already granted');
+      }
+      
+      return existingStatus;
+      
+    } catch (error) {
+      console.error('Error setting up local notifications:', error);
+      return null;
+    }
+};
 
 // Schedule notifications for chores
 export const scheduleNotifications = async (choresData) => {
@@ -35,6 +94,10 @@ export const scheduleNotifications = async (choresData) => {
                         content: {
                             title: "You have 1 chore today",
                             body: chore.location,
+                            android: {
+                                channelId: 'chores',
+                                importance: Notifications.AndroidImportance.MAX,
+                            }
                         },
                         trigger,
                     });

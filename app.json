@@ -15,7 +15,12 @@
       }
     },
     "android": {
-      "package": "com.jackcase04.cchhouseapp"
+      "package": "com.jackcase04.cchhouseapp",
+      "useNextNotificationsApi": true,
+      "permissions": [
+        "SCHEDULE_EXACT_ALARM",
+        "USE_EXACT_ALARM"
+      ]
     },
     "splash": {
       "image": "./assets/splashscreen_logo.png",
@@ -23,7 +28,10 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "bundleIdentifier": "com.jackcase04.cchhouseapp"
+      "bundleIdentifier": "com.jackcase04.cchhouseapp",
+      "infoPlist": {
+        "UIBackgroundModes": ["remote-notification"]
+      }
     }
   }
 }

@@ -4,12 +4,10 @@ import { Welcome, Chores, Header } from '../components';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import testChoresCSV from '../assets/test_chores.js';
 import { parseChoresData } from '../services/choreService';
-import { initNotifications, verifyAndRescheduleNotifications } from '../services/notificationService';
+import { setupLocalNotifications, verifyAndRescheduleNotifications } from '../services/notificationService';
 import { useAuth } from '../hooks/useAuth';
 import { useReminder } from '../hooks/useReminder';
 import { useNotifications } from '../services/notificationsManager';
-
-initNotifications();
 
 const Home = () => {
     const users = useLocalSearchParams();
@@ -20,10 +18,11 @@ const Home = () => {
     const [choresData, setChoresData] = useState([]);
     const { handleNotifications, clearNotifications } = useNotifications(choresData);
 
-    // Load inital chores data
+    // Upon start of app
     useEffect(() => {
         const data = parseChoresData(testChoresCSV);
         setChoresData(data);
+        setupLocalNotifications();
         verifyAndRescheduleNotifications(data);
     }, []);
 
