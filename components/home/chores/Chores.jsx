@@ -36,16 +36,6 @@ const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotificat
             
             <View style={styles.remindersContainer}>
                 <Text style={[styles.messages, {marginBottom: 5}]}>Schedule Daily Reminder</Text>
-                {/* <ScrollView style={[styles.dropdownMenu]}>
-                    {times.map((item, index) => (
-                        <TouchableOpacity
-                            key={index}
-                            onPress={() => {setTempReminder(item)}}
-                        >
-                            <Text style={styles.times}>{item}</Text>
-                        </TouchableOpacity>
-                    ))}
-                </ScrollView> */}
                 <TouchableOpacity onPress={togglePicker}>
                     <Text>7:00pm</Text>
                 </TouchableOpacity>
