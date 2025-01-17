@@ -4,6 +4,7 @@
     "plugins": [
       "expo-router"
     ],
+    "assetBundlePatterns": ["**/*"],
     "name": "cch-house-app",
     "slug": "cch-house-app",
     "orientation": "portrait",
