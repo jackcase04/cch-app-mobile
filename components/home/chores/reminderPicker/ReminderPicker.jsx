@@ -3,13 +3,16 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from './reminderPicker.style.js';
 
-const ReminderPicker = ({ setTempReminder, togglePicker }) => {
-    const [selectedHour, setSelectedHour] = useState("01");
-    const [selectedMinute, setSelectedMinute] = useState("00");
-    const [selectedAMPM, setSelectedAMPM] = useState('AM');
+const ReminderPicker = ({ tempReminder, setTempReminder, togglePicker, handleReminderChange }) => {
+    const [hour, minutePeriod] = tempReminder.split(':');
+    const [minute, period] = minutePeriod.split(' ');
+
+    const [selectedHour, setSelectedHour] = useState(parseInt(hour, 10));
+    const [selectedMinute, setSelectedMinute] = useState(minute.padStart(2, '0'));
+    const [selectedAMPM, setSelectedAMPM] = useState(period);
 
     const hours = Array.from({ length: 12 }, (_, i) => 
-        (i+1).toString().padStart(2, '0')
+        (i+1).toString()
     );
 
     const minutes = Array.from({ length: 60 }, (_, i) => 
@@ -87,6 +90,7 @@ const ReminderPicker = ({ setTempReminder, togglePicker }) => {
                     onPress={
                         () => {
                             setTempReminder(combinedTime);
+                            handleReminderChange(combinedTime);
                             togglePicker();
                         }
                     }

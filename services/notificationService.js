@@ -61,7 +61,7 @@ export const setupLocalNotifications = async () => {
           );
         }
       } else {
-        console.log('Permission already granted');
+        console.log('Notifications permissions already granted');
       }
       
       return existingStatus;
@@ -76,6 +76,7 @@ export const setupLocalNotifications = async () => {
 export const scheduleNotifications = async (choresData) => {
     try {
         await Notifications.cancelAllScheduledNotificationsAsync();
+        console.log('Cleared all scheduled notifications (from scheduleNotifications)');
 
         const name = await AsyncStorage.getItem('name');
         const reminder = await AsyncStorage.getItem('reminder');
@@ -116,6 +117,7 @@ export const verifyAndRescheduleNotifications = async (choresData) => {
     try {
         const name = await AsyncStorage.getItem('name');
         const reminder = await AsyncStorage.getItem('reminder');
+
         if (name && reminder) {
             const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
             console.log(`Found ${scheduledNotifications.length} scheduled notifications`);

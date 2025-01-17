@@ -6,6 +6,7 @@
     ],
     "name": "cch-house-app",
     "slug": "cch-house-app",
+    "orientation": "portrait",
     "extra": {
       "router": {
         "origin": false

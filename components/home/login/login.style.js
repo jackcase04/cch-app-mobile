@@ -44,9 +44,10 @@ const styles = StyleSheet.create({
     },
     picker: {
       width: '70%',
-      backgroundColor: '#f0f0f0',
+      backgroundColor: '#eaeaea',
       marginVertical: 10,
       color: 'black',
+      borderRadius: 16,
   }
   });
   

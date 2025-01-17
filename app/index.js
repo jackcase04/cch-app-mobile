@@ -29,22 +29,6 @@ const Home = () => {
         return null;
     }
 
-    /* TODO: Implement tab feature in the future when more functions are needed */
-    // const displayTabContent = () => {
-    //     switch (activeTab) {
-    //         case "Chores":
-    //             return (
-                    // <Chores
-                    //     userName={userName}
-                    //     choresData={choresData}
-                    //     reminder={reminder}
-                    //     setReminder={setReminder}
-                    //     scheduleNotifications={handleNotifications}
-                    // />
-    //             )
-    //     }
-    // }
-
     return (
     // Main menu screen
         <SafeAreaView style={{ flex: 1 }}>

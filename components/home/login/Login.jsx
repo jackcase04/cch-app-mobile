@@ -7,8 +7,8 @@ import { sortByFirstName } from '../../../utils';
 import { Picker } from '@react-native-picker/picker';
 
 const Login = ({ onLogin }) => {
-    const [tempName, setTempName] = useState("");
     const names = sortByFirstName(parseNamesData(namesCSV));
+    const [tempName, setTempName] = useState(names[0]);
 
     return (
         <View style={styles.container}>
@@ -28,8 +28,6 @@ const Login = ({ onLogin }) => {
                     />
                 ))}
             </Picker>
-
-            <Text style={styles.selectedName}>Selected Name: {tempName}</Text>
 
             <TouchableOpacity 
                 style={styles.loginButton}

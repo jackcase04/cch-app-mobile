@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#eaeaea",
         width: "95%",
         borderRadius: 16,
+        paddingBottom: 15,
     },
     messages: {
         fontFamily: "DMRegular",
@@ -89,8 +90,12 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
     },
     reminderPicker: {
+        flexDirection: 'row',
         borderWidth: 2,
-        borderColor: "#FE7654",
+        borderColor: "black",
+        borderRadius: 5,
+        padding: 5,
+        marginRight: 10,
     },
     reminderPickerText: {
         fontFamily: "DMRegular",
@@ -98,7 +103,15 @@ const styles = StyleSheet.create({
     },
     reminderSchedulerContainer:{
         flexDirection: 'row',
-    }
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    downArrow: {
+        marginTop: 5,
+        marginLeft: 5,
+        width: 15,
+        height: 15,
+    },
 });
 
 export default styles;

@@ -24,6 +24,7 @@ export const useAuth = (users) => {
                 // If there is a value in async
                 if (name) {
                     setUserName(name);
+                    console.log('Logged in as:', name);
                 // If there is no value in async
                 } else {
                     // if first time logging in
@@ -33,6 +34,7 @@ export const useAuth = (users) => {
                     } else if (initialized && users.choice) {
                         setUserName(users.choice);
                         await AsyncStorage.setItem('name', users.choice);
+                        console.log('Logged in as:', users.choice);
                     }
                 }
             } catch (error) {
@@ -48,7 +50,9 @@ export const useAuth = (users) => {
         try {
             await AsyncStorage.clear();
             await Notifications.cancelAllScheduledNotificationsAsync();
+            console.log('Notifications cleared(from handleLogout)');
             setUserName("");
+            console.log('Logged out');
 
             router.push(`/login/login_screen`);
         } catch (error) {

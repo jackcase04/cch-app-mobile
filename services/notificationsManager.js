@@ -13,7 +13,7 @@ export const useNotifications = (choresData) => {
     const clearNotifications = async () => {
         try {
             await Notifications.cancelAllScheduledNotificationsAsync();
-            console.log('Notifications cleared');
+            console.log('Notifications cleared (from clearNotifications)');
         } catch (error) {
             console.error('Failed to clear notifications:', error);
         }
