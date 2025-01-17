@@ -14,6 +14,7 @@ export const parseChoresData = (data) => {
     }));
 }
 
+// Parse the names from the CSV file
 export const parseNamesData = (data) => {
     const results = Papa.parse(data, {
         header: false,

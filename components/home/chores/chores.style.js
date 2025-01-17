@@ -76,7 +76,27 @@ const styles = StyleSheet.create({
         fontFamily: "DMBold",
         fontSize: 16,
         color: "#F3F4F8",
-    }
+    },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    },
+    modalContent: {
+        height: "25%",
+        width: "80%",
+        backgroundColor: 'white',
+        borderRadius: 8,
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    },
 });
 
 export default styles;

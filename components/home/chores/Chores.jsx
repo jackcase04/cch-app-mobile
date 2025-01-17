@@ -1,11 +1,20 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Modal, TouchableOpacity } from 'react-native';
 import styles from './chores.style';
-import times from '../../../assets/time_intervals';
 import { getTodaysDate } from '../../../utils';
+import ReminderPicker from './reminderPicker/ReminderPicker';
+import { Picker } from '@react-native-picker/picker';
 
 const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotifications }) => {
     const [tempReminder, setTempReminder] = useState("");
+    const [showPicker, setShowPicker] = useState(false);
+
+    const togglePicker = () => {
+        setShowPicker(!showPicker);
+    }
+
+    const [testpicker, setTestpicker] = useState("");
+    const testpickers = ["1", "2", "3"];
 
     // Filter chore by date and name
     const chore = choresData.find(chore => (chore.date === getTodaysDate() && chore.name === userName));
@@ -27,7 +36,7 @@ const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotificat
             
             <View style={styles.remindersContainer}>
                 <Text style={[styles.messages, {marginBottom: 5}]}>Schedule Daily Reminder</Text>
-                <ScrollView style={[styles.dropdownMenu]}>
+                {/* <ScrollView style={[styles.dropdownMenu]}>
                     {times.map((item, index) => (
                         <TouchableOpacity
                             key={index}
@@ -36,7 +45,36 @@ const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotificat
                             <Text style={styles.times}>{item}</Text>
                         </TouchableOpacity>
                     ))}
-                </ScrollView>
+                </ScrollView> */}
+                <TouchableOpacity onPress={togglePicker}>
+                    <Text>7:00pm</Text>
+                </TouchableOpacity>
+                <Modal
+                    visible={showPicker}
+                    transparent={true}
+                    animationType="fade"
+                >
+                    {/* rest of the screen */}
+                    <TouchableOpacity 
+                        style={styles.modalOverlay}
+                        activeOpacity={1} 
+                        onPress={togglePicker}
+                    >
+                        {/* picker area */}
+                        <TouchableOpacity
+                            style={styles.modalContent}
+                            activeOpacity={1}
+                            onPress={(e) => e.stopPropagation()}
+                        >
+                            <ReminderPicker
+                                setTempReminder={setTempReminder}
+                                togglePicker={togglePicker}
+                            />
+                        </TouchableOpacity>
+                    </TouchableOpacity>
+
+                </Modal>
+
                 <Text style={styles.messages}>Selected: {tempReminder}</Text>
 
                 <TouchableOpacity 

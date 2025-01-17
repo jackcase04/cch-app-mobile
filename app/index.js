@@ -12,7 +12,6 @@ import { useNotifications } from '../services/notificationsManager';
 const Home = () => {
     const users = useLocalSearchParams();
     const { userName, handleLogout } = useAuth(users);
-    // Destructure the object returned by useReminder
     const { reminder, setReminder } = useReminder();
     const [activeTab, setActiveTab] = useState("Chores");
     const [choresData, setChoresData] = useState([]);
