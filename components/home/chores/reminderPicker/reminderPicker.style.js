@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
       },
       unselectedtext: {
         fontFamily: "DMMedium",
+        color: "white",
       },
       doneContainer: {
         flex: 1,
