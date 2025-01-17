@@ -1,20 +1,29 @@
 import { useState } from 'react';
-import { View, Text, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, Modal, TouchableOpacity, Switch } from 'react-native';
 import styles from './chores.style';
 import { getTodaysDate } from '../../../utils';
 import ReminderPicker from './reminderPicker/ReminderPicker';
-import { Picker } from '@react-native-picker/picker';
 
-const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotifications }) => {
-    const [tempReminder, setTempReminder] = useState("");
+const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotifications, clearNotifications }) => {
+    const [tempReminder, setTempReminder] = useState("1:00 PM");
     const [showPicker, setShowPicker] = useState(false);
+
+    const [isSwitchEnabled, setIsSwitchEnabled] = useState(false);
+
+    const toggleSwitch = () => {
+        setIsSwitchEnabled(previousState => !previousState);
+        if (!isSwitchEnabled) {
+            setReminder(tempReminder);
+            scheduleNotifications();
+        } else {
+            clearNotifications();
+            setReminder("");
+        }
+    }
 
     const togglePicker = () => {
         setShowPicker(!showPicker);
     }
-
-    const [testpicker, setTestpicker] = useState("");
-    const testpickers = ["1", "2", "3"];
 
     // Filter chore by date and name
     const chore = choresData.find(chore => (chore.date === getTodaysDate() && chore.name === userName));
@@ -35,10 +44,7 @@ const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotificat
             </View>
             
             <View style={styles.remindersContainer}>
-                <Text style={[styles.messages, {marginBottom: 5}]}>Schedule Daily Reminder</Text>
-                <TouchableOpacity onPress={togglePicker}>
-                    <Text>7:00pm</Text>
-                </TouchableOpacity>
+                <Text style={[styles.reminderMessage, {marginBottom: 5}]}>Schedule Daily Reminder</Text>
                 <Modal
                     visible={showPicker}
                     transparent={true}
@@ -62,22 +68,23 @@ const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotificat
                             />
                         </TouchableOpacity>
                     </TouchableOpacity>
-
                 </Modal>
 
-                <Text style={styles.messages}>Selected: {tempReminder}</Text>
+                <View style={styles.reminderSchedulerContainer}>
+                    <TouchableOpacity 
+                        onPress={togglePicker}
+                        style={styles.reminderPicker}
+                    >
+                        <Text style={styles.reminderPickerText}>{tempReminder}</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity 
-                    style={styles.Button}
-                    onPress={() => {
-                        if (tempReminder) {
-                            setReminder(tempReminder);
-                            scheduleNotifications();
-                        }
-                    }}
-                >
-                    <Text style={styles.Text}>Confirm</Text>
-                </TouchableOpacity>
+                    <Switch
+                        trackColor={{ false: '#767577', true: '#81b0ff' }}
+                        thumbColor={isSwitchEnabled ? '#f5dd4b' : '#f4f3f4'}
+                        onValueChange={toggleSwitch}
+                        value={isSwitchEnabled}
+                    />
+                </View>
                 <Text style={[styles.messages, {marginBottom: 5}]}>Reminder scheduled for: {reminder}</Text>
             </View>
         </View>

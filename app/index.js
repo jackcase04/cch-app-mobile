@@ -69,6 +69,7 @@ const Home = () => {
                         reminder={reminder}
                         setReminder={setReminder}
                         scheduleNotifications={handleNotifications}
+                        clearNotifications={clearNotifications}
             />
             
         </SafeAreaView>

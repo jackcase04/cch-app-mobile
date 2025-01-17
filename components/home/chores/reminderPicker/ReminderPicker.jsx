@@ -8,19 +8,14 @@ const ReminderPicker = ({ setTempReminder, togglePicker }) => {
     const [selectedMinute, setSelectedMinute] = useState("00");
     const [selectedAMPM, setSelectedAMPM] = useState('AM');
 
-    // Generate hours (01-12)
     const hours = Array.from({ length: 12 }, (_, i) => 
         (i+1).toString().padStart(2, '0')
     );
 
-    // Generate minutes (00-59)
     const minutes = Array.from({ length: 60 }, (_, i) => 
         i.toString().padStart(2, '0')
     );
 
-    const ampm = ['AM', 'PM'];
-
-    // Combine hour and minute into a single time string
     const combinedTime = `${selectedHour}:${selectedMinute} ${selectedAMPM}`;
 
     return (

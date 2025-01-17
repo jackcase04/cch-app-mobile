@@ -37,34 +37,24 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         paddingHorizontal: 10,
     },
-    dropdownMenu: {
-        textAlign: 'center',
-        borderWidth: 2,  // Debug border
-        borderColor: 'grey',
-        borderRadius: 10,
-        backgroundColor: "darkgrey",
-        width: 100,
-    },
     remindersContainer: {
-        flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: "#eaeaea",
         width: "95%",
         borderRadius: 16,
     },
-    times: {
-        textAlign: 'center',
-        fontSize: 18,
-        borderWidth: 1,  // Debug border
-        borderColor: 'grey',
-        borderRadius: 1,
-        backgroundColor: "lightgrey",
-    },
     messages: {
         fontFamily: "DMRegular",
         fontSize: 16,
         textAlign: 'center',
+    },
+    reminderMessage: {
+        fontFamily: "DMMedium",
+        fontSize: 22,
+        textAlign: 'center',
+        width: 'auto',
+        marginVertical: 10
     },
     Button: {
         backgroundColor: "#FE7654",
@@ -98,6 +88,17 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
     },
+    reminderPicker: {
+        borderWidth: 2,
+        borderColor: "#FE7654",
+    },
+    reminderPickerText: {
+        fontFamily: "DMRegular",
+        fontSize: 20,
+    },
+    reminderSchedulerContainer:{
+        flexDirection: 'row',
+    }
 });
 
 export default styles;
