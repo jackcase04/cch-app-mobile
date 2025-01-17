@@ -40,7 +40,7 @@ const Header = ({ handleLogout }) => {
                         <View style={styles.menuHeader}>
                             <View style={styles.ccf_logo_container}>
                                 <Image
-                                    source={icons.ccf_logo}
+                                    source={icons.ccflogo}
                                     style={styles.ccf_logo}
                                     resizeMode='contain'
                                 />

@@ -36,16 +36,6 @@ const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotificat
     // Filter chore by date and name
     const chore = choresData.find(chore => (chore.date === getTodaysDate() && chore.name === userName));
 
-    // useEffect(() => {
-    //     if (isSwitchEnabled) {
-    //         setReminder(tempReminder);
-    //         scheduleNotifications();
-    //     } else {
-    //         clearNotifications();
-    //         setReminder("");
-    //     }
-    // }, [isSwitchEnabled]);
-
     return (
         <View style={styles.container}>
             <View style={styles.choresContainer}>
