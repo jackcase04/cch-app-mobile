@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
       fontSize: 22,
       textAlign: 'center',
       marginTop: 20,
+      marginBottom: 10,
       width: '100%',
       paddingHorizontal: 20,
       fontFamily: "DMRegular",
@@ -48,6 +49,14 @@ const styles = StyleSheet.create({
       marginVertical: 10,
       color: 'black',
       borderRadius: 16,
+      elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.15,
+        shadowRadius: 3.84,
   }
   });
   

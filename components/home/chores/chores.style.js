@@ -14,20 +14,30 @@ const styles = StyleSheet.create({
         backgroundColor: "#eaeaea",
         margin: 10,
         borderRadius: 16,
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
     },
     noChoreMessage: {
         fontFamily: "DMMedium",
         fontSize: 26,
         textAlign: 'center',
         width: 'auto',
-        marginVertical: 10
+        marginVertical: 10,
+        paddingHorizontal: 10,
     },
     choreMessage: {
         fontFamily: "DMMedium",
         fontSize: 26,
         textAlign: 'center',
         width: 'auto',
-        marginVertical: 10
+        marginVertical: 10,
+        paddingHorizontal: 10,
     },
     chore: {
         fontFamily: "DMRegular",
@@ -44,6 +54,14 @@ const styles = StyleSheet.create({
         width: "95%",
         borderRadius: 16,
         paddingBottom: 15,
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
     },
     messages: {
         fontFamily: "DMRegular",
@@ -55,7 +73,8 @@ const styles = StyleSheet.create({
         fontSize: 22,
         textAlign: 'center',
         width: 'auto',
-        marginVertical: 10
+        marginVertical: 10,
+        paddingHorizontal: 10,
     },
     Button: {
         backgroundColor: "#FE7654",

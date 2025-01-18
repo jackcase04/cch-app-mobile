@@ -1,30 +1,31 @@
 import { useState, useEffect } from 'react';
-import { View, Text, Modal, TouchableOpacity, Switch, Image } from 'react-native';
+import { View, Text, Modal, TouchableOpacity, Switch, Image, ActivityIndicator } from 'react-native';
 import styles from './chores.style';
 import { getTodaysDate } from '../../../utils';
 import ReminderPicker from './reminderPicker/ReminderPicker';
 import icons from '../../../constants/icons';
+import { useReminder } from '../../../hooks/useReminder';
+import { useSwitch } from '../../../hooks/useSwitch';
 
-const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotifications, clearNotifications }) => {
-    const [tempReminder, setTempReminder] = useState(reminder ? reminder : "1:00 PM");
+const Chores = ({ choresData, userName, scheduleNotifications, clearNotifications }) => {
+    const { reminder, setReminder, isReminderLoading } = useReminder();
+    const { switchEnabled, setSwitchEnabled, isSwitchLoading } = useSwitch();
     const [showPicker, setShowPicker] = useState(false);
 
-    const [isSwitchEnabled, setIsSwitchEnabled] = useState(reminder ? true : false);
-
     const toggleSwitch = () => {
-        setIsSwitchEnabled(previousState => !previousState);
-        if (!isSwitchEnabled) {
-            setReminder(tempReminder);
+        const newSwitchState = !switchEnabled;
+        setSwitchEnabled(newSwitchState);
+        
+        if (newSwitchState) {
             scheduleNotifications();
         } else {
             clearNotifications();
-            setReminder("");
         }
     }
-
+    
     const handleReminderChange = (time) => {
-        if (isSwitchEnabled){
-            setReminder(time);
+        setReminder(time);
+        if (switchEnabled) {
             scheduleNotifications();
         }
     }
@@ -35,6 +36,14 @@ const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotificat
 
     // Filter chore by date and name
     const chore = choresData.find(chore => (chore.date === getTodaysDate() && chore.name === userName));
+
+    if (isReminderLoading || isSwitchLoading) {
+        return (
+            <View style={styles.container}>
+                <ActivityIndicator size="large" color="#532857" />
+            </View>
+        );
+    }
 
     return (
         <View style={styles.container}>
@@ -52,7 +61,7 @@ const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotificat
             </View>
             
             <View style={styles.remindersContainer}>
-                <Text style={[styles.reminderMessage, {marginBottom: 5}]}>Schedule Daily Reminder</Text>
+                <Text style={[styles.reminderMessage, {marginBottom: 5}]}>Schedule Reoccurring  Reminder</Text>
                 <Modal
                     visible={showPicker}
                     transparent={true}
@@ -71,8 +80,8 @@ const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotificat
                             onPress={(e) => e.stopPropagation()}
                         >
                             <ReminderPicker
-                                tempReminder={tempReminder}
-                                setTempReminder={setTempReminder}
+                                reminder={reminder}
+                                setReminder={setReminder}
                                 togglePicker={togglePicker}
                                 handleReminderChange={handleReminderChange}
                             />
@@ -85,7 +94,7 @@ const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotificat
                         onPress={togglePicker}
                         style={styles.reminderPicker}
                     >
-                        <Text style={styles.reminderPickerText}>{tempReminder}</Text>
+                        <Text style={styles.reminderPickerText}>{reminder}</Text>
                         <Image
                             source={icons.downArrow}
                             style={styles.downArrow}
@@ -93,13 +102,12 @@ const Chores = ({ choresData, userName, reminder, setReminder, scheduleNotificat
                     </TouchableOpacity>
 
                     <Switch
-                        trackColor={{ false: '#767577', true: '#532857' }}
-                        thumbColor={isSwitchEnabled ? 'white' : 'white'}
+                        trackColor={{ false: '#767577', true: '#FE7654' }}
+                        thumbColor={switchEnabled ? 'white' : 'white'}
                         onValueChange={toggleSwitch}
-                        value={isSwitchEnabled}
+                        value={switchEnabled}
                     />
                 </View>
-                {/* <Text style={[styles.messages, {marginBottom: 5}]}>Reminder scheduled for: {reminder}</Text> */}
             </View>
         </View>
     )

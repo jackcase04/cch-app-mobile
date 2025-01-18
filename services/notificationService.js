@@ -117,8 +117,9 @@ export const verifyAndRescheduleNotifications = async (choresData) => {
     try {
         const name = await AsyncStorage.getItem('name');
         const reminder = await AsyncStorage.getItem('reminder');
+        const storedSwitch = await AsyncStorage.getItem('switch');
 
-        if (name && reminder) {
+        if (name && reminder && storedSwitch === 'true') {
             const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
             console.log(`Found ${scheduledNotifications.length} scheduled notifications`);
 
@@ -138,7 +139,7 @@ export const verifyAndRescheduleNotifications = async (choresData) => {
             }
                 
         } else {
-            console.log('No name or reminder found');
+            console.log('Reminder not set, skipping rescheduling');
         }
     } catch (error) {
         console.error('Failed to verify and reschedule notifications');

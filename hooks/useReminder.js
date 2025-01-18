@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useReminder = () => {
-    const [reminder, setReminder] = useState("");
-    const [isLoading, setIsLoading] = useState(true);
+    const [reminder, setReminder] = useState("1:00 PM"); //default reminder
+    const [isReminderLoading, setisReminderLoading] = useState(true);
 
     // gets stored reminder
     useEffect(() => {
@@ -16,12 +16,12 @@ export const useReminder = () => {
                     if (storedReminder !== null) {
                         setReminder(storedReminder);
                     }
-                    setIsLoading(false);
+                    setisReminderLoading(false);
                 }
             } catch (error) {
                 console.error('Error retrieving reminder:', error);
                 if (isMounted) {
-                    setIsLoading(false);
+                    setisReminderLoading(false);
                 }
             }
         };
@@ -35,7 +35,7 @@ export const useReminder = () => {
 
     // stores reminder
     useEffect(() => {
-        if (isLoading) {
+        if (isReminderLoading) {
             return;
         }
 
@@ -52,9 +52,9 @@ export const useReminder = () => {
             }
         }
         storeReminder();
-    }, [reminder, isLoading]);
+    }, [reminder, isReminderLoading]);
 
     
 
-    return { reminder, setReminder, isLoading };
+    return { reminder, setReminder, isReminderLoading };
 }

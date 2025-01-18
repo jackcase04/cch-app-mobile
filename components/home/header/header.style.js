@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         height: 120,
         borderTopRightRadius: 16,
         borderBottomRightRadius: 16,
-        marginBottom: 20,
+        marginBottom: 10,
     },
     appTitle: {
         fontFamily: "DMBold",
@@ -50,12 +50,13 @@ const styles = StyleSheet.create({
     logoutButton: {
         flexDirection: "row",
         color: 'black',
+        paddingVertical: 10,
     },
     logoutText: {
         paddingLeft: 20,
         fontFamily: "DMMedium",
         fontSize: 20,
-        paddingRight: 10
+        paddingRight: 10,
     },
     menuIcon: {
         width: 25,
