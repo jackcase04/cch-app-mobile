@@ -12,7 +12,7 @@ import { useNotifications } from '../services/notificationsManager';
 const Home = () => {
     const users = useLocalSearchParams();
     const { userName, handleLogout } = useAuth(users);
-    const { reminder, setReminder } = useReminder();
+    const { reminder, setReminder, isLoading } = useReminder();
     const [activeTab, setActiveTab] = useState("Chores");
     const [choresData, setChoresData] = useState([]);
     const { handleNotifications, clearNotifications } = useNotifications(choresData);

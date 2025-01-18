@@ -2,38 +2,46 @@ import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useReminder = () => {
-    const [reminder, setReminder] = useState(null);
-    const [isInitialized, setIsInitialized] = useState(false);
+    const [reminder, setReminder] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
 
     // gets stored reminder
     useEffect(() => {
+        let isMounted = true;
+
         const getReminder = async () => {
             try {
                 const storedReminder = await AsyncStorage.getItem('reminder');
-                if (storedReminder) {
-                    setReminder(storedReminder);
-                    console.log('Reminder retrieved from AsyncStorage:', storedReminder);
-                } else {
-                    setReminder("");
+                if (isMounted) {
+                    if (storedReminder !== null) {
+                        setReminder(storedReminder);
+                    }
+                    setIsLoading(false);
                 }
-                setIsInitialized(true);
             } catch (error) {
                 console.error('Error retrieving reminder:', error);
+                if (isMounted) {
+                    setIsLoading(false);
+                }
             }
         };
     
         getReminder();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     // stores reminder
     useEffect(() => {
-        if (!isInitialized) {
+        if (isLoading) {
             return;
         }
 
         const storeReminder = async () => {
             try {
-                if (reminder != "") {
+                if (reminder !== "") {
                     await AsyncStorage.setItem('reminder', reminder);
                 } else {
                     await AsyncStorage.removeItem('reminder');
@@ -44,9 +52,9 @@ export const useReminder = () => {
             }
         }
         storeReminder();
-    }, [reminder, isInitialized]);
+    }, [reminder, isLoading]);
 
     
 
-    return { reminder, setReminder };
+    return { reminder, setReminder, isLoading };
 }
