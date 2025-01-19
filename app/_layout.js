@@ -1,11 +1,14 @@
-// Tries to load custom fonts, falls back to system fonts if needed
-
+import { useEffect, useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { Stack } from 'expo-router';
-import { useCallback, useState, useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-const Layout = () => {
+
+SplashScreen.preventAutoHideAsync();
+
+export default function RootLayout() {
+    const [isReady, setIsReady] = useState(false);
     const [fontsLoaded] = useFonts({
         DMBold: require('../assets/fonts/DMSans-Bold.ttf'),
         DMMedium: require('../assets/fonts/DMSans-Medium.ttf'),
@@ -14,39 +17,62 @@ const Layout = () => {
 
     const [useFallbackFont, setUseFallbackFont] = useState(false);
 
-    const onLayoutRootView = useCallback(async () => {
-        if (fontsLoaded) {
-            await SplashScreen.hideAsync();
-        } else if (useFallbackFont) {
-            await SplashScreen.hideAsync();
-        }
-    }, [fontsLoaded, useFallbackFont]);
-
     useEffect(() => {
         // If fonts fail to load within a timeout, fallback to system fonts
         const fallbackTimeout = setTimeout(() => {
             if (!fontsLoaded) {
                 setUseFallbackFont(true);
             }
-        }, 5000); // 5 seconds timeout for font loading
+        }, 5000);
 
         return () => clearTimeout(fallbackTimeout);
     }, [fontsLoaded]);
 
-    if (!fontsLoaded && !useFallbackFont) {
-        return null; // Show nothing until fonts load or fallback is triggered
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 150));
+      } finally {
+        setIsReady(true);
+      }
     }
 
-    return (
-        <Stack
-            screenOptions={{
-                headerStyle: { fontFamily: useFallbackFont ? 'System' : 'DMRegular' },
-                headerTitleStyle: { fontFamily: useFallbackFont ? 'System' : 'DMBold' },
-                contentStyle: { fontFamily: useFallbackFont ? 'System' : 'DMRegular' },
-            }}
-            onLayout={onLayoutRootView}
-        />
-    );
-};
+    prepare();
+  }, []);
 
-export default Layout;
+  const onLayoutRootView = async () => {
+    if (isReady && (fontsLoaded || useFallbackFont)) {
+      await SplashScreen.hideAsync();
+    }
+  };
+
+  if (!isReady || (!fontsLoaded && !useFallbackFont)) {
+    return null;
+  }
+
+  return (
+    <View style={styles.container} onLayout={onLayoutRootView}>
+      <Stack
+        screenOptions={{
+            headerStyle: { fontFamily: useFallbackFont ? 'System' : 'DMRegular' },
+            headerTitleStyle: { fontFamily: useFallbackFont ? 'System' : 'DMBold' },
+            contentStyle: { fontFamily: useFallbackFont ? 'System' : 'DMRegular' },
+            animation: 'fade',
+            headerShown: false,
+            animationDuration: 500,
+            presentation: 'transparentModal',
+            contentStyle: { backgroundColor: 'white' }
+        }}
+      >
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="login/login_screen" options={{ headerShown: false }} />
+      </Stack>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
