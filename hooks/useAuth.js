@@ -1,64 +1,82 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import * as Notifications from 'expo-notifications';
 
 export const useAuth = (users) => {
     const router = useRouter();
-    const [userName, setUserName] = useState("");
-    const [initialized, setInitialized] = useState(false);
+    const [userName, setUserName] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // Waits for the app to initialize
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setInitialized(true);
-        }, 100);
-    
-        return () => clearTimeout(timer);
-    }, []);
+    const navigateToLogin = useCallback(() => {
+        router.push('/login/login_screen');
+    }, [router]);
 
-    useEffect(() => {
-        const checkIfLoggedIn = async () => {
-            try {
-                const name = await AsyncStorage.getItem('name');
-                // If there is a value in async
-                if (name) {
-                    setUserName(name);
-                    console.log('Logged in as:', name);
-                // If there is no value in async
-                } else {
-                    // if first time logging in
-                    if (initialized && !users.choice) {
-                        router.push(`/login/login_screen`);
-                    // if rerouting
-                    } else if (initialized && users.choice) {
-                        setUserName(users.choice);
-                        await AsyncStorage.setItem('name', users.choice);
-                        console.log('Logged in as:', users.choice);
-                    }
-                }
-            } catch (error) {
-                console.error('Error retrieving name:', error);
-            }
-        }
-        checkIfLoggedIn();
-    }, [initialized, users.choice]);
-
-    const handleLogout = async () => {
-        // Clear async storage, local variable, and users.choice
-        // Then reroute to login screen and reset all those
+    const clearUserData = useCallback(async () => {
         try {
             await AsyncStorage.clear();
             await Notifications.cancelAllScheduledNotificationsAsync();
-            console.log('Notifications cleared(from handleLogout)');
-            setUserName("");
-            console.log('Logged out');
-
-            router.push(`/login/login_screen`);
+            setUserName('');
+            setError(null);
         } catch (error) {
-            console.error('Error logging out:', error);
+            console.error('Error clearing user data:', error);
+            setError('Failed to clear user data');
+            throw error;
         }
-    };
+    }, []);
 
-    return { userName, handleLogout };
-}
+    const handleLogout = useCallback(async () => {
+        try {
+            await clearUserData();
+            console.log('Successfully logged out');
+            navigateToLogin();
+        } catch (error) {
+            console.error('Error during logout:', error);
+            setError('Failed to logout. Please try again.');
+        }
+    }, [clearUserData, navigateToLogin]);
+
+    const initializeAuth = useCallback(async () => {
+        try {
+            const storedName = await AsyncStorage.getItem("name");
+            
+            if (storedName) {
+                setUserName(storedName);
+                console.log('Logged in as:', storedName);
+                return;
+            }
+
+            if (users?.choice) {
+                setUserName(users.choice);
+                await AsyncStorage.setItem("name", users.choice);
+                console.log('Logged in as:', users.choice);
+                return;
+            }
+
+            navigateToLogin();
+        } catch (error) {
+            console.error('Error during auth initialization:', error);
+            setError('Failed to initialize authentication');
+            navigateToLogin();
+        } finally {
+            setIsLoading(false);
+        }
+    }, [users?.choice, navigateToLogin]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            initializeAuth();
+        }, 100);
+
+        return () => clearTimeout(timer);
+    }, [initializeAuth]);
+
+    return {
+        userName,
+        handleLogout,
+        isLoading,
+        error,
+        clearError: () => setError(null)
+    };
+};
