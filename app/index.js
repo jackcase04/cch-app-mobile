@@ -38,6 +38,7 @@ const Home = () => {
             />
             <Header
                 handleLogout={handleLogout}
+                userName={userName}
             />
             <Welcome
                 userName={userName}

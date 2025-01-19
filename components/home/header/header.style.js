@@ -45,7 +45,13 @@ const styles = StyleSheet.create({
         fontFamily: "DMBold",
         fontSize: 30,
         marginLeft: 10,
-        marginTop: 30,
+        marginTop: 20,
+    },
+    userText: {
+        fontFamily: "DMMedium",
+        fontSize: 14,
+        marginLeft: 10,
+        width: 130,
     },
     logoutButton: {
         flexDirection: "row",

@@ -3,7 +3,7 @@ import { SafeAreaView, TouchableOpacity, View, Text, Image, Modal } from 'react-
 import styles from './header.style';
 import icons from '../../../constants/icons';
 
-const Header = ({ handleLogout }) => {
+const Header = ({ handleLogout, userName }) => {
     const [showMenu, setShowMenu] = useState(false);
 
     const toggleMenu = () => {
@@ -45,7 +45,10 @@ const Header = ({ handleLogout }) => {
                                     resizeMode='contain'
                                 />
                             </View>
-                            <Text style={styles.appTitle}>CCH App</Text>
+                            <View>
+                                <Text style={styles.appTitle}>CCH App</Text>
+                                <Text style={styles.userText}>User: {userName}</Text>
+                            </View>
                         </View>
 
                         <TouchableOpacity
