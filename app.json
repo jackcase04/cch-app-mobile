@@ -35,6 +35,6 @@
         "UIBackgroundModes": ["remote-notification"]
       }
     },
-    "icon": "./assets/icons/ccflogo1.png"
+    "icon": "./assets/appstore.png"
   }
 }
