@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// This hook allows the user to set and retrieve a reminder time for their chores
+// Stores reminder in AsyncStorage
+// basically allows for the state variable reminder to be stored in AsyncStorage when set just like a normal state variable
+
 export const useReminder = () => {
     const [reminder, setReminder] = useState("1:00 PM"); //default reminder
     const [isReminderLoading, setisReminderLoading] = useState(true);
@@ -53,8 +57,6 @@ export const useReminder = () => {
         }
         storeReminder();
     }, [reminder, isReminderLoading]);
-
-    
 
     return { reminder, setReminder, isReminderLoading };
 }

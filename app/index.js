@@ -8,6 +8,8 @@ import { setupLocalNotifications, verifyAndRescheduleNotifications } from '../se
 import { useAuth } from '../hooks/useAuth';
 import { useNotifications } from '../services/notificationsManager';
 
+// This app allows users to select their name, see their chores, and schedule notifications for their chores
+
 const Home = () => {
     const users = useLocalSearchParams();
     const { userName, handleLogout } = useAuth(users);

@@ -37,7 +37,7 @@ const Chores = ({ choresData, userName, scheduleNotifications, clearNotification
     // Filter chore by date and name
     const chore = choresData.find(chore => (chore.date === getTodaysDate() && chore.name === userName));
 
-    if (isReminderLoading || isSwitchLoading) {
+    if (isReminderLoading || isSwitchLoading || choresData.length === 0 || !choresData) {
         return (
             <View style={styles.container}>
                 <ActivityIndicator size="large" color="#532857" />

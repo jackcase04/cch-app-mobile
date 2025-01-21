@@ -4,6 +4,9 @@ import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
+// This layout file is used to make sure the user loading screen is smooth
+// It will show the splash screen until the fonts are loaded
+// Then fades in smoothly
 
 SplashScreen.preventAutoHideAsync();
 

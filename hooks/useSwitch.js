@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Similar to the reminder hook, this hook manages the switch state
+// stores the switch state in async storage
+
 export const useSwitch = () => {
     const [switchEnabled, setSwitchEnabled] = useState(false);
     const [isSwitchLoading, setIsSwitchLoading] = useState(true);
 
-    // gets stored reminder
+    // gets stored switch state
     useEffect(() => {
         let isMounted = true;
 
@@ -31,7 +34,7 @@ export const useSwitch = () => {
         };
     }, []);
 
-    // stores reminder
+    // stores switch state
     useEffect(() => {
         if (isSwitchLoading) {
             return;
@@ -46,8 +49,6 @@ export const useSwitch = () => {
         }
         storeSwitch();
     }, [switchEnabled, isSwitchLoading]);
-
-    
 
     return { switchEnabled, setSwitchEnabled, isSwitchLoading };
 }

@@ -1,9 +1,11 @@
+// This file has various utility functions that are used in the app.
+
 // Function to get todays date and return it in MM/DD/YYYY format
 export const getTodaysDate = () => {
     const today = new Date();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    const year = String(today.getFullYear());
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    const year = today.getFullYear();
     return `${month}/${day}/${year}`;
 };
 
@@ -84,6 +86,7 @@ export const filterFutureChores = (choresData, reminder, name) => {
     return chores;
 }
 
+// sorts names alphabetically
 export const sortByFirstName = (names) => {
     return names.sort((a, b) => {
         return a.toLowerCase().localeCompare(b.toLowerCase());

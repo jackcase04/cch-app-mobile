@@ -3,6 +3,10 @@ import { convertToNotificationTrigger, filterFutureChores } from '../utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform, Alert, Linking } from 'react-native';
 
+// This file is responsible for setting up and managing local notifications
+// It uses Expo Notifications to schedule and manage notifications
+// Also tries to reschedule notifications if the user's chores change
+
 // Initialize notifications
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -13,6 +17,7 @@ Notifications.setNotificationHandler({
     }),
 });
 
+// Android only
 const createNotificationChannel = async () => {
     if (Platform.OS === 'android') {
         await Notifications.setNotificationChannelAsync('chores', {
@@ -24,6 +29,7 @@ const createNotificationChannel = async () => {
     }
 };
 
+// Get notification permissions and request if not granted
 export const setupLocalNotifications = async () => {
     try {
       await createNotificationChannel();
@@ -113,6 +119,7 @@ export const scheduleNotifications = async (choresData) => {
     }
 };
 
+// Check if notifications are scheduled for each upcoming chore and reschedule them if not
 export const verifyAndRescheduleNotifications = async (choresData) => {
     try {
         const name = await AsyncStorage.getItem('name');

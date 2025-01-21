@@ -1,7 +1,11 @@
 import * as Notifications from 'expo-notifications';
 import { scheduleNotifications } from './notificationService';
 
+// This hook is used to allow notifications to be scheduled and cleared
+
 export const useNotifications = (choresData) => {
+
+    // schedules notifications
     const handleNotifications = async () => {
         try {
             await scheduleNotifications(choresData);
@@ -10,6 +14,7 @@ export const useNotifications = (choresData) => {
         }
     };
 
+    // clears notifications
     const clearNotifications = async () => {
         try {
             await Notifications.cancelAllScheduledNotificationsAsync();

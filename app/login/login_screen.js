@@ -3,6 +3,8 @@ import { SafeAreaView } from 'react-native';
 import { Login } from '../../components';
 import { Stack, useRouter } from 'expo-router';
 
+// This file basically just renders the Login component
+
 const LoginScreen = () => {
     const router = useRouter();
 
