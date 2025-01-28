@@ -6,6 +6,8 @@ import { parseNamesData } from '../../../services/choreService';
 import { sortByFirstName } from '../../../utils';
 import { Picker } from '@react-native-picker/picker';
 
+// This component allows users to select their name to login
+
 const Login = ({ onLogin }) => {
     const names = sortByFirstName(parseNamesData(namesCSV));
     const [tempName, setTempName] = useState(names[0]);

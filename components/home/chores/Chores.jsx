@@ -7,6 +7,8 @@ import icons from '../../../constants/icons';
 import { useReminder } from '../../../hooks/useReminder';
 import { useSwitch } from '../../../hooks/useSwitch';
 
+// This is a component that displays the user's chore for the day and allows them to schedule reminders
+
 const Chores = ({ choresData, userName, scheduleNotifications, clearNotifications }) => {
     const { reminder, setReminder, isReminderLoading } = useReminder();
     const { switchEnabled, setSwitchEnabled, isSwitchLoading } = useSwitch();

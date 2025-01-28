@@ -1,26 +1,14 @@
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text } from 'react-native';
 import styles from './welcome.style';
 
-const Welcome = ({ userName, activeTab, setActiveTab }) => {
-    const tabs = ["Chores"];
+// For now, this component only reneders a welcome message
+// In the future, it can be used to display tabs that render other components for more features
 
+const Welcome = ({ userName }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.welcomeMessage} >Welcome, {userName.split(' ')[0]}</Text>
-            {/* TODO: Implement tab feature in the future when more functions are needed */}
-            {/* <View style={styles.tabsContainer}>
-                <FlatList
-                    data={tabs}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity style={styles.tab} onPress={() => setActiveTab(item)}>
-                            <Text style={styles.tabText}>{item}</Text>
-                        </TouchableOpacity>
-                    )}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    keyExtractor={(item) => item}
-                />
-            </View> */}
+            {/* TODO: Add tabs for more features*/}
         </View>
     )
 }

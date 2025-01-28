@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from './reminderPicker.style.js';
 
+// This component renders a popup that allows users to select a reminder time
+
 const ReminderPicker = ({ reminder, setReminder, togglePicker, handleReminderChange }) => {
     const [hour, minutePeriod] = reminder.split(':');
     const [minute, period] = minutePeriod.split(' ');

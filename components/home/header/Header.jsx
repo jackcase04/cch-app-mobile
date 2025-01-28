@@ -3,6 +3,9 @@ import { SafeAreaView, TouchableOpacity, View, Text, Image, Modal } from 'react-
 import styles from './header.style';
 import icons from '../../../constants/icons';
 
+// This is a custom header
+// Users can click on the menu button to toggle a modal with a logout button
+
 const Header = ({ handleLogout, userName }) => {
     const [showMenu, setShowMenu] = useState(false);
 
