@@ -27,10 +27,6 @@ From there I could import the CSV data into the app and convert to a 2D array. T
 
 Here are some screenshots of the user experience using the app.
 
-## Screenshots
-
-Here are some screenshots of the user experience using the app.
-
 <p align="left">
     <img src="screenshots/app%20screenshot%201.jpg" alt="Login Screen" width="150" hspace="10"><img src="screenshots/app%20screenshot%202.jpg" alt="Home Screen" width="150" hspace="10"><img src="screenshots/app%20screenshot%203.jpg" alt="Reminder Picker" width="150" hspace="10"><img src="screenshots/app%20screenshot%204.jpg" alt="Header" width="150" hspace="10">
 </p>
