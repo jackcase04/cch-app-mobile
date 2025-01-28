@@ -31,7 +31,6 @@ Here are some screenshots of the user experience using the app.
 
 Here are some screenshots of the user experience using the app.
 
-<img src="screenshots/app%20screenshot%201.jpg" alt="Login Screen" width="150" style="display: inline-block; margin-right: 10px;">
-<img src="screenshots/app%20screenshot%202.jpg" alt="Home Screen" width="150" style="display: inline-block; margin-right: 10px;">
-<img src="screenshots/app%20screenshot%203.jpg" alt="Reminder Picker" width="150" style="display: inline-block; margin-right: 10px;">
-<img src="screenshots/app%20screenshot%204.jpg" alt="Header" width="150" style="display: inline-block;">
+<p align="left">
+    <img src="screenshots/app%20screenshot%201.jpg" alt="Login Screen" width="150"><img src="screenshots/app%20screenshot%202.jpg" alt="Home Screen" width="150"><img src="screenshots/app%20screenshot%203.jpg" alt="Reminder Picker" width="150"><img src="screenshots/app%20screenshot%204.jpg" alt="Header" width="150">
+</p>
