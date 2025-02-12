@@ -2,7 +2,7 @@ import * as Notifications from 'expo-notifications';
 import { convertToNotificationTrigger, filterFutureChores } from '../utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform, Alert, Linking } from 'react-native';
-import { API_KEY } from '@env';
+import { API_KEY, API_URL } from '@env';
 
 // This file is responsible for setting up and managing local notifications
 // It uses Expo Notifications to schedule and manage notifications
@@ -88,7 +88,7 @@ export const scheduleNotifications = async () => {
         const name = await AsyncStorage.getItem('name');
         const reminder = await AsyncStorage.getItem('reminder');
 
-        const response = await fetch(`https://cch-house-app-backend-production.up.railway.app/chores/${name}`,
+        const response = await fetch(`${API_URL}chores/${name}`,
         {
             method: 'GET',
             headers: {
@@ -142,7 +142,7 @@ export const verifyAndRescheduleNotifications = async () => {
             const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
             console.log(`Found ${scheduledNotifications.length} scheduled notifications`);
 
-            const response = await fetch(`https://cch-house-app-backend-production.up.railway.app/chores/${name}`,
+            const response = await fetch(`${API_URL}chores/${name}`,
               {
                   method: 'GET',
                   headers: {

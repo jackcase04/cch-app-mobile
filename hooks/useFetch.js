@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_KEY } from '@env';
+import { API_KEY, API_URL } from '@env';
 
 const useFetch = (endpoint, query = {}) => {
     const [data, setData] = useState([]);
@@ -9,7 +9,7 @@ const useFetch = (endpoint, query = {}) => {
 
     const options = {
         method: 'GET',
-        url: `https://cch-house-app-backend-production.up.railway.app/${endpoint}`,
+        url: `${API_URL}${endpoint}`,
         headers: {
             'X-API-Key': API_KEY
         },
