@@ -8,9 +8,10 @@ import { useReminder } from '../../../hooks/useReminder';
 import { useSwitch } from '../../../hooks/useSwitch';
 import useFetch from '../../../hooks/useFetch';
 
+import { scheduleNotifications, clearNotifications } from '../../../services/notificationService';
 // This is a component that displays the user's chore for the day and allows them to schedule reminders
 
-const Chores = ({ userName, scheduleNotifications, clearNotifications }) => {
+const Chores = ({ userName }) => {
     const { reminder, setReminder, isReminderLoading } = useReminder();
     const { switchEnabled, setSwitchEnabled, isSwitchLoading } = useSwitch();
     const [showPicker, setShowPicker] = useState(false);

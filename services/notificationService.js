@@ -176,3 +176,13 @@ export const verifyAndRescheduleNotifications = async () => {
         console.error('Failed to verify and reschedule notifications');
     }
 }
+
+// Clear all scheduled notifications
+export const clearNotifications = async () => {
+    try {
+        await Notifications.cancelAllScheduledNotificationsAsync();
+        console.log('Notifications cleared (from clearNotifications)');
+    } catch (error) {
+        console.error('Failed to clear notifications:', error);
+    }
+};
