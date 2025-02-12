@@ -1,16 +1,35 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import styles from './login.style';
-import namesCSV from '../../../assets/names';
-import { parseNamesData } from '../../../services/choreService';
-import { sortByFirstName } from '../../../utils';
 import { Picker } from '@react-native-picker/picker';
+import useFetch from '../../../hooks/useFetch';
 
 // This component allows users to select their name to login
 
 const Login = ({ onLogin }) => {
-    const names = sortByFirstName(parseNamesData(namesCSV));
-    const [tempName, setTempName] = useState(names[0]);
+    const { data, isLoading, error } = useFetch('/names');
+    const [names, setNames] = useState([]);
+    const [tempName, setTempName] = useState(''); 
+
+    // Process names when data changes 
+    useEffect(() => {
+        if (data) {
+            const sortedNames = data.map(item => item.name).sort();
+            console.log("Data Fetched: ", sortedNames);
+            setNames(sortedNames);
+            if (sortedNames.length > 0 && !tempName) {
+                setTempName(sortedNames[0]);
+            }
+        }
+    }, [data]);
+
+    if (isLoading) {
+        return (
+            <View style={styles.loadingcontainer}>
+                <ActivityIndicator size="large" color="#532857" />
+            </View>
+        );
+    }
 
     return (
         <View style={styles.container}>

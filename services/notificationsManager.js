@@ -3,12 +3,12 @@ import { scheduleNotifications } from './notificationService';
 
 // This hook is used to allow notifications to be scheduled and cleared
 
-export const useNotifications = (choresData) => {
+export const useNotifications = () => {
 
     // schedules notifications
     const handleNotifications = async () => {
         try {
-            await scheduleNotifications(choresData);
+            await scheduleNotifications();
         } catch (error) {
             console.error('Failed to send notification:', error);
         }

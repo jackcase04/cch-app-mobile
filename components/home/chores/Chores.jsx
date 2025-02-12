@@ -6,13 +6,16 @@ import ReminderPicker from './reminderPicker/ReminderPicker';
 import icons from '../../../constants/icons';
 import { useReminder } from '../../../hooks/useReminder';
 import { useSwitch } from '../../../hooks/useSwitch';
+import useFetch from '../../../hooks/useFetch';
 
 // This is a component that displays the user's chore for the day and allows them to schedule reminders
 
-const Chores = ({ choresData, userName, scheduleNotifications, clearNotifications }) => {
+const Chores = ({ userName, scheduleNotifications, clearNotifications }) => {
     const { reminder, setReminder, isReminderLoading } = useReminder();
     const { switchEnabled, setSwitchEnabled, isSwitchLoading } = useSwitch();
     const [showPicker, setShowPicker] = useState(false);
+    const { data, isLoading, error } = useFetch(`/chores/${userName}/date/${getTodaysDate()}`);
+    const [ chore, setChore ] = useState(null);
 
     const toggleSwitch = () => {
         const newSwitchState = !switchEnabled;
@@ -37,9 +40,15 @@ const Chores = ({ choresData, userName, scheduleNotifications, clearNotification
     }
 
     // Filter chore by date and name
-    const chore = choresData.find(chore => (chore.date === getTodaysDate() && chore.name === userName));
+    useEffect(() => {
+        if (data && Array.isArray(data) && data.length > 0) {
+            const description = data[0].description;
+            console.log("Fetched Chore Description: ", description);
+            setChore(description);
+        }
+    }, [data]);
 
-    if (isReminderLoading || isSwitchLoading || choresData.length === 0 || !choresData) {
+    if (isReminderLoading || isSwitchLoading || isLoading) {
         return (
             <View style={styles.container}>
                 <ActivityIndicator size="large" color="#532857" />
@@ -50,10 +59,10 @@ const Chores = ({ choresData, userName, scheduleNotifications, clearNotification
     return (
         <View style={styles.container}>
             <View style={styles.choresContainer}>
-                {chore ? (
+                {(chore != "No chore today") ? (
                     <>
                         <Text style={styles.choreMessage}>Your Chore today is:</Text>
-                        <Text style={styles.chore}>{chore.location}</Text>
+                        <Text style={styles.chore}>{chore}</Text>
                     </>
                 ) : (
                     <>

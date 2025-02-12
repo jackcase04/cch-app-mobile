@@ -8,6 +8,11 @@ const styles = StyleSheet.create({
       borderRadius: 30,
       margin: 20,
     },
+    loadingcontainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
     welcomeMessage: {
       fontSize: 28,
       fontFamily: "DMBold",

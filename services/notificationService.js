@@ -2,6 +2,7 @@ import * as Notifications from 'expo-notifications';
 import { convertToNotificationTrigger, filterFutureChores } from '../utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform, Alert, Linking } from 'react-native';
+import { API_KEY } from '@env';
 
 // This file is responsible for setting up and managing local notifications
 // It uses Expo Notifications to schedule and manage notifications
@@ -79,7 +80,7 @@ export const setupLocalNotifications = async () => {
 };
 
 // Schedule notifications for chores
-export const scheduleNotifications = async (choresData) => {
+export const scheduleNotifications = async () => {
     try {
         await Notifications.cancelAllScheduledNotificationsAsync();
         console.log('Cleared all scheduled notifications (from scheduleNotifications)');
@@ -87,9 +88,20 @@ export const scheduleNotifications = async (choresData) => {
         const name = await AsyncStorage.getItem('name');
         const reminder = await AsyncStorage.getItem('reminder');
 
-        // Only chores that correspond with the user and are in the future/today
-        const chores = filterFutureChores(choresData, reminder, name);
+        const response = await fetch(`https://cch-house-app-backend-production.up.railway.app/chores/${name}`,
+        {
+            method: 'GET',
+            headers: {
+                'X-API-Key': API_KEY
+            }
+        }
+
+        );
+        const data = await response.json();
             
+        let chores = data.map(({ date, name, description }) => ({ date, name, description }));
+        chores = filterFutureChores(chores, reminder, name);
+
         console.log(`Found ${chores.length} upcoming chores for ${name}`);
 
         for (const chore of chores) {
@@ -100,7 +112,7 @@ export const scheduleNotifications = async (choresData) => {
                     await Notifications.scheduleNotificationAsync({
                         content: {
                             title: "You have 1 chore today",
-                            body: chore.location,
+                            body: chore.description,
                             android: {
                                 channelId: 'chores',
                                 importance: Notifications.AndroidImportance.MAX,
@@ -108,7 +120,7 @@ export const scheduleNotifications = async (choresData) => {
                         },
                         trigger,
                     });
-                    console.log(`Scheduled notification for ${chore.date} at ${reminder}: ${chore.location}`);
+                    console.log(`Scheduled notification for ${chore.date} at ${reminder}: ${chore.description}`);
                 }
             } catch {
                 console.error('Failed to schedule notification');
@@ -120,7 +132,7 @@ export const scheduleNotifications = async (choresData) => {
 };
 
 // Check if notifications are scheduled for each upcoming chore and reschedule them if not
-export const verifyAndRescheduleNotifications = async (choresData) => {
+export const verifyAndRescheduleNotifications = async () => {
     try {
         const name = await AsyncStorage.getItem('name');
         const reminder = await AsyncStorage.getItem('reminder');
@@ -130,15 +142,27 @@ export const verifyAndRescheduleNotifications = async (choresData) => {
             const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
             console.log(`Found ${scheduledNotifications.length} scheduled notifications`);
 
-            // Only chores that correspond with the user and are in the future/today
-            const chores = filterFutureChores(choresData, reminder, name);
+            const response = await fetch(`https://cch-house-app-backend-production.up.railway.app/chores/${name}`,
+              {
+                  method: 'GET',
+                  headers: {
+                      'X-API-Key': API_KEY
+                  }
+              }
+      
+            );
+            const data = await response.json();
+                  
+            let chores = data.map(({ date, name, description }) => ({ date, name, description }));
+            chores = filterFutureChores(chores, reminder, name);
+
             console.log(`Found ${chores.length} upcoming chores for ${name}`);
 
             if (scheduledNotifications.length !== chores.length) {
                 console.log('Mismatch found, Rescheduling notifications');
                 console.log(`Expected: ${chores.length}, Actually scheduled: ${scheduledNotifications.length}`);
 
-                await scheduleNotifications(choresData);
+                await scheduleNotifications();
                 const afterReschedule = await Notifications.getAllScheduledNotificationsAsync();
                 console.log('Notifications after rescheduling:', afterReschedule.length);
             } else {
