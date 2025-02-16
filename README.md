@@ -10,7 +10,9 @@ I was inspired to create this app because I live in the Christian Campus House a
 ## Technologies Used
 
 Frontend: React Native (JavaScript)
+
 Development Tools: Expo, Expo Go
+
 Notifications: Expo Notifications API
 
 ## Installation
