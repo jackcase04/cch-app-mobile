@@ -1,7 +1,7 @@
 # CCH App
 ## _Christian Campus House App_
 
-This project is an app for members of a residential house in college. As for now, it allows them to "login" by selecting their name and see what chores they have to do for that day. Users can also set reoccuring reminders to remind them on days they have chores so they dont forget. 
+This project is an app for members of a residential house in college. It allows them to "login" by selecting their name and see what chores they have to do for that day. Users can also set reoccuring reminders to remind them on days they have chores so they dont forget. 
 
 ## Inspiration
 
@@ -15,10 +15,10 @@ Notifications: Expo Notifications API
 
 ## Installation
 
-# For Android Users
+### For Android Users
 Installation is straightforward—simply download and install the provided app file.
 
-# For iOS Users
+### For iOS Users
 The app is available via unlisted app distribution on the App Store. Only members with the provided link can access the app.
 
 ## Key Features
