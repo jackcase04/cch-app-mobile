@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_KEY, API_URL } from '@env';
 
-const useFetch = (endpoint, query = {}) => {
+const api_key = API_KEY;
+
+const useFetch = (endpoint) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -11,9 +13,8 @@ const useFetch = (endpoint, query = {}) => {
         method: 'GET',
         url: `${API_URL}${endpoint}`,
         headers: {
-            'X-API-Key': API_KEY
-        },
-        params: { ...query }
+            'X-API-Key': api_key
+        }
     };
 
     const fetchData = async () => {
@@ -34,12 +35,7 @@ const useFetch = (endpoint, query = {}) => {
         fetchData();
     }, []);
 
-    const refetch = () => {
-        setIsLoading(true);
-        fetchData();
-    };
-
-    return { data, isLoading, error, refetch };
+    return { data, isLoading, error};
 };
 
 export default useFetch;
