@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_KEY, API_URL } from '@env';
+import { API_URL } from '@env';
 
-const api_key = API_KEY;
+const api_url = API_URL;
 
 const useFetch = (endpoint) => {
     const [data, setData] = useState([]);
@@ -11,10 +11,7 @@ const useFetch = (endpoint) => {
 
     const options = {
         method: 'GET',
-        url: `${API_URL}${endpoint}`,
-        headers: {
-            'X-API-Key': api_key
-        }
+        url: `${api_url}${endpoint}`,
     };
 
     const fetchData = async () => {
@@ -23,13 +20,13 @@ const useFetch = (endpoint) => {
             const response = await axios.request(options);
             setData(response.data);
             setIsLoading(false);
-        } catch (error) {
+        } catch (error) { 
             setError(error);
-            alert(`Error: ${error.message}`);
+            alert(`Error from use fetch: ${error.message}`);
         } finally {
             setIsLoading(false);
         }
-    };
+    }; 
 
     useEffect(() => {
         fetchData();
