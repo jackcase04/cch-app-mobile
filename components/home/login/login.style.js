@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     selectMessage: {
       fontSize: 22,
       textAlign: 'center',
-      marginTop: 20,
+      marginTop: 180,
       marginBottom: 10,
       width: '100%',
       paddingHorizontal: 20,
@@ -42,6 +42,19 @@ const styles = StyleSheet.create({
     loginText: {
         fontSize: 16,
         color: "#F3F4F8",
+        fontFamily: "DMBold",
+    },
+    signupButton: {
+        backgroundColor: "#eaeaea",
+        borderRadius: 16,
+        marginTop: 20,
+        marginBottom: 20,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+    },
+    signupText: {
+        fontSize: 16,
+        color: "#312651",
         fontFamily: "DMBold"
     },
     selectedName: {
