@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import styles from './login.style';
 import { Picker } from '@react-native-picker/picker';
-import useFetch from '../../../hooks/useFetch';
-import { loginUser } from '../../../services/authService'
+import useFetch from '../../hooks/useFetch';
+import { loginUser } from '../../services/authService'
 import { Alert } from 'react-native';
 
 // This component allows users to select their name to login
@@ -27,6 +27,7 @@ const Login = ({ onLogin }) => {
             Alert.alert('Success', result.message);
             // Navigate to next screen here
             // navigation.navigate('Home');
+            onLogin(tempName)
         } else {
             console.log("not success", result.message)
             Alert.alert('Error, login insuccessful');
