@@ -4,35 +4,36 @@ import { API_URL } from '@env';
 
 const api_url = API_URL;
 
-const useFetch = (endpoint) => {
+const useFetch = (endpoint, method = 'GET', body = null, headers = {}) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const options = {
-        method: 'GET',
-        url: `${api_url}${endpoint}`,
-    };
-
-    const fetchData = async () => {
-        setIsLoading(true);
-        try {
-            const response = await axios.request(options);
-            setData(response.data);
-            setIsLoading(false);
-        } catch (error) { 
-            setError(error);
-            alert(`Error from use fetch: ${error.message}`);
-        } finally {
-            setIsLoading(false);
-        }
-    }; 
-
     useEffect(() => {
-        fetchData();
-    }, []);
+        const fetchData = async () => {
+            setIsLoading(true);
+            try {
+                const response = await axios({
+                    method,
+                    url: `${api_url}${endpoint}`,
+                    ...(method !== 'GET' && { data: body }),
+                    headers: method === 'GET'
+                        ? headers
+                        : { 'Content-Type': 'application/json', ...headers }
+                });
+                setData(response.data);
+            } catch (err) {
+                setError(err);
+                alert(`Error from useFetch: ${err.message}`);
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-    return { data, isLoading, error};
+        fetchData();
+    }, [endpoint, method, body]);
+
+    return { data, isLoading, error };
 };
 
 export default useFetch;

@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { View, Text, Modal, TouchableOpacity, Switch, Image, ActivityIndicator } from 'react-native';
 import styles from './chores.style';
-import { getTodaysDate } from '../../../utils';
-import ReminderPicker from './reminderPicker/ReminderPicker';
-import icons from '../../../constants/icons';
-import { useReminder } from '../../../hooks/useReminder';
-import { useSwitch } from '../../../hooks/useSwitch';
-import useFetch from '../../../hooks/useFetch';
+import { getTodaysDate } from '../../utils';
+import ReminderPicker from '../reminderPicker/ReminderPicker';
+import icons from '../../constants/icons';
+import { useReminder } from '../../hooks/useReminder';
+import { useSwitch } from '../../hooks/useSwitch';
+import useFetch from '../../hooks/useFetch';
 
-import { scheduleNotifications, clearNotifications } from '../../../services/notificationService';
+import { scheduleNotifications, clearNotifications } from '../../services/notificationService';
 // This is a component that displays the user's chore for the day and allows them to schedule reminders
 
 const Chores = ({ userName }) => {

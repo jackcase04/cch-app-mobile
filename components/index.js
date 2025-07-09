@@ -1,12 +1,18 @@
 // export all components from here
-import Login from "./home/login/Login";
-import Welcome from "./home/welcome/Welcome";
-import Chores from "./home/chores/Chores";
-import Header from "./home/header/Header";
-import ReminderPicker from "./home/chores/reminderPicker/ReminderPicker";
+import Landing from "./landing/Landing";
+import NameSelect from "./nameSelect/NameSelect";
+import SignupInput from "./signupInput/SignupInput";
+import LoginInput from "./loginInput/LoginInput";
+import Welcome from "./welcome/Welcome";
+import Chores from "./chores/Chores";
+import Header from "./header/Header";
+import ReminderPicker from "./reminderPicker/ReminderPicker";
 
 export {
-    Login,
+    Landing,
+    NameSelect,
+    SignupInput,
+    LoginInput,
     Welcome,
     Chores,
     Header,
