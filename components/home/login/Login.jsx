@@ -3,7 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, ActivityIndicator } from 'reac
 import styles from './login.style';
 import { Picker } from '@react-native-picker/picker';
 import useFetch from '../../../hooks/useFetch';
-import loginUser from '../../../services/authService'
+import { loginUser } from '../../../services/authService'
+import { Alert } from 'react-native';
 
 // This component allows users to select their name to login
 // TODO: This component can call "subcomponents" that correspond to the different states a user could be logging in"
@@ -19,17 +20,16 @@ const Login = ({ onLogin }) => {
     const [inputPass, setInputPass] = useState('');
 
     const handleLogin = async () => {
-        console.log("login confirmed")
         const result = await loginUser(inputUser, inputPass);
         
-        if (result.success) {
-            console.log('Login successful:', result.data);
+        if (!(result.data.message)) {
+            console.log('Login successful', result.message);
             Alert.alert('Success', result.message);
             // Navigate to next screen here
             // navigation.navigate('Home');
         } else {
-            console.log("not success")
-            Alert.alert('Error', result.message);
+            console.log("not success", result.message)
+            Alert.alert('Error, login insuccessful');
         }
     };
 
