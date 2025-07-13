@@ -3,7 +3,7 @@ import { View, ActivityIndicator } from 'react-native';
 import { Landing, LoginInput, NameSelect, SignupInput } from '../../components'
 import styles from './login.style';
 import useFetch from '../../hooks/useFetch';
-import { loginUser } from '../../services/authService'
+import { loginUser, signupUser } from '../../services/authService'
 import { Alert } from 'react-native';
 
 // This component allows users to select their name to login
@@ -19,19 +19,34 @@ const Login = ({ onLogin }) => {
     const [inputPass, setInputPass] = useState('');
 
     const handleLogin = async () => {
+        console.log("handle login called")
+
         const result = await loginUser(inputUser, inputPass);
         
         if (!(result.data.message)) {
             console.log('Login successful', result.message);
             Alert.alert('Success', result.message);
-            // Navigate to next screen here
-            // navigation.navigate('Home');
-            onLogin(tempName)
+
+            // onLogin(tempName)
         } else {
             console.log("not success", result.message)
             Alert.alert('Error, login insuccessful');
         }
     };
+
+    const handleSignup = async () => {
+        const result = await signupUser(tempName, inputUser, inputPass);
+        
+        if (result.message == "Name not found in allowed names list") {
+            console.log("Error: " + result.message);
+        } else if (result.message == "Name already registered by another user") {
+            console.log("Error: " + result.message);
+        } else {
+            console.log("Success!");
+
+            // Do logic here
+        }
+    }
 
     // Process names when data changes 
     useEffect(() => {
@@ -69,7 +84,7 @@ const Login = ({ onLogin }) => {
                 inputPass={inputPass}
                 setinputUser={setinputUser}
                 setInputPass={setInputPass}
-                handleLogin={handleLogin}
+                handleSignup={handleSignup}
                 setLogStatus={setLogStatus}
             />
         )
