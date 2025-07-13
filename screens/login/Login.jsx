@@ -19,18 +19,15 @@ const Login = ({ onLogin }) => {
     const [inputPass, setInputPass] = useState('');
 
     const handleLogin = async () => {
-        console.log("handle login called")
 
         const result = await loginUser(inputUser, inputPass);
         
-        if (!(result.data.message)) {
-            console.log('Login successful', result.message);
-            Alert.alert('Success', result.message);
-
-            // onLogin(tempName)
+        if (result.message == "Invalid username or password") {
+            console.log("Error: " + result.message)
         } else {
-            console.log("not success", result.message)
-            Alert.alert('Error, login insuccessful');
+            console.log("Success!")
+
+            // Do logic here
         }
     };
 
