@@ -5,14 +5,14 @@ import styles from './login.style';
 import useFetch from '../../hooks/useFetch';
 import { loginUser, signupUser } from '../../services/authService'
 import { Alert } from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // This component allows users to select their name to login
 
-const Login = ({ onLogin }) => {
+const Login = ({ setUserName }) => {
     const { data, isLoading, error } = useFetch('/names');
     const [names, setNames] = useState([]);
     const [tempName, setTempName] = useState('');
-    // TODO: Pull this from Async
+
     const [logStatus, setLogStatus] = useState('');
 
     const [inputUser, setinputUser] = useState('');
@@ -28,6 +28,7 @@ const Login = ({ onLogin }) => {
             console.log("Success!")
 
             // Do logic here
+            // await AsyncStorage.setItem('fullname', reminder);
         }
     };
 
@@ -42,6 +43,10 @@ const Login = ({ onLogin }) => {
             console.log("Success!");
 
             // Do logic here
+            await AsyncStorage.setItem('fullname', result.data.fullname);
+            const fullname = await AsyncStorage.getItem('fullname');
+            console.log("Full name in async: " + fullname);
+            setUserName(fullname);
         }
     }
 

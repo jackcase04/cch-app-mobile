@@ -1,23 +1,14 @@
-import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native';
 import { Welcome, Chores, Header } from '../components';
 import { Login } from '../screens';
-import { Stack, useLocalSearchParams } from 'expo-router';
-import { setupLocalNotifications, verifyAndRescheduleNotifications } from '../services/notificationService';
+import { Stack } from 'expo-router';
 import { useAuth } from '../hooks/useAuth';
 
 // This app allows users to select their name, see their chores, and schedule notifications for their chores
 
 const Home = () => {
-    const { userName, handleLogout } = useAuth();
-    const [activeTab, setActiveTab] = useState("Chores");
+    const { userName, setUserName, handleLogout } = useAuth('');
 
-    // Upon start of app
-    useEffect(() => {
-        setupLocalNotifications();
-        verifyAndRescheduleNotifications();
-    }, []);
-            
     if (userName == '') {
         return (
             <SafeAreaView style={{ flex: 1 }}>
@@ -28,7 +19,9 @@ const Home = () => {
                     }}
                 />
 
-                <Login/>
+                <Login
+                    setUserName={setUserName}
+                />
                 
             </SafeAreaView>
         )
@@ -48,8 +41,6 @@ const Home = () => {
                 />
                 <Welcome
                     userName={userName}
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
                 />
 
                 <Chores

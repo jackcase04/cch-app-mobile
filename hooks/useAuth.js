@@ -14,11 +14,6 @@ export const useAuth = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // navigates to login
-    // const navigateToLogin = useCallback(() => {
-    //     router.push('/login/login_screen');
-    // }, [router]);
-
     // function to clear user data on logout
     const clearUserData = useCallback(async () => {
         try {
@@ -47,7 +42,7 @@ export const useAuth = () => {
     // function to initialize auth (get username if not already stored)
     const initializeAuth = useCallback(async () => {
         try {
-            const storedName = await AsyncStorage.getItem("name");
+            const storedName = await AsyncStorage.getItem("fullname");
             
             if (storedName) {
                 setUserName(storedName);
@@ -74,6 +69,7 @@ export const useAuth = () => {
 
     return {
         userName,
+        setUserName,
         handleLogout,
         isLoading,
         error,
