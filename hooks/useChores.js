@@ -3,8 +3,6 @@ import { getChores } from '../services/choreService';
 import { useReminder } from './useReminder'
 import { useSwitch } from './useSwitch'
 import { getTodaysDate } from '../utils'
-// We wont need this
-import { scheduleNotifications, clearNotifications } from '../services/notificationService';
 
 export const useChores = (userName) => {
     const { reminder, setReminder, isReminderLoading } = useReminder();
@@ -18,16 +16,16 @@ export const useChores = (userName) => {
         setSwitchEnabled(newSwitchState);
         
         if (newSwitchState) {
-            scheduleNotifications();
+            // TODO: send new put request to set reminder for user here
         } else {
-            clearNotifications();
+            // TODO: send new put request to clear reminder for user here
         }
     }
     
     const handleReminderChange = (time) => {
         setReminder(time);
         if (switchEnabled) {
-            scheduleNotifications();
+            // TODO: send new put request to set reminder for user here
         }
     }
 

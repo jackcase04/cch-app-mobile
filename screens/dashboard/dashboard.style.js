@@ -131,6 +131,16 @@ const styles = StyleSheet.create({
         width: 15,
         height: 15,
     },
+    welcomeMessage: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        fontFamily: "DMBold",
+        color: '#312651',
+        textAlign: 'left',
+        marginTop: 30,
+        width: '100%',
+        paddingHorizontal: 20,
+    },
 });
 
 export default styles;

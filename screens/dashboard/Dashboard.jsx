@@ -1,12 +1,12 @@
 import { View, Text, Modal, TouchableOpacity, Switch, Image, ActivityIndicator } from 'react-native';
-import styles from './chores.style';
-import ReminderPicker from '../reminderPicker/ReminderPicker';
+import styles from './dashboard.style';
+import ReminderPicker from '../../components/reminderPicker/ReminderPicker';
 import icons from '../../constants/icons';
 import { useChores } from '../../hooks/useChores'
 
 // This is a component that displays the user's chore for the day and allows them to schedule reminders
 
-const Chores = ({ userName }) => {
+const Dashboard = ({ userName }) => {
     const {
         chore,
         showPicker,
@@ -24,6 +24,7 @@ const Chores = ({ userName }) => {
     if (isReminderLoading || isSwitchLoading || isLoading) {
         return (
             <View style={styles.container}>
+                <Text style={styles.welcomeMessage} >Welcome, {userName.split(' ')[0]}</Text>
                 <ActivityIndicator size="large" color="#532857" />
             </View>
         );
@@ -31,6 +32,7 @@ const Chores = ({ userName }) => {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.welcomeMessage} >Welcome, {userName.split(' ')[0]}</Text>
             <View style={styles.choresContainer}>
                 {(chore != "No chores for that name today") ? (
                     <>
@@ -97,4 +99,4 @@ const Chores = ({ userName }) => {
     )
 }
 
-export default Chores;
+export default Dashboard;

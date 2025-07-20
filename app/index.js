@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native';
-import { Welcome, Chores, Header } from '../components';
-import { Login } from '../screens';
+import { Header } from '../components';
+import { Login, Dashboard } from '../screens';
 import { Stack } from 'expo-router';
 import { useAuth } from '../hooks/useAuth';
 
@@ -53,11 +53,8 @@ const Home = () => {
                     handleLogout={handleLogout}
                     userName={userName}
                 />
-                <Welcome
-                    userName={userName}
-                />
-
-                <Chores
+                
+                <Dashboard
                     userName={userName}
                 />
                 
