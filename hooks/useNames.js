@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getNames } from '../services/choreService';
+import { getNames } from '../services/nameService';
 
 export const useNames = (logStatus) => {
     // UI state

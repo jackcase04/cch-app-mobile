@@ -1,53 +1,25 @@
-import { useState, useEffect } from 'react';
 import { View, Text, Modal, TouchableOpacity, Switch, Image, ActivityIndicator } from 'react-native';
 import styles from './chores.style';
-import { getTodaysDate } from '../../utils';
 import ReminderPicker from '../reminderPicker/ReminderPicker';
 import icons from '../../constants/icons';
-import { useReminder } from '../../hooks/useReminder';
-import { useSwitch } from '../../hooks/useSwitch';
-import useFetch from '../../hooks/useFetch';
+import { useChores } from '../../hooks/useChores'
 
-import { scheduleNotifications, clearNotifications } from '../../services/notificationService';
 // This is a component that displays the user's chore for the day and allows them to schedule reminders
 
 const Chores = ({ userName }) => {
-    const { reminder, setReminder, isReminderLoading } = useReminder();
-    const { switchEnabled, setSwitchEnabled, isSwitchLoading } = useSwitch();
-    const [showPicker, setShowPicker] = useState(false);
-    const { data, isLoading, error } = useFetch(`/chores/${userName}/date/${getTodaysDate()}`);
-    const [ chore, setChore ] = useState(null);
-
-    const toggleSwitch = () => {
-        const newSwitchState = !switchEnabled;
-        setSwitchEnabled(newSwitchState);
-        
-        if (newSwitchState) {
-            scheduleNotifications();
-        } else {
-            clearNotifications();
-        }
-    }
-    
-    const handleReminderChange = (time) => {
-        setReminder(time);
-        if (switchEnabled) {
-            scheduleNotifications();
-        }
-    }
-
-    const togglePicker = () => {
-        setShowPicker(!showPicker);
-    }
-
-    // Filter chore by date and name
-    useEffect(() => {
-        if (data && Array.isArray(data) && data.length > 0) {
-            const description = data[0].description;
-            console.log("Fetched Chore Description: ", description);
-            setChore(description);
-        }
-    }, [data]);
+    const {
+        chore,
+        showPicker,
+        togglePicker,
+        reminder,
+        setReminder,
+        handleReminderChange,
+        toggleSwitch,
+        switchEnabled,
+        isReminderLoading,
+        isSwitchLoading,
+        isLoading
+    } = useChores(userName);
 
     if (isReminderLoading || isSwitchLoading || isLoading) {
         return (
