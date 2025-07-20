@@ -7,7 +7,16 @@ import { useAuth } from '../hooks/useAuth';
 // This app allows users to select their name, see their chores, and schedule notifications for their chores
 
 const Home = () => {
-    const { userName, setUserName, handleLogout } = useAuth('');
+    const { 
+        userName,
+        setUserName,
+        handleLogout,
+        logStatus,
+        setLogStatus,
+        isLoadingAuth,
+        handleSignup,
+        handleLogin
+    } = useAuth('');
 
     if (userName == '') {
         return (
@@ -21,6 +30,11 @@ const Home = () => {
 
                 <Login
                     setUserName={setUserName}
+                    logStatus={logStatus}
+                    setLogStatus={setLogStatus}
+                    isLoadingAuth={isLoadingAuth}
+                    handleSignup={handleSignup}
+                    handleLogin={handleLogin}
                 />
                 
             </SafeAreaView>

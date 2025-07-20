@@ -1,7 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from './signupInput.style';
 
-const SignupInput = ({ inputUser, inputPass, setinputUser, setInputPass, handleSignup, setLogStatus }) => {
+const SignupInput = ({ tempName, inputUser, inputPass, setinputUser, setInputPass, handleSignup, setLogStatus }) => {
     return (
         <View style={styles.container}>
                 <Text style={styles.selectMessage}>Enter your signup info:</Text>
@@ -23,7 +23,7 @@ const SignupInput = ({ inputUser, inputPass, setinputUser, setInputPass, handleS
 
                 <TouchableOpacity 
                     style={styles.loginButton}
-                    onPress={handleSignup}
+                    onPress={() => handleSignup(tempName, inputUser, inputPass)}
                 >
                     <Text style={styles.loginText}>Confirm</Text>
                 </TouchableOpacity>

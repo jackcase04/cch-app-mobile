@@ -60,7 +60,7 @@ const Chores = ({ userName }) => {
     return (
         <View style={styles.container}>
             <View style={styles.choresContainer}>
-                {(chore != "No chore today") ? (
+                {(chore != "No chores for that name today") ? (
                     <>
                         <Text style={styles.choreMessage}>Your Chore today is:</Text>
                         <Text style={styles.chore}>{chore}</Text>

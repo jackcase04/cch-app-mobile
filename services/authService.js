@@ -45,6 +45,7 @@ export const signupUser = async (full_name, username, password) => {
         const backendMessage = error.response?.data?.message || 'Signup failed';
 
         return {
+            
             success: false,
             data: null,
             message: backendMessage,

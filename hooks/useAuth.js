@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useRouter } from 'expo-router';
-import * as Notifications from 'expo-notifications';
+import { loginUser, signupUser } from '../services/authService';
 
 // This hook is used to manage a user's login
 // setting a state variable to this hook allows the user to log in,
@@ -9,35 +8,69 @@ import * as Notifications from 'expo-notifications';
 // and store the users name in the local storage
 
 export const useAuth = () => {
-    // const router = useRouter();
     const [userName, setUserName] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingAuth, setIsLoadingAuth] = useState(true);
     const [error, setError] = useState(null);
+    const [logStatus, setLogStatus] = useState('');
 
-    // function to clear user data on logout
-    const clearUserData = useCallback(async () => {
+    const handleLogin = async (inputUser, inputPass) => {
+        setIsLoadingAuth(true);
         try {
-            await AsyncStorage.clear();
-            // await Notifications.cancelAllScheduledNotificationsAsync();
-            setUserName('');
-            setError(null);
+            const result = await loginUser(inputUser, inputPass);
+            
+            if (result.success) {
+                console.log("Login successful!");
+                
+                // Store auth data
+                await AsyncStorage.setItem('fullname', result.data.fullname);
+                await AsyncStorage.setItem('JWT', result.data.token);
+                
+                setUserName(result.data.fullname);
+            } else {
+                console.log("Login failed:", result.message);
+            }
         } catch (error) {
-            console.error('Error clearing user data:', error);
-            setError('Failed to clear user data');
-            throw error;
+            console.error("Login error:", error);
+        } finally {
+            setIsLoadingAuth(false);
         }
-    }, []);
+    };
+
+    const handleSignup = async (tempName, inputUser, inputPass) => {
+        setIsLoadingAuth(true);
+        try {
+            const result = await signupUser(tempName, inputUser, inputPass);
+            
+            if (result.success) {
+                console.log("Signup successful!");
+                
+                // Store auth data
+                await AsyncStorage.setItem('fullname', result.data.fullname);
+                await AsyncStorage.setItem('JWT', result.data.token);
+                
+                setUserName(result.data.fullname);
+            } else {
+                console.log("Signup failed:", result.message);
+            }
+        } catch (error) {
+            console.error("Signup error:", error);
+        } finally {
+            setIsLoadingAuth(false);
+        }
+    };
 
     // handles logout
     const handleLogout = useCallback(async () => {
         try {
-            await clearUserData();
-            console.log('Successfully logged out');
+            await AsyncStorage.clear();
+            setUserName('');
+            setLogStatus('')
+            setError(null);
         } catch (error) {
             console.error('Error during logout:', error);
             setError('Failed to logout. Please try again.');
         }
-    }, [clearUserData]);
+    }, []);
 
     // function to initialize auth (get username if not already stored)
     const initializeAuth = useCallback(async () => {
@@ -54,7 +87,7 @@ export const useAuth = () => {
             console.error('Error during auth initialization:', error);
             setError('Failed to initialize authentication');
         } finally {
-            setIsLoading(false);
+            setIsLoadingAuth(false);
         }
     }, []);
 
@@ -71,8 +104,10 @@ export const useAuth = () => {
         userName,
         setUserName,
         handleLogout,
-        isLoading,
-        error,
-        clearError: () => setError(null)
+        logStatus,
+        setLogStatus,
+        isLoadingAuth,
+        handleSignup,
+        handleLogin
     };
 };

@@ -23,7 +23,7 @@ const LoginInput = ({ inputUser, inputPass, setinputUser, setInputPass, handleLo
 
                 <TouchableOpacity 
                     style={styles.loginButton}
-                    onPress={handleLogin}
+                    onPress={() => handleLogin(inputUser, inputPass)}
                 >
                     <Text style={styles.loginText}>Confirm</Text>
                 </TouchableOpacity>
