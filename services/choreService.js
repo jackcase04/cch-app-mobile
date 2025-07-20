@@ -6,7 +6,7 @@ const api_url = API_URL;
 
 export const getChores = async (userName, date) => {
     try {
-        const jwt = await AsyncStorage.getItem('JWT');
+        const jwt = await AsyncStorage.getItem('token');
         
         const response = await axios.get(`${api_url}/chores`, {
             params: {

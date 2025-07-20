@@ -23,7 +23,8 @@ export const useAuth = () => {
                 
                 // Store auth data
                 await AsyncStorage.setItem('fullname', result.data.fullname);
-                await AsyncStorage.setItem('JWT', result.data.token);
+                await AsyncStorage.setItem('username', result.data.username);
+                await AsyncStorage.setItem('token', result.data.token);
                 
                 setUserName(result.data.fullname);
             } else {
@@ -46,7 +47,8 @@ export const useAuth = () => {
                 
                 // Store auth data
                 await AsyncStorage.setItem('fullname', result.data.fullname);
-                await AsyncStorage.setItem('JWT', result.data.token);
+                await AsyncStorage.setItem('username', result.data.username);
+                await AsyncStorage.setItem('token', result.data.token);
                 
                 setUserName(result.data.fullname);
             } else {

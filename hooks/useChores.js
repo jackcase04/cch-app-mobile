@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getChores } from '../services/choreService';
+import { putReminder } from '../services/reminderService';
 import { useReminder } from './useReminder'
 import { useSwitch } from './useSwitch'
 import { getTodaysDate } from '../utils'
@@ -16,22 +17,38 @@ export const useChores = (userName) => {
         setSwitchEnabled(newSwitchState);
         
         if (newSwitchState) {
-            // TODO: send new put request to set reminder for user here
+            updateReminder(reminder)
         } else {
-            // TODO: send new put request to clear reminder for user here
+            updateReminder(null)
         }
     }
     
     const handleReminderChange = (time) => {
         setReminder(time);
         if (switchEnabled) {
-            // TODO: send new put request to set reminder for user here
+            updateReminder(time)
         }
     }
 
     const togglePicker = () => {
         setShowPicker(!showPicker);
     }
+
+    const updateReminder = async (time) => {
+
+        try {
+            const result = await putReminder(time);
+            
+            if (result.success) {
+                console.log("successfully updated reminder: " + result.data.reminderTime)
+            } else {
+                console.log("Failed to update reminder: " + result.message)
+            }
+
+        } catch (error) {
+            console.error("Error updating reminder:", error);
+        }
+    };
 
     const loadChore = async () => {
 
