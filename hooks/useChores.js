@@ -19,7 +19,7 @@ export const useChores = (userName) => {
         if (newSwitchState) {
             updateReminder(reminder)
         } else {
-            updateReminder(null)
+            updateReminder("reset")
         }
     }
     

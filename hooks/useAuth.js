@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginUser, signupUser } from '../services/authService';
+import { putReminder } from '../services/reminderService';
 
 // This hook is used to manage a user's login
 // setting a state variable to this hook allows the user to log in,
@@ -64,7 +65,9 @@ export const useAuth = () => {
     // handles logout
     const handleLogout = useCallback(async () => {
         try {
+            await putReminder("reset")
             await AsyncStorage.clear();
+            
             setUserName('');
             setLogStatus('')
             setError(null);
