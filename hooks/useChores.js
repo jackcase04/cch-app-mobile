@@ -5,7 +5,7 @@ import { useReminder } from './useReminder'
 import { useSwitch } from './useSwitch'
 import { getTodaysDate } from '../utils'
 
-export const useChores = (userName) => {
+export const useChores = (userName, handleLogout) => {
     const { reminder, setReminder, isReminderLoading } = useReminder();
     const { switchEnabled, setSwitchEnabled, isSwitchLoading } = useSwitch();
     const [showPicker, setShowPicker] = useState(false);
@@ -63,6 +63,11 @@ export const useChores = (userName) => {
             } else if (result.success && result.data.message) {
                 console.log("message recieved: " + result.data.message)
                 setChore(result.data.message)
+            } else if (result.message == "JWT token has expired") {
+                console.log(result.message)
+
+                // Do logic to logout
+                handleLogout()
             } else {
                 console.log("Failed to load chores: " + result.message)
             }

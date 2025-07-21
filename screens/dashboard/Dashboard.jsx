@@ -6,7 +6,7 @@ import { useChores } from '../../hooks/useChores'
 
 // This is a component that displays the user's chore for the day and allows them to schedule reminders
 
-const Dashboard = ({ userName }) => {
+const Dashboard = ({ userName, handleLogout }) => {
     const {
         chore,
         showPicker,
@@ -19,7 +19,7 @@ const Dashboard = ({ userName }) => {
         isReminderLoading,
         isSwitchLoading,
         isLoading
-    } = useChores(userName);
+    } = useChores(userName, handleLogout);
 
     if (isReminderLoading || isSwitchLoading || isLoading) {
         return (

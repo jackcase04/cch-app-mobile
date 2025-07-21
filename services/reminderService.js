@@ -37,3 +37,33 @@ export const putReminder = async (time) => {
         };
     }
 };
+
+export const putLogout = async () => {
+    try {
+        const username = await AsyncStorage.getItem('username')
+        
+        const response = await axios.put(`${api_url}/users/logout`, 
+            {},
+            {
+                params: {
+                    username: username
+                },
+            }
+        );
+
+        return {
+            success: true,
+            data: response.data,
+            message: 'Logged out successfully',
+        };
+    } catch (error) {
+
+        const backendMessage = error.response?.data?.error || 'Failed to logout user';
+
+        return {
+            success: false,
+            data: null,
+            message: backendMessage,
+        };
+    }
+};

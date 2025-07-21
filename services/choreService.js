@@ -26,7 +26,7 @@ export const getChores = async (userName, date) => {
         };
     } catch (error) {
 
-        const backendMessage = error.response?.data?.message || 'Failed to fetch chores';
+        const backendMessage = error.response?.data?.error || 'Failed to fetch chores';
 
         return {
             success: false,
