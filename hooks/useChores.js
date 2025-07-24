@@ -57,9 +57,9 @@ export const useChores = (userName, handleLogout) => {
         try {
             const result = await getChores(userName, getTodaysDate());
             
-            if (result.success && result.data[0]) {
-                console.log("data recieved: " + result.data[0].description)
-                setChore(result.data[0].description)
+            if (result.success && result.data) {
+                console.log("data recieved: " + result.data.description)
+                setChore(result.data.description)
             } else if (result.success && result.data.message) {
                 console.log("message recieved: " + result.data.message)
                 setChore(result.data.message)
@@ -73,7 +73,7 @@ export const useChores = (userName, handleLogout) => {
             }
 
         } catch (error) {
-            console.error("Error loading names:", error);
+            console.error("Error loading chores:", error);
         } finally {
             setIsLoading(false)
         }

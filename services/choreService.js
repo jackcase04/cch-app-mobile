@@ -7,6 +7,8 @@ const api_url = API_URL;
 export const getChores = async (userName, date) => {
     try {
         const jwt = await AsyncStorage.getItem('token');
+
+        console.log("Sending over date in format: " + date)
         
         const response = await axios.get(`${api_url}/chores`, {
             params: {
