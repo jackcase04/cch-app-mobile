@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     button: {
@@ -8,10 +8,18 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginTop: 10,
     },
-    menu: {
-        width: 30,
-        height: 30,
-    },
+    // The header button is too high on android lol
+    menu: Platform.select({
+        android: {
+            marginTop: 40,
+            width: 30,
+            height: 30,
+        },
+        ios: {
+            width: 30,
+            height: 30,
+        }
+    }),
     modalOverlay: {
         flex: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
