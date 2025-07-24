@@ -41,6 +41,9 @@ export default {
           "remote-notification"
         ],
         ITSAppUsesNonExemptEncryption: false
+      },
+      entitlements: {
+        "aps-environment": "development"
       }
     },
     icon: "./assets/appstore.png"
