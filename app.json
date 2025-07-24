@@ -4,7 +4,9 @@
     "plugins": [
       "expo-router"
     ],
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "name": "CCH App",
     "slug": "cch-house-app",
     "orientation": "portrait",
@@ -33,7 +35,11 @@
     "ios": {
       "bundleIdentifier": "com.jackcase04.cchhouseapp",
       "infoPlist": {
-        "UIBackgroundModes": ["remote-notification"]
+        "UIBackgroundModes": [
+          "remote-notification",
+          "remote-notification"
+        ],
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "icon": "./assets/appstore.png"
