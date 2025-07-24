@@ -3,6 +3,8 @@ import { Header } from '../components';
 import { Login, Dashboard } from '../screens';
 import { Stack } from 'expo-router';
 import { useAuth } from '../hooks/useAuth';
+import { useEffect, useState } from 'react';
+import { registerForPushNotificationsAsync } from '../services/notificationService';
 
 // This app allows users to select their name, see their chores, and schedule notifications for their chores
 
@@ -17,6 +19,22 @@ const Home = () => {
         handleSignup,
         handleLogin
     } = useAuth('');
+
+    const [pushToken, setPushToken ] = useState('');
+
+    useEffect(() => {
+        const initNotifications = async () => {
+            try {
+                const token = await registerForPushNotificationsAsync();
+                console.log("Received: " + token);
+                setPushToken(token);
+            } catch (error) {
+                console.error('Failed to get push token:', error);
+            }
+        };
+
+        initNotifications();
+    }, []);
 
     if (userName == '') {
         return (
