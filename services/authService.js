@@ -3,12 +3,14 @@ import { API_URL } from '@env';
 
 const api_url = API_URL;
 
-export const loginUser = async (username, password) => {
+export const loginUser = async (username, password, expopushtoken) => {
 
     try {
+
         const response = await axios.post(`${api_url}/auth/login`, {
             username,
             password,
+            expopushtoken,
         });
 
         return {
@@ -27,13 +29,16 @@ export const loginUser = async (username, password) => {
     }
 };
 
-export const signupUser = async (full_name, username, password) => {
+export const signupUser = async (full_name, username, password, expopushtoken) => {
 
     try {
+        console.log("from signup user: " + expopushtoken)
+
         const response = await axios.post(`${api_url}/auth/signup`, {
             full_name,
             username,
             password,
+            expopushtoken
         });
 
         return {

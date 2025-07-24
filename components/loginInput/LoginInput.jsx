@@ -1,7 +1,10 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from './loginInput.style';
+import { usePushToken } from '../../hooks/usePushToken';
 
 const LoginInput = ({ inputUser, inputPass, setinputUser, setInputPass, handleLogin, setLogStatus }) => {
+    const { pushToken } = usePushToken('');
+
     return (
         <View style={styles.container}>
                 <Text style={styles.selectMessage}>Enter your login info:</Text>
@@ -23,7 +26,7 @@ const LoginInput = ({ inputUser, inputPass, setinputUser, setInputPass, handleLo
 
                 <TouchableOpacity 
                     style={styles.loginButton}
-                    onPress={() => handleLogin(inputUser, inputPass)}
+                    onPress={() => handleLogin(inputUser, inputPass, pushToken)}
                 >
                     <Text style={styles.loginText}>Confirm</Text>
                 </TouchableOpacity>

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginUser, signupUser } from '../services/authService';
 import { putLogout } from '../services/reminderService';
+import { Alert } from 'react-native';
 
 // This hook is used to manage a user's login
 // setting a state variable to this hook allows the user to log in,
@@ -14,10 +15,10 @@ export const useAuth = () => {
     const [error, setError] = useState(null);
     const [logStatus, setLogStatus] = useState('');
 
-    const handleLogin = async (inputUser, inputPass) => {
+    const handleLogin = async (inputUser, inputPass, pushToken) => {
         setIsLoadingAuth(true);
         try {
-            const result = await loginUser(inputUser, inputPass);
+            const result = await loginUser(inputUser, inputPass, pushToken);
             
             if (result.success) {
                 console.log("Login successful!");
@@ -30,18 +31,20 @@ export const useAuth = () => {
                 setUserName(result.data.fullname);
             } else {
                 console.log("Login failed:", result.message);
+                Alert.alert("Login failed:", result.message)
             }
         } catch (error) {
             console.error("Login error:", error);
+            Alert.alert("Login error:", result.error)
         } finally {
             setIsLoadingAuth(false);
         }
     };
 
-    const handleSignup = async (tempName, inputUser, inputPass) => {
+    const handleSignup = async (tempName, inputUser, inputPass, pushToken) => {
         setIsLoadingAuth(true);
         try {
-            const result = await signupUser(tempName, inputUser, inputPass);
+            const result = await signupUser(tempName, inputUser, inputPass, pushToken);
             
             if (result.success) {
                 console.log("Signup successful!");

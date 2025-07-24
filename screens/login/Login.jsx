@@ -3,7 +3,7 @@ import { Landing, LoginInput, NameSelect, SignupInput } from '../../components';
 import styles from './login.style';
 import { useNames } from '../../hooks/useNames';
 
-const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSignup, handleLogin }) => {
+const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSignup, handleLogin, pushToken }) => {
     const {
         names,
         tempName,
