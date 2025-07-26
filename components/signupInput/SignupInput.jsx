@@ -1,28 +1,51 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { useState } from 'react';
 import styles from './signupInput.style';
 import { usePushToken } from '../../hooks/usePushToken';
 
 const SignupInput = ({ tempName, inputUser, inputPass, setinputUser, setInputPass, handleSignup, setLogStatus }) => {
     const { pushToken } = usePushToken('');
+    const [usernameFocused, setUsernameFocused] = useState(false);
+    const [passwordFocused, setPasswordFocused] = useState(false);
 
     return (
         <View style={styles.container}>
-                <Text style={styles.selectMessage}>Enter your signup info:</Text>
+            <Text style={styles.selectMessage}>Enter your signup info:</Text>
+            
+            <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Username</Text>
                 <TextInput
-                    placeholder="Enter username"
+                    placeholder="Enter your username"
                     value={inputUser}
                     onChangeText={text => setinputUser(text)}
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10}}
+                    onFocus={() => setUsernameFocused(true)}
+                    onBlur={() => setUsernameFocused(false)}
+                    style={[
+                        styles.textInput,
+                        usernameFocused && styles.textInputFocused
+                    ]}
+                    autoCapitalize="none"
+                    autoCorrect={false}
                 />
-                <Text>You typed: {inputUser}</Text>
+            </View>
 
+            <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Password</Text>
                 <TextInput
-                    placeholder="Enter password"
+                    placeholder="Enter your password"
                     value={inputPass}
                     onChangeText={text => setInputPass(text)}
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10}}
+                    onFocus={() => setPasswordFocused(true)}
+                    onBlur={() => setPasswordFocused(false)}
+                    style={[
+                        styles.textInput,
+                        passwordFocused && styles.textInputFocused
+                    ]}
+                    secureTextEntry={true}
+                    autoCapitalize="none"
+                    autoCorrect={false}
                 />
-                <Text>You typed: {inputPass}</Text>
+            </View>
 
                 <TouchableOpacity 
                     style={styles.loginButton}

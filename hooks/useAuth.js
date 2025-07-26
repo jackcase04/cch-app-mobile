@@ -31,7 +31,7 @@ export const useAuth = () => {
                 setUserName(result.data.fullname);
             } else {
                 console.log("Login failed:", result.message);
-                Alert.alert("Login failed:", result.message)
+                Alert.alert("Network Error", "We're sorry, there is currently a network error. Please check your connection and try again.")
             }
         } catch (error) {
             console.error("Login error:", error);

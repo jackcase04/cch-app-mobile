@@ -27,7 +27,7 @@ export const useNames = (logStatus, setLogStatus) => {
                     setTempName(sortedNames[0]);
                 }
             } else {
-                console.error("Failed to load names:", result.message);
+                console.log("Failed to load names:", result.message);
                 
                 setLogStatus('network_error');
             }
