@@ -14,7 +14,7 @@ const Header = ({ handleLogout, userName }) => {
     };
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.headercontainer}>
             <View style={styles.button}>
                 <TouchableOpacity onPress={toggleMenu}>
                 <Image 

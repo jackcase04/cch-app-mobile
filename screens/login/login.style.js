@@ -1,6 +1,46 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+    networkErrorContainer: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginTop: 260,
+        marginBottom: 20,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
+    },
+    errorContainer: {
+        width: "95%",
+        // backgroundColor: "#eaeaea",
+        margin: 10,
+        borderRadius: 16,
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    },
+    errorMessage: {
+        fontFamily: "DMMedium",
+        fontSize: 26,
+        textAlign: 'center',
+        width: 'auto',
+        marginVertical: 10,
+        paddingHorizontal: 10,
+    },
+    error: {
+        fontFamily: "DMRegular",
+        fontSize: 20,
+        textAlign: 'center',
+        width: '100%',
+        marginBottom: 10,
+        paddingHorizontal: 10,
+    },
+
     container: {
       flex: 1,
       justifyContent: 'flex-start',

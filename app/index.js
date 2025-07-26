@@ -1,5 +1,4 @@
 import { SafeAreaView } from 'react-native';
-import { Header } from '../components';
 import { Login, Dashboard } from '../screens';
 import { Stack } from 'expo-router';
 import { useAuth } from '../hooks/useAuth';
@@ -48,10 +47,6 @@ const Home = () => {
                         headerShown: false,
                         gestureEnabled: false
                     }}
-                />
-                <Header
-                    handleLogout={handleLogout}
-                    userName={userName}
                 />
                 
                 <Dashboard

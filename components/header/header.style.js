@@ -1,6 +1,9 @@
 import { Platform, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+    headercontainer: {
+        alignSelf: 'right',
+    },
     button: {
         flexDirection: 'row',
         width: 40,
