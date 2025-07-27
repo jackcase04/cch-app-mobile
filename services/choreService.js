@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { API_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const api_url = API_URL;
+const api_url = process.env.PROD_API_URL;
 
 export const getChores = async (userName, date) => {
     try {

@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { API_URL } from '@env';
 
-const api_url = API_URL;
+const api_url = process.env.PROD_API_URL;
 
 export const getHealth = async () => {
     try {
