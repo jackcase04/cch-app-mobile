@@ -30,7 +30,7 @@ export default {
         }
       },
       entitlements: {
-        "aps-environment": "development"
+        "aps-environment": process.env.EAS_BUILD_PROFILE === "production" ? "production" : "development"
       }
     },
     icon: "./assets/appstore.png"
