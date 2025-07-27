@@ -7,7 +7,7 @@ import { Header } from '../../components';
 
 // This is a component that displays the user's chore for the day and allows them to schedule reminders
 
-const Dashboard = ({ userName, handleLogout }) => {
+const Dashboard = ({ userName, handleLogout, online }) => {
     const {
         chore,
         showPicker,
@@ -28,21 +28,6 @@ const Dashboard = ({ userName, handleLogout }) => {
                 <ActivityIndicator size="large" color="#532857" />
             </View>
         );
-    } else if (chore == "network error") {
-        return (
-            <View style={styles.container}>
-                <Header
-                    handleLogout={handleLogout}
-                    userName={userName}
-                />
-
-                <Text style={styles.welcomeMessage} >Welcome, {userName.split(' ')[0]}</Text>
-                <View style={styles.choresContainer}>
-                    <Text style={styles.choreMessage}>Network Error</Text>
-                    <Text style={styles.chore}>We're sorry, there is currently a network error. Please check your connection and try again.</Text>
-                </View>
-            </View>
-        )
     } else {
         return (
             <View style={styles.container}>

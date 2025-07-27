@@ -4,6 +4,7 @@ import { putReminder } from '../services/reminderService';
 import { useReminder } from './useReminder'
 import { useSwitch } from './useSwitch'
 import { getTodaysDate } from '../utils'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useChores = (userName, handleLogout) => {
     const { reminder, setReminder, isReminderLoading } = useReminder();
@@ -61,10 +62,12 @@ export const useChores = (userName, handleLogout) => {
             if (result.success && result.data.description) {
                 console.log("data recieved: " + result.data.description)
                 setChore(result.data.description)
+                await AsyncStorage.setItem('cachedChore', result.data.description);
             // This will run if there is no chore
             } else if (result.success && result.data.message) {
                 console.log("message recieved: " + result.data.message)
                 setChore(result.data.message)
+                await AsyncStorage.setItem('cachedChore', result.data.message);
             // Obviously this will run if JWT is expired
             } else if (result.message == "JWT token has expired") {
                 console.log(result.message)
@@ -73,7 +76,8 @@ export const useChores = (userName, handleLogout) => {
                 handleLogout()
             } else {
                 console.log("Failed to load chores: " + result.message)
-                setChore("network error")
+                const localchore = await AsyncStorage('cachedChore');
+                setChore(localchore)
             }
 
         } catch (error) {

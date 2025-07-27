@@ -57,6 +57,7 @@ const Home = () => {
                 <Dashboard
                     userName={userName}
                     handleLogout={handleLogout}
+                    online={online}
                 />
                 
             </SafeAreaView>
