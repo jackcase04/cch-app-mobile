@@ -40,7 +40,10 @@ export default {
           "remote-notification",
           "remote-notification"
         ],
-        ITSAppUsesNonExemptEncryption: false
+        ITSAppUsesNonExemptEncryption: false,
+        NSAppTransportSecurity: {
+          NSAllowsArbitraryLoads: true
+        }
       },
       entitlements: {
         "aps-environment": "development"
