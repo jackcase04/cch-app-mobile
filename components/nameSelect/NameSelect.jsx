@@ -1,8 +1,10 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from './nameSelect.style';
+import { useAuthContext } from '../../contexts/AuthContext';
 
-const NameSelect = ({ names, tempName, setTempName, setLogStatus, setOnline }) => {
+const NameSelect = ({ names, tempName, setTempName }) => {
+    const { setLogStatus } = useAuthContext();
     return (
         <View style={styles.container}>
             <Text style={styles.selectMessage}>Select your name:</Text>

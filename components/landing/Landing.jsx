@@ -1,7 +1,9 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './landing.style';
+import { useAuthContext } from '../../contexts/AuthContext';
 
-const Landing = ({ setLogStatus }) => {
+const Landing = () => {
+    const { setLogStatus } = useAuthContext();
     return (
         <View style={styles.container}>
             <Text style={styles.welcomeMessage}>Welcome to the CCH App!</Text>

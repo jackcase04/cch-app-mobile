@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native';
 import { Login, Dashboard } from '../screens';
 import { Stack } from 'expo-router';
-import { useAuth } from '../hooks/useAuth';
+import { AuthProvider, useAuthContext } from '../contexts/AuthContext';
+import { AppProvider, useAppContext } from '../contexts/AppContext';
 
 // This app allows users to select their name, see their chores, and schedule notifications for their chores
 
-const Home = () => {
-     const { 
+const AppContent = () => {
+    const { 
         userName,
         setUserName,
         handleLogout,
@@ -17,9 +17,9 @@ const Home = () => {
         handleSignup,
         handleLogin,
         loginError
-    } = useAuth('');
+    } = useAuthContext();
 
-    const [online, setOnline] = useState(true);
+    const { online, setOnline } = useAppContext();
 
     if (userName == '') {
         return (
@@ -31,17 +31,7 @@ const Home = () => {
                     }}
                 />
 
-                <Login
-                    setUserName={setUserName}
-                    logStatus={logStatus}
-                    setLogStatus={setLogStatus}
-                    isLoadingAuth={isLoadingAuth}
-                    handleSignup={handleSignup}
-                    handleLogin={handleLogin}
-                    loginError={loginError}
-                    setOnline={setOnline}
-                    online={online}
-                />
+                <Login />
                 
             </SafeAreaView>
         )
@@ -56,18 +46,21 @@ const Home = () => {
                     }}
                 />
                 
-                <Dashboard
-                    userName={userName}
-                    handleLogout={handleLogout}
-                    online={online}
-                    setOnline={setOnline}
-                />
+                <Dashboard />
                 
             </SafeAreaView>
         )
     }
-
-    
 }
+
+const Home = () => {
+    return (
+        <AuthProvider>
+            <AppProvider>
+                <AppContent />
+            </AppProvider>
+        </AuthProvider>
+    );
+};
 
 export default Home;

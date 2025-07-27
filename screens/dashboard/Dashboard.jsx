@@ -4,10 +4,14 @@ import ReminderPicker from '../../components/reminderPicker/ReminderPicker';
 import icons from '../../constants/icons';
 import { useChores } from '../../hooks/useChores'
 import { Header } from '../../components';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { useAppContext } from '../../contexts/AppContext';
 
 // This is a component that displays the user's chore for the day and allows them to schedule reminders
 
-const Dashboard = ({ userName, handleLogout, online, setOnline }) => {
+const Dashboard = () => {
+    const { userName, handleLogout } = useAuthContext();
+    const { online, setOnline } = useAppContext();
     const {
         chore,
         showPicker,
@@ -32,11 +36,7 @@ const Dashboard = ({ userName, handleLogout, online, setOnline }) => {
         return (
             <View style={styles.container}>
                 <View style={[styles.headerWrapper, !online && styles.disabledSection]}>
-                    <Header
-                        handleLogout={handleLogout}
-                        userName={userName}
-                        online={online}
-                    />
+                    <Header />
                 </View>
 
                 {!online && (

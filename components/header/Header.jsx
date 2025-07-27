@@ -2,11 +2,15 @@ import { useState } from 'react';
 import { SafeAreaView, TouchableOpacity, View, Text, Image, Modal } from 'react-native';
 import styles from './header.style';
 import icons from '../../constants/icons';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { useAppContext } from '../../contexts/AppContext';
 
 // This is a custom header
 // Users can click on the menu button to toggle a modal with a logout button
 
-const Header = ({ handleLogout, userName, online = true }) => {
+const Header = () => {
+    const { handleLogout, userName } = useAuthContext();
+    const { online } = useAppContext();
     const [showMenu, setShowMenu] = useState(false);
 
     const toggleMenu = () => {

@@ -2,13 +2,12 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import styles from './loginInput.style';
 import { usePushToken } from '../../hooks/usePushToken';
-import { useAuth } from '../../hooks/useAuth'
+import { useAuthContext } from '../../contexts/AuthContext';
 
-const LoginInput = ({ setLogStatus, setOnline, handleLogin, loginError }) => {
+const LoginInput = ({ inputUser, setInputUser, inputPass, setInputPass }) => {
    const { pushToken } = usePushToken('');
+   const { setLogStatus, handleLogin, loginError } = useAuthContext();
 
-   const [inputUser, setInputUser] = useState('');
-   const [inputPass, setInputPass] = useState('');
    const [usernameFocused, setUsernameFocused] = useState(false);
    const [passwordFocused, setPasswordFocused] = useState(false);
 
@@ -21,7 +20,7 @@ const LoginInput = ({ setLogStatus, setOnline, handleLogin, loginError }) => {
                <TextInput
                    placeholder="Enter your username"
                    value={inputUser}
-                   onChangeText={text => setInputUser(text)}
+                   onChangeText={setInputUser}
                    onFocus={() => setUsernameFocused(true)}
                    onBlur={() => setUsernameFocused(false)}
                    style={[
@@ -38,7 +37,7 @@ const LoginInput = ({ setLogStatus, setOnline, handleLogin, loginError }) => {
                <TextInput
                    placeholder="Enter your password"
                    value={inputPass}
-                   onChangeText={text => setInputPass(text)}
+                   onChangeText={setInputPass}
                    onFocus={() => setPasswordFocused(true)}
                    onBlur={() => setPasswordFocused(false)}
                    style={[

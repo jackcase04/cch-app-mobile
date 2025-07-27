@@ -3,8 +3,12 @@ import { Landing, LoginInput, NameSelect, SignupInput } from '../../components';
 import styles from './login.style';
 import { useNames } from '../../hooks/useNames';
 import { useHealth } from '../../hooks/useHealth';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { useAppContext } from '../../contexts/AppContext';
 
-const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSignup, handleLogin, loginError, pushToken, online, setOnline }) => {
+const Login = () => {
+    const { logStatus, setLogStatus, isLoadingAuth, handleSignup, handleLogin, loginError } = useAuthContext();
+    const { online, setOnline } = useAppContext();
     const {
         names,
         tempName,
@@ -57,8 +61,6 @@ const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSign
                     names={names}
                     tempName={tempName}
                     setTempName={setTempName}
-                    setLogStatus={setLogStatus}
-                    setOnline={setOnline}
                 />
             );
             
@@ -69,27 +71,23 @@ const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSign
                     inputPass={inputPass}
                     setinputUser={setInputUser}
                     setInputPass={setInputPass}
-                    handleSignup={handleSignup}
-                    setLogStatus={setLogStatus}
                     tempName={tempName}
                 />
             );
             
         case 'login':
             return (
-                <LoginInput
-            setLogStatus={setLogStatus}
-            setOnline={setOnline}
-            handleLogin={handleLogin}  // ADD THIS
-            loginError={loginError}    // ADD THIS
-        />
+                <LoginInput 
+                    inputUser={inputUser}
+                    setInputUser={setInputUser}
+                    inputPass={inputPass}
+                    setInputPass={setInputPass}
+                />
             );
             
         default:
             return (
-                <Landing
-                    setLogStatus={setLogStatus}
-                />
+                <Landing />
             );
     }
 };

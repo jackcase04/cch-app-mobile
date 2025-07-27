@@ -11,7 +11,7 @@ export const useChores = (userName, handleLogout, setOnline) => {
     const { switchEnabled, setSwitchEnabled, isSwitchLoading } = useSwitch();
     const [showPicker, setShowPicker] = useState(false);
     const [ chore, setChore ] = useState(null);
-    const [ isLoading, setIsLoading ] = useState(null);
+    const [ isLoading, setIsLoading ] = useState(false);
 
     const toggleSwitch = () => {
         const newSwitchState = !switchEnabled;
@@ -85,6 +85,9 @@ export const useChores = (userName, handleLogout, setOnline) => {
 
         } catch (error) {
             console.error("Error loading chores:", error);
+            const localchore = await AsyncStorage.getItem('cachedChore');
+            setChore(localchore);
+            setOnline(false);
         } finally {
             setIsLoading(false)
         }
