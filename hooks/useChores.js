@@ -92,7 +92,7 @@ export const useChores = (userName, handleLogout, setOnline) => {
 
     useEffect(() => {
         loadChore()
-    }, []);
+    }, [userName]);
 
     return {
         chore,

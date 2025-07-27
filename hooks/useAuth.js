@@ -39,7 +39,7 @@ export const useAuth = () => {
             }
         } catch (error) {
             console.error("Login error:", error);
-            Alert.alert("Login error:", result.error)
+            Alert.alert("Login error:", error)
         } finally {
             setIsLoadingAuth(false);
         }

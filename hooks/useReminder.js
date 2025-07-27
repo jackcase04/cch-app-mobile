@@ -20,16 +20,18 @@ export const useReminder = () => {
                     if (storedReminder !== null) {
                         setReminder(storedReminder);
                     }
-                    setisReminderLoading(false);
                 }
             } catch (error) {
-                console.error('Error retrieving reminder:', error);
+                if (isMounted) {
+                    console.error('Error retrieving reminder:', error);
+                }
+            } finally {
                 if (isMounted) {
                     setisReminderLoading(false);
                 }
             }
         };
-    
+
         getReminder();
 
         return () => {

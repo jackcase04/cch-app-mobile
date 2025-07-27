@@ -10,29 +10,31 @@ export const useSwitch = () => {
 
     // gets stored switch state
     useEffect(() => {
-        let isMounted = true;
+      let isMounted = true;
 
-        const getSwitch = async () => {
-            try {
-                const storedSwitch = await AsyncStorage.getItem('switch');
-                if (isMounted) {
-                    setSwitchEnabled(storedSwitch === 'true');
-                    setIsSwitchLoading(false);
-                }
-            } catch (error) {
-                console.error('Error retrieving switch:', error);
-                if (isMounted) {
-                    setIsSwitchLoading(false);
-                }
-            }
-        };
-    
-        getSwitch();
+      const getSwitch = async () => {
+          try {
+              const storedSwitch = await AsyncStorage.getItem('switch');
+              if (isMounted) {
+                  setSwitchEnabled(storedSwitch === 'true');
+              }
+          } catch (error) {
+              if (isMounted) {
+                  console.error('Error retrieving switch:', error);
+              }
+          } finally {
+              if (isMounted) {
+                  setIsSwitchLoading(false);
+              }
+          }
+      };
 
-        return () => {
-            isMounted = false;
-        };
-    }, []);
+      getSwitch();
+
+      return () => {
+          isMounted = false;
+      };
+  }, []);
 
     // stores switch state
     useEffect(() => {
