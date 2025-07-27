@@ -1,11 +1,9 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import styles from './signupInput.style';
-import { usePushToken } from '../../hooks/usePushToken';
 import { useAuthContext } from '../../contexts/AuthContext';
 
 const SignupInput = ({ tempName, inputUser, inputPass, setinputUser, setInputPass }) => {
-    const { pushToken } = usePushToken('');
     const { handleSignup, setLogStatus } = useAuthContext();
     const [usernameFocused, setUsernameFocused] = useState(false);
     const [passwordFocused, setPasswordFocused] = useState(false);
@@ -51,7 +49,7 @@ const SignupInput = ({ tempName, inputUser, inputPass, setinputUser, setInputPas
 
                 <TouchableOpacity 
                     style={styles.loginButton}
-                    onPress={() => handleSignup(tempName, inputUser, inputPass, pushToken)}
+                    onPress={() => handleSignup(tempName, inputUser, inputPass)}
                 >
                     <Text style={styles.loginText}>Confirm</Text>
                 </TouchableOpacity>

@@ -4,6 +4,7 @@ import { loginUser, signupUser } from '../services/authService';
 import { putLogout } from '../services/reminderService';
 import { Alert } from 'react-native';
 import { useLoading } from '../contexts/LoadingContext';
+import { useNotificationContext } from '../contexts/NotificationContext';
 
 // This hook is used to manage a user's login
 // setting a state variable to this hook allows the user to log in,
@@ -12,12 +13,13 @@ import { useLoading } from '../contexts/LoadingContext';
 
 export const useAuth = () => {
     const { withLoading } = useLoading();
+    const { pushToken } = useNotificationContext();
     const [userName, setUserName] = useState('');
     const [error, setError] = useState(null);
     const [logStatus, setLogStatus] = useState('');
     const [loginError, setLoginError] = useState('');
 
-    const handleLogin = async (inputUser, inputPass, pushToken) => {
+    const handleLogin = async (inputUser, inputPass) => {
         await withLoading('auth-login', async () => {
             try {
                 const result = await loginUser(inputUser, inputPass, pushToken);
@@ -45,7 +47,7 @@ export const useAuth = () => {
         });
     };
 
-    const handleSignup = async (tempName, inputUser, inputPass, pushToken) => {
+    const handleSignup = async (tempName, inputUser, inputPass) => {
         await withLoading('auth-signup', async () => {
             try {
                 const result = await signupUser(tempName, inputUser, inputPass, pushToken);
@@ -78,6 +80,8 @@ export const useAuth = () => {
                 setUserName('');
                 setLogStatus('')
                 setError(null);
+
+                console.log("Successfully logged out");
             } catch (error) {
                 console.error('Error during logout:', error);
                 setError('Failed to logout. Please try again.');

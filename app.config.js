@@ -1,6 +1,5 @@
 export default {
   expo: {
-    scheme: "acme",
     plugins: [
       "expo-router"
     ],
@@ -11,9 +10,6 @@ export default {
     slug: "cch-house-app",
     orientation: "portrait",
     extra: {
-      router: {
-        origin: false
-      },
       eas: {
         projectId: "b3adeaa2-9352-48d6-9170-d82d93300aed"
       }
@@ -22,24 +18,12 @@ export default {
     android: {
       package: "com.jackcase04.cchhouseapp",
       useNextNotificationsApi: true,
-      googleServicesFile: process.env.GOOGLE_SERVICES_JSON,
-      permissions: [
-        "SCHEDULE_EXACT_ALARM",
-        "USE_EXACT_ALARM"
-      ]
-    },
-    splash: {
-      image: "./assets/splashscreen_logo.png",
-      resizeMode: "contain",
-      backgroundColor: "#ffffff"
+      googleServicesFile: process.env.GOOGLE_SERVICES_JSON
     },
     ios: {
       bundleIdentifier: "com.jackcase04.cchhouseapp",
       infoPlist: {
-        UIBackgroundModes: [
-          "remote-notification",
-          "remote-notification"
-        ],
+        UIBackgroundModes: ["remote-notification"],
         ITSAppUsesNonExemptEncryption: false,
         NSAppTransportSecurity: {
           NSAllowsArbitraryLoads: true
