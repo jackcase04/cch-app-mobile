@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useSwitch = () => {
     const [switchEnabled, setSwitchEnabled] = useState(false);
-    const [isSwitchLoading, setIsSwitchLoading] = useState(true);
+    const [isInitialized, setIsInitialized] = useState(false);
 
     // gets stored switch state
     useEffect(() => {
@@ -24,7 +24,7 @@ export const useSwitch = () => {
               }
           } finally {
               if (isMounted) {
-                  setIsSwitchLoading(false);
+                  setIsInitialized(true);
               }
           }
       };
@@ -38,7 +38,7 @@ export const useSwitch = () => {
 
     // stores switch state
     useEffect(() => {
-        if (isSwitchLoading) {
+        if (!isInitialized) {
             return;
         }
 
@@ -50,7 +50,7 @@ export const useSwitch = () => {
             }
         }
         storeSwitch();
-    }, [switchEnabled, isSwitchLoading]);
+    }, [switchEnabled, isInitialized]);
 
-    return { switchEnabled, setSwitchEnabled, isSwitchLoading };
+    return { switchEnabled, setSwitchEnabled };
 }

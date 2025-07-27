@@ -6,12 +6,15 @@ import { useChores } from '../../hooks/useChores'
 import { Header } from '../../components';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useAppContext } from '../../contexts/AppContext';
+import { useLoading } from '../../contexts/LoadingContext';
 
 // This is a component that displays the user's chore for the day and allows them to schedule reminders
 
 const Dashboard = () => {
     const { userName, handleLogout } = useAuthContext();
     const { online, setOnline } = useAppContext();
+    const { isLoading } = useLoading();
+    
     const {
         chore,
         showPicker,
@@ -20,13 +23,10 @@ const Dashboard = () => {
         setReminder,
         handleReminderChange,
         toggleSwitch,
-        switchEnabled,
-        isReminderLoading,
-        isSwitchLoading,
-        isLoading
+        switchEnabled
     } = useChores(userName, handleLogout, setOnline);
 
-    if (isReminderLoading || isSwitchLoading || isLoading) {
+    if (isLoading) {
         return (
             <View style={styles.loadingcontainer}>
                 <ActivityIndicator size="large" color="#532857" />

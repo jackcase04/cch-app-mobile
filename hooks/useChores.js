@@ -5,13 +5,14 @@ import { useReminder } from './useReminder'
 import { useSwitch } from './useSwitch'
 import { getTodaysDate } from '../utils'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLoading } from '../contexts/LoadingContext';
 
 export const useChores = (userName, handleLogout, setOnline) => {
-    const { reminder, setReminder, isReminderLoading } = useReminder();
-    const { switchEnabled, setSwitchEnabled, isSwitchLoading } = useSwitch();
+    const { withLoading } = useLoading();
+    const { reminder, setReminder } = useReminder();
+    const { switchEnabled, setSwitchEnabled } = useSwitch();
     const [showPicker, setShowPicker] = useState(false);
     const [ chore, setChore ] = useState(null);
-    const [ isLoading, setIsLoading ] = useState(false);
 
     const toggleSwitch = () => {
         const newSwitchState = !switchEnabled;
@@ -52,45 +53,42 @@ export const useChores = (userName, handleLogout, setOnline) => {
     };
 
     const loadChore = async () => {
+        await withLoading('load-chores', async () => {
+            try {
+                const result = await getChores(userName, getTodaysDate());
+                
+                // This will run if there is a chore
+                if (result.success && result.data.description) {
+                    console.log("data recieved: " + result.data.description)
+                    setChore(result.data.description);
+                    setOnline(true);
+                    await AsyncStorage.setItem('cachedChore', result.data.description);
+                // This will run if there is no chore
+                } else if (result.success && result.data.message) {
+                    console.log("message recieved: " + result.data.message)
+                    setChore(result.data.message);
+                    setOnline(true);
+                    await AsyncStorage.setItem('cachedChore', result.data.message);
+                // Obviously this will run if JWT is expired
+                } else if (result.message == "JWT token has expired") {
+                    console.log(result.message)
 
-        setIsLoading(true);
+                    // Do logic to logout
+                    handleLogout()
+                } else {
+                    console.log("Failed to load chores: " + result.message)
+                    const localchore = await AsyncStorage.getItem('cachedChore');
+                    setChore(localchore);
+                    setOnline(false);
+                }
 
-        try {
-            const result = await getChores(userName, getTodaysDate());
-            
-            // This will run if there is a chore
-            if (result.success && result.data.description) {
-                console.log("data recieved: " + result.data.description)
-                setChore(result.data.description);
-                setOnline(true);
-                await AsyncStorage.setItem('cachedChore', result.data.description);
-            // This will run if there is no chore
-            } else if (result.success && result.data.message) {
-                console.log("message recieved: " + result.data.message)
-                setChore(result.data.message);
-                setOnline(true);
-                await AsyncStorage.setItem('cachedChore', result.data.message);
-            // Obviously this will run if JWT is expired
-            } else if (result.message == "JWT token has expired") {
-                console.log(result.message)
-
-                // Do logic to logout
-                handleLogout()
-            } else {
-                console.log("Failed to load chores: " + result.message)
+            } catch (error) {
+                console.error("Error loading chores:", error);
                 const localchore = await AsyncStorage.getItem('cachedChore');
                 setChore(localchore);
                 setOnline(false);
             }
-
-        } catch (error) {
-            console.error("Error loading chores:", error);
-            const localchore = await AsyncStorage.getItem('cachedChore');
-            setChore(localchore);
-            setOnline(false);
-        } finally {
-            setIsLoading(false)
-        }
+        });
     };
 
     useEffect(() => {
@@ -105,9 +103,6 @@ export const useChores = (userName, handleLogout, setOnline) => {
         setReminder,
         handleReminderChange,
         toggleSwitch,
-        switchEnabled,
-        isLoading,
-        isReminderLoading,
-        isSwitchLoading,
+        switchEnabled
     }
 }

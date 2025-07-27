@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginUser, signupUser } from '../services/authService';
 import { putLogout } from '../services/reminderService';
 import { Alert } from 'react-native';
+import { useLoading } from '../contexts/LoadingContext';
 
 // This hook is used to manage a user's login
 // setting a state variable to this hook allows the user to log in,
@@ -10,99 +11,99 @@ import { Alert } from 'react-native';
 // and store the users name in the local storage
 
 export const useAuth = () => {
+    const { withLoading } = useLoading();
     const [userName, setUserName] = useState('');
-    const [isLoadingAuth, setIsLoadingAuth] = useState(true);
     const [error, setError] = useState(null);
     const [logStatus, setLogStatus] = useState('');
     const [loginError, setLoginError] = useState('');
 
     const handleLogin = async (inputUser, inputPass, pushToken) => {
-        setIsLoadingAuth(true);
-        try {
-            const result = await loginUser(inputUser, inputPass, pushToken);
-            
-            if (result.success) {
-                console.log("Login successful!");
+        await withLoading('auth-login', async () => {
+            try {
+                const result = await loginUser(inputUser, inputPass, pushToken);
                 
-                // Store auth data
-                await AsyncStorage.setItem('fullname', result.data.fullname);
-                await AsyncStorage.setItem('username', result.data.username);
-                await AsyncStorage.setItem('token', result.data.token);
-                
-                setUserName(result.data.fullname);
-                setLoginError('')
-            } else if (result.message == "Invalid username or password") {
-                console.log("Login failed:", result.message);
-                setLoginError(result.message);
-            } else {
-                console.log("Login failed:", result.message);
+                if (result.success) {
+                    console.log("Login successful!");
+                    
+                    // Store auth data
+                    await AsyncStorage.setItem('fullname', result.data.fullname);
+                    await AsyncStorage.setItem('username', result.data.username);
+                    await AsyncStorage.setItem('token', result.data.token);
+                    
+                    setUserName(result.data.fullname);
+                    setLoginError('')
+                } else if (result.message == "Invalid username or password") {
+                    console.log("Login failed:", result.message);
+                    setLoginError(result.message);
+                } else {
+                    console.log("Login failed:", result.message);
+                }
+            } catch (error) {
+                console.error("Login error:", error);
+                Alert.alert("Login error", error.message || "An unexpected error occurred")
             }
-        } catch (error) {
-            console.error("Login error:", error);
-            Alert.alert("Login error", error.message || "An unexpected error occurred")
-        } finally {
-            setIsLoadingAuth(false);
-        }
+        });
     };
 
     const handleSignup = async (tempName, inputUser, inputPass, pushToken) => {
-        setIsLoadingAuth(true);
-        try {
-            const result = await signupUser(tempName, inputUser, inputPass, pushToken);
-            
-            if (result.success) {
-                console.log("Signup successful!");
+        await withLoading('auth-signup', async () => {
+            try {
+                const result = await signupUser(tempName, inputUser, inputPass, pushToken);
                 
-                // Store auth data
-                await AsyncStorage.setItem('fullname', result.data.fullname);
-                await AsyncStorage.setItem('username', result.data.username);
-                await AsyncStorage.setItem('token', result.data.token);
-                
-                setUserName(result.data.fullname);
-            } else {
-                console.log("Signup failed:", result.message);
+                if (result.success) {
+                    console.log("Signup successful!");
+                    
+                    // Store auth data
+                    await AsyncStorage.setItem('fullname', result.data.fullname);
+                    await AsyncStorage.setItem('username', result.data.username);
+                    await AsyncStorage.setItem('token', result.data.token);
+                    
+                    setUserName(result.data.fullname);
+                } else {
+                    console.log("Signup failed:", result.message);
+                }
+            } catch (error) {
+                console.error("Signup error:", error);
             }
-        } catch (error) {
-            console.error("Signup error:", error);
-        } finally {
-            setIsLoadingAuth(false);
-        }
+        });
     };
 
     // handles logout
     const handleLogout = useCallback(async () => {
-        try {
-            await putLogout()
-            await AsyncStorage.clear();
-            
-            setUserName('');
-            setLogStatus('')
-            setError(null);
-        } catch (error) {
-            console.error('Error during logout:', error);
-            setError('Failed to logout. Please try again.');
-        }
+        await withLoading('auth-logout', async () => {
+            try {
+                await putLogout()
+                await AsyncStorage.clear();
+                
+                setUserName('');
+                setLogStatus('')
+                setError(null);
+            } catch (error) {
+                console.error('Error during logout:', error);
+                setError('Failed to logout. Please try again.');
+            }
+        });
     }, []);
 
     // function to initialize auth (get username if not already stored)
     const initializeAuth = useCallback(async () => {
-        try {
-            const storedName = await AsyncStorage.getItem("fullname");
-            
-            if (storedName) {
-                setUserName(storedName);
-                console.log('Logged in as:', storedName);
-            } else {
-                console.log('No name in Async');
-                setLogStatus('');
+        await withLoading('auth-init', async () => {
+            try {
+                const storedName = await AsyncStorage.getItem("fullname");
+                
+                if (storedName) {
+                    setUserName(storedName);
+                    console.log('Logged in as:', storedName);
+                } else {
+                    console.log('No name in Async');
+                    setLogStatus('');
+                }
+            } catch (error) {
+                console.error('Error during auth initialization:', error);
+                setError('Failed to initialize authentication');
             }
-        } catch (error) {
-            console.error('Error during auth initialization:', error);
-            setError('Failed to initialize authentication');
-        } finally {
-            setIsLoadingAuth(false);
-        }
-    }, []);
+        });
+    }, [withLoading]);
 
     // initialization time
     useEffect(() => {
@@ -119,7 +120,6 @@ export const useAuth = () => {
         handleLogout,
         logStatus,
         setLogStatus,
-        isLoadingAuth,
         handleSignup,
         handleLogin,
         loginError

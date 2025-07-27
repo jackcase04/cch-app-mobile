@@ -3,6 +3,7 @@ import { Login, Dashboard } from '../screens';
 import { Stack } from 'expo-router';
 import { AuthProvider, useAuthContext } from '../contexts/AuthContext';
 import { AppProvider, useAppContext } from '../contexts/AppContext';
+import { LoadingProvider } from '../contexts/LoadingContext';
 
 // This app allows users to select their name, see their chores, and schedule notifications for their chores
 
@@ -55,11 +56,13 @@ const AppContent = () => {
 
 const Home = () => {
     return (
-        <AuthProvider>
-            <AppProvider>
-                <AppContent />
-            </AppProvider>
-        </AuthProvider>
+        <LoadingProvider>
+            <AuthProvider>
+                <AppProvider>
+                    <AppContent />
+                </AppProvider>
+            </AuthProvider>
+        </LoadingProvider>
     );
 };
 

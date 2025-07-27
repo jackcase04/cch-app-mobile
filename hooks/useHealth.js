@@ -1,28 +1,28 @@
 import { useState, useEffect } from 'react';
 import { getHealth } from '../services/healthService';
+import { useLoading } from '../contexts/LoadingContext';
 
 export const useHealth = (setOnline, logStatus) => {
-    // Loading states
-    const [isLoading, setIsLoading] = useState(false);
+    const { withLoading } = useLoading();
 
     // Fetch names when user navigates to signup
     const checkHealth = async () => {
-        setIsLoading(true);
-        try {
-            const result = await getHealth();
-            
-            if (result.success) {
-                console.log("health check success!");
-                setOnline(true);
-            } else {
-                console.log("health check was a fail.");
+        await withLoading('health-check', async () => {
+            try {
+                const result = await getHealth();
+                
+                if (result.success) {
+                    console.log("health check success!");
+                    setOnline(true);
+                } else {
+                    console.log("health check was a fail.");
+                    setOnline(false);
+                }
+            } catch (error) {
+                console.error("Error checking health", error);
                 setOnline(false);
             }
-        } catch (error) {
-            console.error("Error checking health", error);
-        } finally {
-            setIsLoading(false);
-        }
+        });
     };
 
     // Load names when user goes to login screen
@@ -33,6 +33,6 @@ export const useHealth = (setOnline, logStatus) => {
     }, [logStatus]);
 
     return {
-        isLoading
+        // No longer need to return loading state - it's centralized
     }
 };

@@ -5,10 +5,13 @@ import { useNames } from '../../hooks/useNames';
 import { useHealth } from '../../hooks/useHealth';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useAppContext } from '../../contexts/AppContext';
+import { useLoading } from '../../contexts/LoadingContext';
 
 const Login = () => {
-    const { logStatus, setLogStatus, isLoadingAuth, handleSignup, handleLogin, loginError } = useAuthContext();
+    const { logStatus, setLogStatus, handleSignup, handleLogin, loginError } = useAuthContext();
     const { online, setOnline } = useAppContext();
+    const { isLoading } = useLoading();
+    
     const {
         names,
         tempName,
@@ -16,15 +19,12 @@ const Login = () => {
         inputUser,
         setInputUser,
         inputPass,
-        setInputPass,
-        isLoadingNames
+        setInputPass
     } = useNames(logStatus, setLogStatus, setOnline);
 
-    const {
-        isLoading
-    } = useHealth(setOnline, logStatus);
+    useHealth(setOnline, logStatus);
 
-    if (isLoadingNames || isLoadingAuth || isLoading) {
+    if (isLoading) {
         return (
             <View style={styles.loadingcontainer}>
                 <ActivityIndicator size="large" color="#532857" />
