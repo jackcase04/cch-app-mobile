@@ -24,8 +24,7 @@ const Dashboard = ({ userName, handleLogout }) => {
 
     if (isReminderLoading || isSwitchLoading || isLoading) {
         return (
-            <View style={styles.container}>
-                {/* <Text style={styles.welcomeMessage} >Welcome, {userName.split(' ')[0]}</Text> */}
+            <View style={styles.loadingcontainer}>
                 <ActivityIndicator size="large" color="#532857" />
             </View>
         );

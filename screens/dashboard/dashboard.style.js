@@ -9,6 +9,11 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
     },
+    loadingcontainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
     choresContainer: {
         width: "95%",
         backgroundColor: "#eaeaea",
