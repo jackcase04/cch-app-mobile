@@ -92,6 +92,9 @@ const styles = StyleSheet.create({
     ccf_logo: {
         width: 50,
         height: 50,
+    },
+    disabledIcon: {
+        opacity: 0.5,
     }
 });
 

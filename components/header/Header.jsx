@@ -6,25 +6,27 @@ import icons from '../../constants/icons';
 // This is a custom header
 // Users can click on the menu button to toggle a modal with a logout button
 
-const Header = ({ handleLogout, userName }) => {
+const Header = ({ handleLogout, userName, online = true }) => {
     const [showMenu, setShowMenu] = useState(false);
 
     const toggleMenu = () => {
-        setShowMenu(!showMenu);
+        if (online) {
+            setShowMenu(!showMenu);
+        }
     };
 
     return (
         <SafeAreaView style={styles.headercontainer}>
             <View style={styles.button}>
-                <TouchableOpacity onPress={toggleMenu}>
+                <TouchableOpacity onPress={toggleMenu} disabled={!online}>
                 <Image 
                     source={icons.menu}
-                    style={styles.menu}
+                    style={[styles.menu, !online && styles.disabledIcon]}
                 />
                 </TouchableOpacity>
             </View>
             <Modal
-                visible={showMenu}
+                visible={showMenu && online}
                 transparent={true}
                 animationType="fade"
             >

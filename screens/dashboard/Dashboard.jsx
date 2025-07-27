@@ -7,7 +7,7 @@ import { Header } from '../../components';
 
 // This is a component that displays the user's chore for the day and allows them to schedule reminders
 
-const Dashboard = ({ userName, handleLogout, online }) => {
+const Dashboard = ({ userName, handleLogout, online, setOnline }) => {
     const {
         chore,
         showPicker,
@@ -20,7 +20,7 @@ const Dashboard = ({ userName, handleLogout, online }) => {
         isReminderLoading,
         isSwitchLoading,
         isLoading
-    } = useChores(userName, handleLogout);
+    } = useChores(userName, handleLogout, setOnline);
 
     if (isReminderLoading || isSwitchLoading || isLoading) {
         return (
@@ -31,10 +31,19 @@ const Dashboard = ({ userName, handleLogout, online }) => {
     } else {
         return (
             <View style={styles.container}>
-                <Header
-                    handleLogout={handleLogout}
-                    userName={userName}
-                />
+                <View style={[styles.headerWrapper, !online && styles.disabledSection]}>
+                    <Header
+                        handleLogout={handleLogout}
+                        userName={userName}
+                        online={online}
+                    />
+                </View>
+
+                {!online && (
+                    <View style={styles.offlineContainer}>
+                        <Text style={styles.offlineMessage}>You are currently offline.</Text>
+                    </View>
+                )}
 
                 <Text style={styles.welcomeMessage} >Welcome, {userName.split(' ')[0]}</Text>
                 <View style={styles.choresContainer}>
@@ -50,10 +59,10 @@ const Dashboard = ({ userName, handleLogout, online }) => {
                     )}
                 </View>
                 
-                <View style={styles.remindersContainer}>
+                <View style={[styles.remindersContainer, !online && styles.disabledSection]}>
                     <Text style={[styles.reminderMessage, {marginBottom: 5}]}>Schedule Reoccurring  Reminder</Text>
                     <Modal
-                        visible={showPicker}
+                        visible={showPicker && online}
                         transparent={true}
                         animationType="fade"
                     >
@@ -81,21 +90,23 @@ const Dashboard = ({ userName, handleLogout, online }) => {
 
                     <View style={styles.reminderSchedulerContainer}>
                         <TouchableOpacity 
-                            onPress={togglePicker}
-                            style={styles.reminderPicker}
+                            onPress={online ? togglePicker : null}
+                            style={[styles.reminderPicker, !online && styles.disabledButton]}
+                            disabled={!online}
                         >
-                            <Text style={styles.reminderPickerText}>{reminder}</Text>
+                            <Text style={[styles.reminderPickerText, !online && styles.disabledText]}>{reminder}</Text>
                             <Image
                                 source={icons.downArrow}
-                                style={styles.downArrow}
+                                style={[styles.downArrow, !online && styles.disabledImage]}
                             />
                         </TouchableOpacity>
 
                         <Switch
-                            trackColor={{ false: '#767577', true: '#FE7654' }}
+                            trackColor={{ false: '#767577', true: online ? '#FE7654' : '#cccccc' }}
                             thumbColor={switchEnabled ? 'white' : 'white'}
-                            onValueChange={toggleSwitch}
+                            onValueChange={online ? toggleSwitch : null}
                             value={switchEnabled}
+                            disabled={!online}
                         />
                     </View>
                 </View>

@@ -58,6 +58,7 @@ const Home = () => {
                     userName={userName}
                     handleLogout={handleLogout}
                     online={online}
+                    setOnline={setOnline}
                 />
                 
             </SafeAreaView>

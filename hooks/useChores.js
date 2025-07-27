@@ -6,7 +6,7 @@ import { useSwitch } from './useSwitch'
 import { getTodaysDate } from '../utils'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const useChores = (userName, handleLogout) => {
+export const useChores = (userName, handleLogout, setOnline) => {
     const { reminder, setReminder, isReminderLoading } = useReminder();
     const { switchEnabled, setSwitchEnabled, isSwitchLoading } = useSwitch();
     const [showPicker, setShowPicker] = useState(false);
@@ -61,12 +61,14 @@ export const useChores = (userName, handleLogout) => {
             // This will run if there is a chore
             if (result.success && result.data.description) {
                 console.log("data recieved: " + result.data.description)
-                setChore(result.data.description)
+                setChore(result.data.description);
+                setOnline(true);
                 await AsyncStorage.setItem('cachedChore', result.data.description);
             // This will run if there is no chore
             } else if (result.success && result.data.message) {
                 console.log("message recieved: " + result.data.message)
-                setChore(result.data.message)
+                setChore(result.data.message);
+                setOnline(true);
                 await AsyncStorage.setItem('cachedChore', result.data.message);
             // Obviously this will run if JWT is expired
             } else if (result.message == "JWT token has expired") {
@@ -76,8 +78,9 @@ export const useChores = (userName, handleLogout) => {
                 handleLogout()
             } else {
                 console.log("Failed to load chores: " + result.message)
-                const localchore = await AsyncStorage('cachedChore');
-                setChore(localchore)
+                const localchore = await AsyncStorage.getItem('cachedChore');
+                setChore(localchore);
+                setOnline(false);
             }
 
         } catch (error) {

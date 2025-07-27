@@ -146,6 +146,37 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 20,
     },
+    headerWrapper: {
+        width: '100%',
+    },
+    disabledSection: {
+        opacity: 0.5,
+    },
+    disabledButton: {
+        opacity: 0.6,
+    },
+    disabledText: {
+        color: '#999999',
+    },
+    disabledImage: {
+        opacity: 0.5,
+    },
+    offlineContainer: {
+        backgroundColor: '#ffebee',
+        borderColor: '#f44336',
+        borderWidth: 1,
+        borderRadius: 8,
+        padding: 10,
+        margin: 10,
+        width: '95%',
+        alignItems: 'center',
+    },
+    offlineMessage: {
+        color: '#d32f2f',
+        fontFamily: "DMMedium",
+        fontSize: 16,
+        textAlign: 'center',
+    },
 });
 
 export default styles;
