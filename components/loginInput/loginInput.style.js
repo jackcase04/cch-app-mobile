@@ -110,6 +110,23 @@ const styles = StyleSheet.create({
     textInputFocused: {
         borderColor: '#FE7654',
         borderWidth: 2,
+    },
+    errorContainer: {
+        backgroundColor: '#ffebee',
+        borderColor: '#f44336',
+        borderWidth: 1,
+        borderRadius: 8,
+        padding: 10,
+        marginTop: 10,
+        marginBottom: 10,
+        width: '70%',
+        alignItems: 'center',
+    },
+    errorMessage: {
+        color: '#d32f2f',
+        fontFamily: "DMMedium",
+        fontSize: 14,
+        textAlign: 'center',
     }
   });
   

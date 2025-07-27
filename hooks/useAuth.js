@@ -14,6 +14,7 @@ export const useAuth = () => {
     const [isLoadingAuth, setIsLoadingAuth] = useState(true);
     const [error, setError] = useState(null);
     const [logStatus, setLogStatus] = useState('');
+    const [loginError, setLoginError] = useState('');
 
     const handleLogin = async (inputUser, inputPass, pushToken) => {
         setIsLoadingAuth(true);
@@ -29,9 +30,12 @@ export const useAuth = () => {
                 await AsyncStorage.setItem('token', result.data.token);
                 
                 setUserName(result.data.fullname);
+                setLoginError('')
+            } else if (result.message == "Invalid username or password") {
+                console.log("Login failed:", result.message);
+                setLoginError(result.message);
             } else {
                 console.log("Login failed:", result.message);
-                Alert.alert("Network Error", "We're sorry, there is currently a network error. Please check your connection and try again.")
             }
         } catch (error) {
             console.error("Login error:", error);
@@ -90,6 +94,7 @@ export const useAuth = () => {
                 console.log('Logged in as:', storedName);
             } else {
                 console.log('No name in Async');
+                setLogStatus('');
             }
         } catch (error) {
             console.error('Error during auth initialization:', error);
@@ -116,6 +121,7 @@ export const useAuth = () => {
         setLogStatus,
         isLoadingAuth,
         handleSignup,
-        handleLogin
+        handleLogin,
+        loginError
     };
 };

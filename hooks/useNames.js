@@ -32,6 +32,7 @@ export const useNames = (logStatus, setLogStatus, setOnline) => {
                 console.log("Failed to load names:", result.message);
                 
                 setOnline(false);
+                
             }
         } catch (error) {
             console.error("Error loading names:", error);

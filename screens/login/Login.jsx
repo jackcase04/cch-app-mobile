@@ -4,7 +4,7 @@ import styles from './login.style';
 import { useNames } from '../../hooks/useNames';
 import { useHealth } from '../../hooks/useHealth';
 
-const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSignup, handleLogin, pushToken, online, setOnline }) => {
+const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSignup, handleLogin, loginError, pushToken, online, setOnline }) => {
     const {
         names,
         tempName,
@@ -78,15 +78,11 @@ const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSign
         case 'login':
             return (
                 <LoginInput
-                    inputUser={inputUser}
-                    inputPass={inputPass}
-                    setinputUser={setInputUser}
-                    setInputPass={setInputPass}
-                    handleLogin={handleLogin}
-                    logStatus={logStatus}
-                    setLogStatus={setLogStatus}
-                    setOnline={setOnline}
-                />
+            setLogStatus={setLogStatus}
+            setOnline={setOnline}
+            handleLogin={handleLogin}  // ADD THIS
+            loginError={loginError}    // ADD THIS
+        />
             );
             
         default:

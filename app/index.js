@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native';
 import { Login, Dashboard } from '../screens';
 import { Stack } from 'expo-router';
@@ -7,7 +7,7 @@ import { useAuth } from '../hooks/useAuth';
 // This app allows users to select their name, see their chores, and schedule notifications for their chores
 
 const Home = () => {
-    const { 
+     const { 
         userName,
         setUserName,
         handleLogout,
@@ -15,10 +15,11 @@ const Home = () => {
         setLogStatus,
         isLoadingAuth,
         handleSignup,
-        handleLogin
+        handleLogin,
+        loginError
     } = useAuth('');
 
-    const [online, setOnline] = useState('');
+    const [online, setOnline] = useState(true);
 
     if (userName == '') {
         return (
@@ -37,6 +38,7 @@ const Home = () => {
                     isLoadingAuth={isLoadingAuth}
                     handleSignup={handleSignup}
                     handleLogin={handleLogin}
+                    loginError={loginError}
                     setOnline={setOnline}
                     online={online}
                 />
