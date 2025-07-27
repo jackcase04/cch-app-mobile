@@ -2,8 +2,9 @@ import { View, ActivityIndicator, Text, TouchableOpacity } from 'react-native';
 import { Landing, LoginInput, NameSelect, SignupInput } from '../../components';
 import styles from './login.style';
 import { useNames } from '../../hooks/useNames';
+import { useHealth } from '../../hooks/useHealth';
 
-const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSignup, handleLogin, pushToken }) => {
+const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSignup, handleLogin, pushToken, online, setOnline }) => {
     const {
         names,
         tempName,
@@ -13,9 +14,13 @@ const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSign
         inputPass,
         setInputPass,
         isLoadingNames
-    } = useNames(logStatus, setLogStatus);
+    } = useNames(logStatus, setLogStatus, setOnline);
 
-    if (isLoadingNames || isLoadingAuth) {
+    const {
+        isLoading
+    } = useHealth(setOnline, logStatus);
+
+    if (isLoadingNames || isLoadingAuth || isLoading) {
         return (
             <View style={styles.loadingcontainer}>
                 <ActivityIndicator size="large" color="#532857" />
@@ -23,28 +28,29 @@ const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSign
         );
     }
 
-    // Render different screens based on logStatus
-    switch (logStatus) {
-        case 'network_error':
-            return (
-                <View style={styles.networkErrorContainer}>
-                    <View style={styles.errorContainer}>
-                        <Text style={styles.errorMessage}>Network Error</Text>
-                        <Text style={styles.error}>We're sorry, there is currently a network error. Please check your connection and try again.</Text>
-                    </View>
-
-                    <TouchableOpacity 
-                        style={styles.signupButton}
-                        onPress={() => {
-                            setLogStatus("")
-                        }}
-                    >
-                        <Text style={styles.signupText}>Go Back</Text>
-                    </TouchableOpacity>
+    if (!online) {
+        return (
+            <View style={styles.networkErrorContainer}>
+                <View style={styles.errorContainer}>
+                    <Text style={styles.errorMessage}>Network Error</Text>
+                    <Text style={styles.error}>We're sorry, there is currently a network error. Please check your connection and try again.</Text>
                 </View>
 
-                
-            );
+                <TouchableOpacity 
+                    style={styles.signupButton}
+                    onPress={() => {
+                        setOnline(true)
+                        setLogStatus("")
+                    }}
+                >
+                    <Text style={styles.signupText}>Go Back</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+
+    // Render different screens based on logStatus
+    switch (logStatus) {
         case 'signup':
             return (
                 <NameSelect
@@ -52,6 +58,7 @@ const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSign
                     tempName={tempName}
                     setTempName={setTempName}
                     setLogStatus={setLogStatus}
+                    setOnline={setOnline}
                 />
             );
             
@@ -76,7 +83,9 @@ const Login = ({ setUserName, logStatus, setLogStatus, isLoadingAuth, handleSign
                     setinputUser={setInputUser}
                     setInputPass={setInputPass}
                     handleLogin={handleLogin}
+                    logStatus={logStatus}
                     setLogStatus={setLogStatus}
+                    setOnline={setOnline}
                 />
             );
             

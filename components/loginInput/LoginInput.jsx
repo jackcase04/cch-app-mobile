@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from './loginInput.style';
 import { usePushToken } from '../../hooks/usePushToken';
 
-const LoginInput = ({ inputUser, inputPass, setinputUser, setInputPass, handleLogin, setLogStatus }) => {
+const LoginInput = ({ inputUser, inputPass, setinputUser, setInputPass, handleLogin, setLogStatus, setOnline }) => {
     const { pushToken } = usePushToken('');
     const [usernameFocused, setUsernameFocused] = useState(false);
     const [passwordFocused, setPasswordFocused] = useState(false);

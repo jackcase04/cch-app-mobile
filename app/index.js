@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { SafeAreaView } from 'react-native';
 import { Login, Dashboard } from '../screens';
 import { Stack } from 'expo-router';
@@ -17,6 +18,8 @@ const Home = () => {
         handleLogin
     } = useAuth('');
 
+    const [online, setOnline] = useState('');
+
     if (userName == '') {
         return (
             <SafeAreaView style={{ flex: 1 }}>
@@ -34,6 +37,8 @@ const Home = () => {
                     isLoadingAuth={isLoadingAuth}
                     handleSignup={handleSignup}
                     handleLogin={handleLogin}
+                    setOnline={setOnline}
+                    online={online}
                 />
                 
             </SafeAreaView>

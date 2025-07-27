@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getNames } from '../services/nameService';
 
-export const useNames = (logStatus, setLogStatus) => {
+export const useNames = (logStatus, setLogStatus, setOnline) => {
     // UI state
     const [names, setNames] = useState([]);
     const [tempName, setTempName] = useState('');
@@ -26,10 +26,12 @@ export const useNames = (logStatus, setLogStatus) => {
                 if (sortedNames.length > 0 && !tempName) {
                     setTempName(sortedNames[0]);
                 }
+
+                setOnline(true);
             } else {
                 console.log("Failed to load names:", result.message);
                 
-                setLogStatus('network_error');
+                setOnline(false);
             }
         } catch (error) {
             console.error("Error loading names:", error);

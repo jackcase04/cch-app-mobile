@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from './nameSelect.style';
 
-const NameSelect = ({ names, tempName, setTempName, setLogStatus }) => {
+const NameSelect = ({ names, tempName, setTempName, setLogStatus, setOnline }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.selectMessage}>Select your name:</Text>
