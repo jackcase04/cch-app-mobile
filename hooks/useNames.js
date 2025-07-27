@@ -42,7 +42,7 @@ export const useNames = (logStatus, setLogStatus, setOnline) => {
 
     // Load names when user goes to signup screen
     useEffect(() => {
-        if (logStatus === 'signup' && names.length === 0) {
+        if (logStatus === 'signup') {
             loadNames();
         }
     }, [logStatus]);
