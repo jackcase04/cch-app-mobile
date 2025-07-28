@@ -11,7 +11,7 @@ export const usePushToken = () => {
                 console.log("Received: " + token);
                 setPushToken(token);
             } catch (error) {
-                console.error('Failed to get push token:', error);
+                console.log('Failed to get push token:', error);
             }
         };
 

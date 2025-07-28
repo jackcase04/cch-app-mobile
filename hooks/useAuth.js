@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginUser, signupUser } from '../services/authService';
 import { putLogout } from '../services/reminderService';
-import { Alert } from 'react-native';
 import { useLoading } from '../contexts/LoadingContext';
 import { useNotificationContext } from '../contexts/NotificationContext';
 
@@ -42,7 +41,6 @@ export const useAuth = () => {
                 }
             } catch (error) {
                 console.error("Login error:", error);
-                Alert.alert("Login error", error.message || "An unexpected error occurred")
             }
         });
     };
@@ -91,32 +89,29 @@ export const useAuth = () => {
 
     // function to initialize auth (get username if not already stored)
     const initializeAuth = useCallback(async () => {
-        await withLoading('auth-init', async () => {
-            try {
-                const storedName = await AsyncStorage.getItem("fullname");
-                
-                if (storedName) {
-                    setUserName(storedName);
-                    console.log('Logged in as:', storedName);
-                } else {
-                    console.log('No name in Async');
-                    setLogStatus('');
-                }
-            } catch (error) {
-                console.error('Error during auth initialization:', error);
-                setError('Failed to initialize authentication');
+        try {
+            const storedName = await AsyncStorage.getItem("fullname");
+            
+            if (storedName) {
+                setUserName(storedName);
+                console.log('Logged in as:', storedName);
+            } else {
+                console.log('No name in Async');
+                setLogStatus('');
             }
-        });
-    }, [withLoading]);
+        } catch (error) {
+            console.error('Error during auth initialization:', error);
+            setError('Failed to initialize authentication');
+        }
+    });
 
     // initialization time
     useEffect(() => {
-        const timer = setTimeout(() => {
-            initializeAuth();
-        }, 100);
-
-        return () => clearTimeout(timer);
-    }, [initializeAuth]);
+        withLoading('auth-init', async () => {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            await initializeAuth();
+        });
+    }, []);
 
     return {
         userName,
