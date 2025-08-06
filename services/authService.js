@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const api_url = process.env.PROD_API_URL;
+import { api_url, api_key } from './urlService';
 
 export const loginUser = async (username, password, expopushtoken) => {
 
@@ -10,6 +9,11 @@ export const loginUser = async (username, password, expopushtoken) => {
             username,
             password,
             expopushtoken,
+        }, {
+            headers: {
+                  'X-API-Key': api_key,
+                  'Content-Type': 'application/json'
+              }
         });
 
         return {
@@ -38,6 +42,11 @@ export const signupUser = async (full_name, username, password, expopushtoken) =
             username,
             password,
             expopushtoken
+        }, {
+            headers: {
+                  'X-API-Key': api_key,
+                  'Content-Type': 'application/json'
+              }
         });
 
         return {

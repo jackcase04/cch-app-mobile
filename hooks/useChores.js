@@ -69,12 +69,6 @@ export const useChores = (userName, handleLogout, setOnline) => {
                     setChore(result.data.message);
                     setOnline(true);
                     await AsyncStorage.setItem('cachedChore', result.data.message);
-                // Obviously this will run if JWT is expired
-                } else if (result.message == "JWT token has expired") {
-                    console.log(result.message)
-
-                    // Do logic to logout
-                    handleLogout()
                 } else {
                     console.log("Failed to load chores: " + result.message)
                     const localchore = await AsyncStorage.getItem('cachedChore');

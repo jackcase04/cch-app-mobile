@@ -1,10 +1,20 @@
 import axios from 'axios';
-
-const api_url = process.env.PROD_API_URL;
+import { api_url, api_key } from './urlService';
 
 export const getNames = async () => {
     try {
-        const response = await axios.get(`${api_url}/names`);
+        console.log('About to send request with:');
+      console.log('URL:', api_url);
+      console.log('API Key:', api_key);
+
+
+
+        const response = await axios.get(`${api_url}/names`, {
+            headers: {
+                  'X-API-Key': api_key,
+                  'Content-Type': 'application/json'
+            }
+        });
 
         return {
             success: true,
@@ -12,7 +22,7 @@ export const getNames = async () => {
             message: 'Names fetched successfully',
         };
     } catch (error) {
-        const backendMessage = error.response?.data?.message || 'Failed to fetch names';
+        const backendMessage = error.response?.data?.error || 'Failed to fetch names';
 
         return {
             success: false,

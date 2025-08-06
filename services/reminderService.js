@@ -1,7 +1,6 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const api_url = process.env.PROD_API_URL;
+import { api_url, api_key } from './urlService';
 
 export const putReminder = async (time) => {
     try {
@@ -14,9 +13,10 @@ export const putReminder = async (time) => {
                     time: time
                 },
                 headers: {
-                    'Authorization': `Bearer ${jwt}`,
+                    'X-API-Key': api_key,
                     'Content-Type': 'application/json'
                 }
+
             }
         );
 
@@ -47,6 +47,10 @@ export const putLogout = async () => {
                 params: {
                     username: username
                 },
+                headers: {
+                    'X-API-Key': api_key,
+                    'Content-Type': 'application/json'
+                }
             }
         );
 

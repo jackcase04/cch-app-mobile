@@ -22,17 +22,9 @@ export default {
     android: {
       package: "com.jackcase04.cchhouseapp",
       useNextNotificationsApi: true,
-      googleServicesFile: process.env.GOOGLE_SERVICES_JSON,
-      permissions: [
-        "SCHEDULE_EXACT_ALARM",
-        "USE_EXACT_ALARM"
-      ]
+      googleServicesFile: process.env.GOOGLE_SERVICES_JSON
     },
-    splash: {
-      image: "./assets/splashscreen_logo.png",
-      resizeMode: "contain",
-      backgroundColor: "#ffffff"
-    },
+    // Splash used to go here
     ios: {
       bundleIdentifier: "com.jackcase04.cchhouseapp",
       infoPlist: {

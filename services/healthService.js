@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const api_url = process.env.PROD_API_URL;
+import { api_url } from './urlService';
 
 export const getHealth = async () => {
     try {

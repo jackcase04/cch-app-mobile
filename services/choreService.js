@@ -1,7 +1,6 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const api_url = process.env.PROD_API_URL;
+import { api_url, api_key } from './urlService';
 
 export const getChores = async (userName, date) => {
     try {
@@ -13,10 +12,10 @@ export const getChores = async (userName, date) => {
             params: {
                 name: userName,
                 date: date
-            },
+            }, 
             headers: {
-                'Authorization': `Bearer ${jwt}`,
-                'Content-Type': 'application/json',
+                  'X-API-Key': api_key,
+                  'Content-Type': 'application/json'
             }
         });
 
