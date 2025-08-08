@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { loginUser, signupUser } from '../services/authService';
+import { loginUser, signupUser, getUser} from '../services/authService';
 import { putLogout } from '../services/reminderService';
 import { useLoading } from '../contexts/LoadingContext';
 import { useNotificationContext } from '../contexts/NotificationContext';
@@ -87,15 +87,26 @@ export const useAuth = () => {
 
     // function to initialize auth (get username if not already stored)
     const initializeAuth = useCallback(async () => {
+        
         try {
             const storedName = await AsyncStorage.getItem("fullname");
             
             if (storedName) {
-                setUserName(storedName);
-                console.log('Logged in as:', storedName);
+                const user = await getUser(storedName);
+
+                if (user.success) {
+                    setUserName(storedName);
+                    console.log('Logged in as:', storedName);
+                } else {
+                    console.log('User not found');
+                    setLogStatus('');
+                    handleLogout();
+                }
+                
             } else {
-                console.log('No name in Async');
+                console.log('User not found');
                 setLogStatus('');
+                handleLogout();
             }
         } catch (error) {
             console.error('Error during auth initialization:', error);

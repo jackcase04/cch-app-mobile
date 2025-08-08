@@ -4,9 +4,6 @@ import { api_url, api_key } from './urlService';
 
 export const getChores = async (userName, date) => {
     try {
-        const jwt = await AsyncStorage.getItem('token');
-
-        console.log("Sending over date in format: " + date)
         
         const response = await axios.get(`${api_url}/chores`, {
             params: {

@@ -39,6 +39,7 @@ export const useChores = (userName, handleLogout, setOnline) => {
     const updateReminder = async (time) => {
 
         try {
+            console.log(time)
             const result = await putReminder(time);
             
             if (result.success) {

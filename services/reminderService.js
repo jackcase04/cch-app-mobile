@@ -4,13 +4,15 @@ import { api_url, api_key } from './urlService';
 
 export const putReminder = async (time) => {
     try {
-        const jwt = await AsyncStorage.getItem('token');
+        
+        const username = await AsyncStorage.getItem('fullname');
         
         const response = await axios.put(`${api_url}/users/reminder`, 
             {},
             {
                 params: {
-                    time: time
+                    time: time,
+                    fullname: username
                 },
                 headers: {
                     'X-API-Key': api_key,
