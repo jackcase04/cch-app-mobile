@@ -92,18 +92,30 @@ export const useAuth = () => {
             const storedName = await AsyncStorage.getItem("fullname");
             
             if (storedName) {
+                // Name is found in async.
+                // However, we must check if thier user account still exists
                 const user = await getUser(storedName);
+
+                console.log(user);
 
                 if (user.success) {
                     setUserName(storedName);
                     console.log('Logged in as:', storedName);
-                } else {
+
+                } else if (user.message == "User does not exist") {
+                    // Case when user account does not exist yet
+                    // or has been deleted
                     console.log('User not found');
                     setLogStatus('');
                     handleLogout();
+                } else {
+                    // This is the case when cannot connect to backend
+                    // because airplane mode, no wifi, etc
+                    console.log("We are offline");
                 }
                 
             } else {
+                // No user was found in async, so user is not logged in
                 console.log('User not found');
                 setLogStatus('');
                 handleLogout();

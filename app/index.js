@@ -21,7 +21,10 @@ const AppContent = () => {
         loginError
     } = useAuthContext();
 
-    const { online, setOnline } = useAppContext();
+    const {
+        online,
+        setOnline
+    } = useAppContext();
 
     if (userName == '') {
         return (
