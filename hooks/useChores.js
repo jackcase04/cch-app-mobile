@@ -39,7 +39,7 @@ export const useChores = (userName, handleLogout, setOnline) => {
     const updateReminder = async (time) => {
 
         try {
-            console.log(time)
+            // console.log(time)
             const result = await putReminder(time);
             
             if (result.success) {
@@ -60,13 +60,13 @@ export const useChores = (userName, handleLogout, setOnline) => {
                 
                 // This will run if there is a chore
                 if (result.success && result.data.description) {
-                    console.log("data recieved: " + result.data.description)
+                    // console.log("data recieved: " + result.data.description)
                     setChore(result.data.description);
                     setOnline(true);
                     await AsyncStorage.setItem('cachedChore', result.data.description);
                 // This will run if there is no chore
                 } else if (result.success && result.data.message) {
-                    console.log("message recieved: " + result.data.message)
+                    // console.log("message recieved: " + result.data.message)
                     setChore(result.data.message);
                     setOnline(true);
                     await AsyncStorage.setItem('cachedChore', result.data.message);

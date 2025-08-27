@@ -63,7 +63,7 @@ export async function registerForPushNotificationsAsync() {
     if (!projectId) {
       handleRegistrationError('Project ID not found');
     } else {
-        console.log(projectId)
+        // console.log(projectId)
     }
     try {
       const pushTokenString = (
@@ -71,7 +71,7 @@ export async function registerForPushNotificationsAsync() {
           projectId,
         })
       ).data;
-      console.log("From notification service:" + pushTokenString);
+      // console.log("From notification service:" + pushTokenString);
       return pushTokenString;
     } catch (e) {
       handleRegistrationError(`${e}`);

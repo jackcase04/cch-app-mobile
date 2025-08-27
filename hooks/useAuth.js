@@ -96,8 +96,6 @@ export const useAuth = () => {
                 // However, we must check if thier user account still exists
                 const user = await getUser(storedName);
 
-                console.log(user);
-
                 if (user.success) {
                     setUserName(storedName);
                     console.log('Logged in as:', storedName);

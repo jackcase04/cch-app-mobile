@@ -51,7 +51,7 @@ export const useReminder = () => {
                     await AsyncStorage.setItem('reminder', reminder);
                 } else {
                     await AsyncStorage.removeItem('reminder');
-                    console.log('Reminder', 'cleared from AsyncStorage.');
+                    console.log('Reminder cleared from AsyncStorage.');
                 }
             } catch (error){
                 console.error('Error storing reminder:', error);

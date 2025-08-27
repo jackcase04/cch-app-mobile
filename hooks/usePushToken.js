@@ -8,7 +8,7 @@ export const usePushToken = () => {
         const initNotifications = async () => {
             try {
                 const token = await registerForPushNotificationsAsync();
-                console.log("Received: " + token);
+                // console.log("Received: " + token);
                 setPushToken(token);
             } catch (error) {
                 console.log('Failed to get push token:', error);

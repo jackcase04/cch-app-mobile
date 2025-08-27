@@ -57,7 +57,6 @@ const LoginInput = ({ inputUser, setInputUser, inputPass, setInputPass }) => {
            <TouchableOpacity 
                 style={styles.loginButton}
                 onPress={() => {
-                    console.log("Login button pressed with:", inputUser, inputPass);
                     handleLogin(inputUser, inputPass)
                 }}
            >

@@ -19,7 +19,7 @@ export const useNames = (logStatus, setLogStatus, setOnline) => {
                 
                 if (result.success) {
                     const sortedNames = result.data.map(item => item.name).sort();
-                    console.log("Names fetched:", sortedNames);
+                    // console.log("Names fetched:", sortedNames);
                     setNames(sortedNames);
                     
                     // Set first name as default if none selected
