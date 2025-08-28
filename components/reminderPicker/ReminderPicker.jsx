@@ -9,7 +9,7 @@ const ReminderPicker = ({ reminder, setReminder, togglePicker, handleReminderCha
     const [hour, minutePeriod] = reminder.split(':');
     const [minute, period] = minutePeriod.split(' ');
 
-    const [selectedHour, setSelectedHour] = useState(parseInt(hour, 10));
+    const [selectedHour, setSelectedHour] = useState(hour);
     const [selectedMinute, setSelectedMinute] = useState(minute.padStart(2, '0'));
     const [selectedAMPM, setSelectedAMPM] = useState(period);
 
