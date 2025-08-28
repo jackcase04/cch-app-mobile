@@ -92,12 +92,12 @@ export const useAuth = () => {
             const storedName = await AsyncStorage.getItem("fullname");
             
             if (storedName) {
+                setUserName(storedName);
                 // Name is found in async.
                 // However, we must check if thier user account still exists
                 const user = await getUser(storedName);
 
                 if (user.success) {
-                    setUserName(storedName);
                     console.log('Logged in as:', storedName);
 
                 } else if (user.message == "User does not exist") {
