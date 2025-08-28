@@ -4,10 +4,10 @@ import { usePushToken } from '../hooks/usePushToken';
 const NotificationContext = createContext();
 
 export const NotificationProvider = ({ children }) => {
-    const { pushToken } = usePushToken();
+    const { pushToken, refreshPushToken } = usePushToken();
     
     return (
-        <NotificationContext.Provider value={{ pushToken }}>
+        <NotificationContext.Provider value={{ pushToken, refreshPushToken }}>
             {children}
         </NotificationContext.Provider>
     );

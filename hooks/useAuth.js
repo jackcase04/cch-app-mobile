@@ -12,7 +12,7 @@ import { useNotificationContext } from '../contexts/NotificationContext';
 
 export const useAuth = () => {
     const { withLoading } = useLoading();
-    const { pushToken } = useNotificationContext();
+    const { pushToken, refreshPushToken } = useNotificationContext();
     const [userName, setUserName] = useState('');
     const [error, setError] = useState(null);
     const [logStatus, setLogStatus] = useState('');
@@ -21,7 +21,12 @@ export const useAuth = () => {
     const handleLogin = async (inputUser, inputPass) => {
         await withLoading('auth-login', async () => {
             try {
-                const result = await loginUser(inputUser, inputPass, pushToken);
+                // Refresh push token before login to ensure we have the most current token
+                console.log("Refreshing push token before login...");
+                const freshToken = await refreshPushToken();
+                const tokenToUse = freshToken || pushToken;
+                
+                const result = await loginUser(inputUser, inputPass, tokenToUse);
                 
                 if (result.success) {
                     console.log("Login successful!");
@@ -47,7 +52,11 @@ export const useAuth = () => {
     const handleSignup = async (tempName, inputUser, inputPass) => {
         await withLoading('auth-signup', async () => {
             try {
-                const result = await signupUser(tempName, inputUser, inputPass, pushToken);
+                console.log("Refreshing push token before signup...");
+                const freshToken = await refreshPushToken();
+                const tokenToUse = freshToken || pushToken;
+                
+                const result = await signupUser(tempName, inputUser, inputPass, tokenToUse);
                 
                 if (result.success) {
                     console.log("Signup successful!");
