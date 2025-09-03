@@ -18,7 +18,7 @@ export default {
         projectId: "b3adeaa2-9352-48d6-9170-d82d93300aed"
       }
     },
-    version: "2.0.1",
+    version: "2.0.2",
     android: {
       package: "com.jackcase04.cchhouseapp",
       useNextNotificationsApi: true,
