@@ -5,6 +5,8 @@ import { AuthProvider, useAuthContext } from '../contexts/AuthContext';
 import { AppProvider, useAppContext } from '../contexts/AppContext';
 import { LoadingProvider } from '../contexts/LoadingContext';
 import { NotificationProvider } from '../contexts/NotificationContext';
+import { useEffect } from 'react';
+import * as Notifications from 'expo-notifications';
 
 // This app allows users to select their name, see their chores, and schedule notifications for their chores
 
@@ -59,6 +61,18 @@ const AppContent = () => {
 }
 
 const Home = () => {
+    useEffect(() => {
+        const clearBadgeCount = async () => {
+            try {
+                await Notifications.setBadgeCountAsync(0);
+            } catch (error) {
+                console.warn('Failed to clear badge count:', error);
+            }
+        };
+        
+        clearBadgeCount();
+    }, []);
+
     return (
         <LoadingProvider>
             <NotificationProvider>
