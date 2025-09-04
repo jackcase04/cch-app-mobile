@@ -1,2 +1,4 @@
-export const api_url = process.env.PROD_API_URL
-export const api_key = process.env.API_KEY
+import Constants from 'expo-constants';
+
+export const api_url = Constants.expoConfig?.extra?.apiUrl
+export const api_key = Constants.expoConfig?.extra?.apiKey

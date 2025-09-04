@@ -11,12 +11,7 @@
     },
     "preview": {
       "distribution": "internal",
-      "env": {
-        "API_KEY": "API_KEY",
-        "DEV_API_URL": "DEV_API_URL",
-        "PROD_API_URL": "PROD_API_URL",
-        "GOOGLE_SERVICES_JSON": "GOOGLE_SERVICES_JSON"
-      }
+      "environment": "preview"
     },
     "production": {
       "autoIncrement": true,
