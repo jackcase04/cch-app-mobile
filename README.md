@@ -1,42 +1,35 @@
-# CCH App
-## _Christian Campus House App_
+## Christian Campus House App
 
-This project is an app for members of a residential house in college. It allows them to "login" by selecting their name and see what chores they have to do for that day. Users can also set reoccuring reminders to remind them on days they have chores so they dont forget. 
-
-## Inspiration
-
-I was inspired to create this app because I live in the Christian Campus House and I frequently found myself wishing I could schedule reoccuring reminders for chores, but could not due to the erratic nature of the chore sheet. This app changes all that, making it easy to stay on top of chores.
-
-## Technologies Used
-
-Frontend: React Native (JavaScript)
-
-Development Tools: Expo, Expo Go
-
-Notifications: Expo Notifications API
-
-## Installation
-
-### For Android Users
-Installation is straightforward—simply download and install the provided app file.
-
-### For iOS Users
-The app is available via unlisted app distribution on the App Store. Only members with the provided link can access the app.
+This repo stores the mobile application code for the [Christian Campus House app](https://github.com/jackcase04/cch-app-backend) at Missouri S&T. It allows users to view daily chores and set recurring reminders.
 
 ## Key Features
 
-The key features of the app are seeing your chores for the day, and scheduling a reoccuring reminder. The app is lightweight and easy to use, with all complexity handled behind the scenes.
+- Daily Chores Overview: see what chores are assigned for the day.
+- Recurring Reminders: users can schedule notifications to never miss a chore.
+- Lightweight & Intuitive: simple interface with complexity handled behind the scenes.
 
-## Process
+## Motivation
 
-This app pulls data from the backend I created to store all the data. It then allows the user to select their name, then fetches the chores corresponding to that name. User preferences (name, reminder time, and reminder status) are stored using Asynchronous Storage.
+Living in the Christian Campus House, I frequently wished I could schedule recurring reminders for chores. The traditional manual Excel-based system was inconsistent, leading to missed tasks. This app automates task tracking and notifications, improving accountability and efficiency among 64 active users.
 
-The app is modularized into React components, ensuring scalability and ease of maintenance. To view the code for the API to fetch the chores, visit https://github.com/jackcase04/cch-house-app-backend
+## Technologies
+
+- Language: Javascript
+- Framework: React Native
+- CI/CD: Eas CI/CD, deploys to App Store
+- Backend Integration: [CCH App Backend](https://github.com/jackcase04/cch-app-backend)
+
+## Architecture & Process
+
+- User Login: Users signup and create a username and password corresponding to their name.
+- Chore Fetching: The app fetches chores from the backend corresponding to the selected user.
+- Reminder Scheduling: Users can set recurring notifications to stay on top of chores.
+- Modular Design: React components are modularized for scalability and maintainability.
 
 ## Screenshots
 
 Here are some screenshots of the user experience using the app.
 
 <p align="left">
-    <img src="screenshots/app%20screenshot%201.jpg" alt="Login Screen" width="150" hspace="10"><img src="screenshots/app%20screenshot%202.jpg" alt="Home Screen" width="150" hspace="10"><img src="screenshots/app%20screenshot%203.jpg" alt="Reminder Picker" width="150" hspace="10"><img src="screenshots/app%20screenshot%204.jpg" alt="Header" width="150" hspace="10">
+    <img src="screenshots/app%20screenshot%202.jpg" alt="Home Screen" width="150" hspace="10"><img src="screenshots/app%20screenshot%203.jpg" alt="Reminder Picker" width="150" hspace="10"><img src="screenshots/app%20screenshot%204.jpg" alt="Header" width="150" hspace="10">
 </p>
