@@ -2,7 +2,13 @@ export default {
   expo: {
     scheme: "acme",
     plugins: [
-      "expo-router"
+      "expo-router",
+      "expo-build-properties",
+      {
+        android: {
+          usesCleartextTraffic: true
+        }
+      }
     ],
     assetBundlePatterns: [
       "**/*"
@@ -22,7 +28,6 @@ export default {
     },
     version: "2.0.2",
     android: {
-      networkSecurityConfig: "./config/network_security_config.xml",
       package: "com.jackcase04.cchhouseapp",
       useNextNotificationsApi: true,
       googleServicesFile: process.env.GOOGLE_SERVICES_JSON
