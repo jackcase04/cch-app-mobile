@@ -3,12 +3,14 @@ export default {
     scheme: "acme",
     plugins: [
       "expo-router",
-      "expo-build-properties",
-      {
-        android: {
-          usesCleartextTraffic: true
+      [
+        "expo-build-properties",
+        {
+          android: {
+            usesCleartextTraffic: true
+          }
         }
-      }
+      ]
     ],
     assetBundlePatterns: [
       "**/*"
