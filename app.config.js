@@ -22,6 +22,7 @@ export default {
     },
     version: "2.0.2",
     android: {
+      networkSecurityConfig: "./config/network_security_config.xml",
       package: "com.jackcase04.cchhouseapp",
       useNextNotificationsApi: true,
       googleServicesFile: process.env.GOOGLE_SERVICES_JSON
