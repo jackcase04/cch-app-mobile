@@ -28,7 +28,7 @@ export default {
       apiUrl: process.env.PROD_API_URL,
       apiKey: process.env.API_KEY
     },
-    version: "2.0.2",
+    version: "2.0.3",
     android: {
       userInterfaceStyle: "light",
       package: "com.jackcase04.cchhouseapp",
