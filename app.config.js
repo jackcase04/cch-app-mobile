@@ -30,6 +30,7 @@ export default {
     },
     version: "2.0.2",
     android: {
+      theme: "@style/Theme.AppCompat.Light.NoActionBar",
       package: "com.jackcase04.cchhouseapp",
       useNextNotificationsApi: true,
       googleServicesFile: process.env.GOOGLE_SERVICES_JSON

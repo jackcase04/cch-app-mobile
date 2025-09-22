@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     // The header button is too high on android lol
     menu: Platform.select({
         android: {
-            marginTop: 40,
+            // marginTop: 40,
             width: 30,
             height: 30,
         },
